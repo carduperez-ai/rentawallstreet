@@ -1,0 +1,24 @@
+TEST: INC-IND-HIGH-226K (VERIFICADO)
+FECHA: 2026-05-10
+-----------------------------------------
+INPUTS (Entradas):
+- Sueldo Bruto: 150.000,00 €
+- Seguridad Social: 4.222,50 €
+- Retenciones Nómina: 45.000,00 €
+- Dividendos: 50.000,00 € (Retención 9.500 €)
+- Ganancia Patrimonial: 26.000,00 € (Venta 60k / Compra 34k)
+- CCAA: Madrid
+- Perfil: Soltero, 30 años, sin hijos.
+
+OUTPUTS (Resultados AEAT):
+- Base Imponible General: 145.777,50 €
+- Base Imponible Ahorro: 76.000,00 €
+- Mínimo Personal Estatal: 5.550,00 €
+- Mínimo Personal Autonómico: 5.956,65 €
+- Cuota Íntegra Estatal: 35.903,44 €
+- Cuota Íntegra Autonómica: 33.458,49 €
+- Cuota Líquida Total: 69.361,93 €
+- Retenciones totales: 54.500,00 €
+- RESULTADO DECLARACIÓN: 14.861,93 € (A ingresar)
+-----------------------------------------
+STATUS: 100% Coherente con Renta Web 2025.

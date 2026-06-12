@@ -1,0 +1,87 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+.venv/
+venv/
+ENV/
+
+# Pytest
+.pytest_cache/
+
+# Agent/AI
+.agent/
+.claude/
+brain/
+
+# Data and Logs
+*.xlsx
+*.pdf
+*.csv
+*.log
+scratch/
+artifacts/
+pytest_*.txt
+*_audit.txt
+errors_summary.txt
+irpf_tracebacks.txt
+latest_summary.json
+pre_load_inventory.json
+price_cache.json
+bce_rates_cache.csv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Environment variables
+.env
+
+# Local Data
+local_data/
+uploads/
+DATOS PLATAFORMAS/
+docs/
+legacy-python/
+juridico/
+normativa/
+renta_declaracion/
+scripts/
+
+# Application Secrets
+.secret
+
+# Test & Oracle data
+tests/oracle_generator/irpf_oracle_tests.json
+tests/oracle_generator/cases/
+tests/oracle_generator/smoke_tests.json
+tests/oracle_generator/temp_test.json
+
+# Ficheros temporales residuales en la raiz
+/*.txt
+/*.json
+/test_*.py
+!requirements.txt
+
+# Oraculos de Selenium/Playwright (Screenshots y DOMs locales)
+tests/oracle_generator/etl/*.png
+tests/oracle_generator/etl/*.html
+tests/oracle_generator/*.png

@@ -1,0 +1,22 @@
+TEST: SAL-CAT-25K-K1 (CATALUÑA PADRE SOLTERO - VERIFICADO)
+FECHA: 2026-05-10
+-----------------------------------------
+INPUTS (Entradas):
+- Sueldo Bruto: 25.000,00 € (SS: 1.587,50€, Ret: 3.500€)
+- Ahorro: 2.000€ Div + 5.000€ Acciones + 3.000€ Crypto
+- Hijo: 1 (Nacido 2025, menor de 3 años)
+- CCAA: Cataluña
+- Perfil: Padre Soltero (Toma 100% de mínimos)
+
+OUTPUTS (Resultados AEAT):
+- Base Imponible General: 21.412,50 €
+- Base Imponible Ahorro: 10.000,00 €
+- Mínimo Personal y Familiar: 10.750,00 € (5550 + 2400 + 2800)
+- Cuota Íntegra Estatal: 2.263,38 €
+- Cuota Íntegra Autonómica (Cataluña): 2.270,31 €
+- Deducción Autonómica (Cataluña Nacimiento): 150,00 €
+- Cuota Líquida Total: 4.383,69 €
+- Retenciones totales: 3.880,00 €
+- RESULTADO DECLARACIÓN: 503,69 € (A ingresar)
+-----------------------------------------
+STATUS: 100% Coherente con Renta Web 2025.

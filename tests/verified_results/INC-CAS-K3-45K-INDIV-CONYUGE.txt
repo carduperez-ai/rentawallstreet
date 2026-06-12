@@ -1,0 +1,24 @@
+TEST: INC-CAS-K3-45K (INDIVIDUAL CONYUGE - VERIFICADO)
+FECHA: 2026-05-10
+-----------------------------------------
+INPUTS (Individual 2):
+- Sueldo Bruto: 15.000,00 €
+- Seguridad Social: 952,50 €
+- Retenciones: 300,00 €
+- Hijos: 3 (Al 50% de mínimos y deducciones compartidas)
+- Deducción Maternidad: 1.200,00 € (Íntegra)
+- Incremento Guardería: 1.000,00 € (Íntegra)
+- CCAA: Madrid
+
+OUTPUTS (Resultados AEAT):
+- Base Imponible General: 4.745,50 €
+- Base Liquidable General: 4.745,50 €
+- Mínimo Personal y Familiar: 11.500,00 € (Estatal) / 12.396,08 € (Autonómico)
+- Cuota Íntegra Estatal/Autonómica: 0,00 € (Base absorbida por mínimos)
+- Deducción Maternidad: 1.200,00 €
+- Incremento Guardería: 1.000,00 €
+- Deducción Familia Numerosa (50%): 600,00 €
+- Retenciones totales: 300,00 €
+- RESULTADO DECLARACIÓN: -3.100,00 € (A devolver)
+-----------------------------------------
+STATUS: 100% Coherente con Renta Web 2025. MAS FAVORABLE.

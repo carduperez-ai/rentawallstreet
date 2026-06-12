@@ -1,0 +1,24 @@
+TEST: INC-IND-FULL-250K (VERIFICADO)
+FECHA: 2026-05-10
+-----------------------------------------
+INPUTS (Entradas):
+- Sueldo Bruto: 250.000,00 €
+- Seguridad Social: 4.200,00 €
+- Retenciones Trabajo: 87.500,00 €
+- Dividendos: 2.000,00 € (Ret: 380,00 €)
+- Ganancia Acciones: 5.000,00 €
+- CCAA: Madrid
+- Perfil: Soltero, 30 años, sin hijos.
+
+OUTPUTS (Resultados AEAT):
+- Base Imponible General: 243.800,00 €
+- Base Imponible Ahorro: 7.000,00 €
+- Mínimo Personal Estatal: 5.550,00 €
+- Mínimo Personal Autonómico: 5.956,65 €
+- Cuota Íntegra Estatal: 50.453,50 €
+- Cuota Íntegra Autonómica: 46.048,10 €
+- Cuota Líquida Total: 96.501,60 €
+- Retenciones totales: 87.880,00 €
+- RESULTADO DECLARACIÓN: 8.621,60 € (A ingresar)
+-----------------------------------------
+STATUS: 100% Coherente con Renta Web 2025.

@@ -1,0 +1,2064 @@
+{
+  "estatales": [
+    {
+      "box": "0715",
+      "desc": "Por maternidad"
+    },
+    {
+      "box": "0721",
+      "desc": "Por descendientes con discapacidad a cargo"
+    },
+    {
+      "box": "0723",
+      "desc": "Por familia numerosa"
+    },
+    {
+      "box": "0547",
+      "desc": "Deducción por inversión en vivienda habitual (importes de estas casillas del anexo A.1): Parte estatal"
+    },
+    {
+      "box": "0549",
+      "desc": "Deducción por inversión en empresas de nueva o reciente creación (importe de esta casilla del anexo A.1): Parte estatal"
+    },
+    {
+      "box": "0565",
+      "desc": "Deducción aplicable a las unidades familiares formadas por residentes fiscales en Estados miembros de la Unión Europea o del Espacio Economico Europeo  (importes de esta casillas del anexo A.4): Parte estatal"
+    },
+    {
+      "box": "0552",
+      "desc": "Deducciones por donativos y otras aportaciones: Parte estatal: el 50 por 100 de ( [0722"
+    },
+    {
+      "box": "0560",
+      "desc": "Deducción por rentas obtenidas en Ceuta o Melilla: Parte estatal: el 50 por 100 de [0727"
+    },
+    {
+      "box": "0550",
+      "desc": "Deducción por inversiones y gastos de interés cultural: Parte estatal: el 50 por 100 de [0726"
+    },
+    {
+      "box": "0565",
+      "desc": "Deducción por unidades familiares formadas por residentes fiscales en Estados Miembros de la Unión Europea o del Espacio Económico Europeo: Parte estatal: (***)"
+    }
+  ],
+  "autonomicas": {
+    "andalucia": [
+      {
+        "box": "0850",
+        "desc": "Por nacimiento o adopción de hijos o acogimiento familiar de menores"
+      },
+      {
+        "box": "0852",
+        "desc": "Por inversión en vivienda habitual que tenga la consideración de protegida y por las personas jóvenes"
+      },
+      {
+        "box": "0853",
+        "desc": "Por cantidades invertidas en el alquiler de vivienda habitual (se traslada este importe a la casilla [1130"
+      },
+      {
+        "box": "0854",
+        "desc": "Por inversión en la adquisición de acciones y participaciones sociales como consecuencia de acuerdos de constitución de sociedades o ampliación de capital en las sociedades mercantiles (importe de la casilla [1136"
+      },
+      {
+        "box": "0855",
+        "desc": "Por adopción de hijos en el ámbito internacional"
+      },
+      {
+        "box": "0856",
+        "desc": "Para contribuyentes con discapacidad"
+      },
+      {
+        "box": "0857",
+        "desc": "Para padre o madre de familia monoparental y, en su caso, con ascendientes mayores de 75 años"
+      },
+      {
+        "box": "0858",
+        "desc": "Deducción aplicable con carácter general"
+      },
+      {
+        "box": "0859",
+        "desc": "Código Cuenta de Cotización: "
+      },
+      {
+        "box": "0860",
+        "desc": "Importe de la deducción"
+      },
+      {
+        "box": "0861",
+        "desc": "Código Cuenta de Cotización: "
+      },
+      {
+        "box": "0862",
+        "desc": "Importe de la deducción"
+      },
+      {
+        "box": "0863",
+        "desc": "Por gastos de defensa jurídica de la relación laboral"
+      },
+      {
+        "box": "0864",
+        "desc": "Para contribuyentes con cónyuges o parejas de hecho con discapacidad"
+      },
+      {
+        "box": "0816",
+        "desc": "Para familia numerosa"
+      },
+      {
+        "box": "0849",
+        "desc": "Por gastos educativos"
+      },
+      {
+        "box": "0851",
+        "desc": "Por donativos con finalidad ecológica"
+      },
+      {
+        "box": "0921",
+        "desc": "Para fomentar el ejercicio físico y la práctica deportiva (importe de la casilla [2122"
+      },
+      {
+        "box": "0995",
+        "desc": "Por gastos veterinarios derivados de la adquisición de animales de compañía o de la tenencia de perros de asistencia"
+      },
+      {
+        "box": "2244",
+        "desc": "Nº de colegiado / Código Numérico Personal del médico: "
+      },
+      {
+        "box": "1476",
+        "desc": "Para familias con enfermedad celíaca diagnosticada "
+      },
+      {
+        "box": "0564",
+        "desc": "(suma de las casillas [0816"
+      }
+    ],
+    "aragon": [
+      {
+        "box": "0866",
+        "desc": "Por nacimiento o adopción del tercer hijo o sucesivos"
+      },
+      {
+        "box": "0867",
+        "desc": "Por nacimiento o adopción de un hijo en atención al grado de discapacidad"
+      },
+      {
+        "box": "0868",
+        "desc": "Por adopción internacional de niños"
+      },
+      {
+        "box": "0869",
+        "desc": "Por el cuidado de personas dependientes"
+      },
+      {
+        "box": "0870",
+        "desc": "Por donaciones con finalidad ecológica y en investigación y desarrollo científico y técnico"
+      },
+      {
+        "box": "0871",
+        "desc": "Por adquisición de vivienda habitual por víctimas del terrorismo"
+      },
+      {
+        "box": "0872",
+        "desc": "Por inversión en acciones de entidades que cotizan en el segmento de empresas en expansión del Mercado Alternativo Bursátil (importe de la casilla [1142"
+      },
+      {
+        "box": "0873",
+        "desc": "Por inversión en la adquisición de acciones o participaciones sociales de nuevas entidades o de reciente creación (se traslada este importe a la casilla [1136"
+      },
+      {
+        "box": "0874",
+        "desc": "Por adquisición o rehabilitación de vivienda habitual en núcleos rurales o análogos"
+      },
+      {
+        "box": "0875",
+        "desc": "Por adquisición de libros de texto y material escolar"
+      },
+      {
+        "box": "0876",
+        "desc": "Por el arrendamiento de vivienda habitual vinculado a determinadas operaciones de dación en pago (importe de la casilla [1170"
+      },
+      {
+        "box": "0877",
+        "desc": "Por arrendamiento de vivienda social (deducción arrendador)"
+      },
+      {
+        "box": "0878",
+        "desc": "Para mayores de 70 años"
+      },
+      {
+        "box": "0879",
+        "desc": "Por inversión en entidades de la economía social (traslade el importe de la casilla [1179"
+      },
+      {
+        "box": "0880",
+        "desc": "Por nacimiento o adopción del primer y/o segundo hijo en poblaciones de menos de 10.000 habitantes"
+      },
+      {
+        "box": "0881",
+        "desc": "Por gastos de guardería de hijos menores de 3 años"
+      },
+      {
+        "box": "1850",
+        "desc": "Por residencia en determinados municipios"
+      },
+      {
+        "box": "0885",
+        "desc": "Por gastos en clases de apoyo o refuerzo"
+      },
+      {
+        "box": "0888",
+        "desc": "Por gastos en formación para la autonomía y la vida independiente de menores con discapacidad"
+      },
+      {
+        "box": "0564",
+        "desc": "(suma de las casillas [0866"
+      }
+    ],
+    "asturias": [
+      {
+        "box": "0883",
+        "desc": "Por acogimiento no remunerado de mayores de 65 años"
+      },
+      {
+        "box": "0884",
+        "desc": "Por adquisición o adecuación de vivienda habitual para contribuyentes con discapacidad"
+      },
+      {
+        "box": "1556",
+        "desc": "Por adquisición o rehabilitación de vivienda habitual para determinados colectivos"
+      },
+      {
+        "box": "0887",
+        "desc": "Por el arrendamiento de vivienda habitual (se traslada este importe a la casilla [1130"
+      },
+      {
+        "box": "0889",
+        "desc": "Por adopción internacional de menores"
+      },
+      {
+        "box": "0890",
+        "desc": "Por partos múltiples o por dos o más adopciones constituidas en la misma fecha"
+      },
+      {
+        "box": "0891",
+        "desc": "Para familias numerosas"
+      },
+      {
+        "box": "0892",
+        "desc": "Para familias monoparentales"
+      },
+      {
+        "box": "0893",
+        "desc": "Por acogimiento familiar de menores"
+      },
+      {
+        "box": "0894",
+        "desc": "Por certificación de la gestión forestal sostenible"
+      },
+      {
+        "box": "0895",
+        "desc": "Por gastos de descendientes en centros de 0 a 3 años"
+      },
+      {
+        "box": "0896",
+        "desc": "Por adquisición de libros de texto y material escolar"
+      },
+      {
+        "box": "0803",
+        "desc": "Por nacimiento o adopción de segundo y sucesivos hijos en concejos en riesgo de despoblamiento o en crisis demográfica"
+      },
+      {
+        "box": "0812",
+        "desc": "Para contribuyentes que se establezcan como trabajadores por cuenta propia, o autónomos en concejos en riesgo de despoblamiento o en crisis demográfica"
+      },
+      {
+        "box": "1557",
+        "desc": "Por gastos de formación en que hayan incurrido los contribuyentes que desarrollen trabajos especialmente cualificados, relacionados directa y principalmente con actividades de investigación y desarrollo, científicas o de carácter técnico"
+      },
+      {
+        "box": "0689",
+        "desc": "Para contribuyentes que trasladen su domicilio fiscal al Principado de Asturias por motivos laborales"
+      },
+      {
+        "box": "0813",
+        "desc": "Por gastos de transporte público para residentes en concejos en riesgo de despoblamiento o en crisis demográfica"
+      },
+      {
+        "box": "0810",
+        "desc": "Número de matrícula del vehículo: "
+      },
+      {
+        "box": "0811",
+        "desc": "Importe de la deducción"
+      },
+      {
+        "box": "1848",
+        "desc": "Por el cuidado de descendientes o adoptados de hasta 25 años de edad"
+      },
+      {
+        "box": "1849",
+        "desc": "Por emancipación de jóvenes de hasta 35 años de edad"
+      },
+      {
+        "box": "0819",
+        "desc": "Por la obtención de ayudas o subvenciones otorgadas por el Principado de Asturias a enfermos de Esclerosis Lateral Amiotrófica"
+      },
+      {
+        "box": "1628",
+        "desc": "Por gastos derivados del arrendamiento de viviendas"
+      },
+      {
+        "box": "1630",
+        "desc": "Por los gastos vitales en que incurran los contribuyentes de hasta 35 años"
+      },
+      {
+        "box": "1643",
+        "desc": "Por descendientes en caso de fallecimiento de progenitor como consecuencia de accidentes laborales"
+      },
+      {
+        "box": "1683",
+        "desc": "Por inversión en la adquisición de acciones y participaciones sociales de nuevas entidades o de reciente creación (importe de la casilla [1136"
+      },
+      {
+        "box": "0886",
+        "desc": "Por inversión en vivienda habitual que tenga la consideración de protegida"
+      },
+      {
+        "box": "0814",
+        "desc": "Por inversión en vivienda habitual que tenga la consideración de protegida: Importe generado en 2022 pendiente de aplicación"
+      },
+      {
+        "box": "1610",
+        "desc": "Por inversión en vivienda habitual que tenga la consideración de protegida: Importe generado en 2023 pendiente de aplicación"
+      },
+      {
+        "box": "0815",
+        "desc": "Por inversión en vivienda habitual que tenga la consideración de protegida: Importe generado en 2024 pendiente de aplicación"
+      },
+      {
+        "box": "0808",
+        "desc": "Por inversión en vivienda habitual que tenga la consideración de protegida: Importe generado en 2025 "
+      },
+      {
+        "box": "2245",
+        "desc": "Nº de colegiado / Código Numérico Personal del médico: "
+      },
+      {
+        "box": "2242",
+        "desc": "Por gastos derivados de la enfermedad celíaca diagnosticada"
+      },
+      {
+        "box": "0564",
+        "desc": "(suma de las casillas [0689"
+      },
+      {
+        "box": "0800",
+        "desc": "Importe de deducciones por inversión en vivienda habitual que tenga la consideración de protegida (con derecho a aplicación en ejercicios siguientes): Importe generado en 2023 pendiente de aplicación"
+      },
+      {
+        "box": "1611",
+        "desc": "Importe de deducciones por inversión en vivienda habitual que tenga la consideración de protegida (con derecho a aplicación en ejercicios siguientes): Importe generado en 2024 pendiente de aplicación"
+      },
+      {
+        "box": "0809",
+        "desc": "Importe de deducciones por inversión en vivienda habitual que tenga la consideración de protegida (con derecho a aplicación en ejercicios siguientes): Importe generado en 2025 pendiente de aplicación"
+      }
+    ],
+    "ibaleares": [
+      {
+        "box": "1718",
+        "desc": "Por nacimiento (importe de la casilla [1990"
+      },
+      {
+        "box": "1719",
+        "desc": "Abono anticipado de la deducción por nacimiento"
+      },
+      {
+        "box": "1721",
+        "desc": "Por adopción (importe de la casilla [1994"
+      },
+      {
+        "box": "0898",
+        "desc": "Por determinadas inversiones de mejora de la sostenibilidad de la vivienda habitual (importe de la casilla [2001"
+      },
+      {
+        "box": "0899",
+        "desc": "Por gastos de adquisición de libros de texto"
+      },
+      {
+        "box": "0900",
+        "desc": "Por gastos de aprendizaje extraescolar de idiomas extranjeros"
+      },
+      {
+        "box": "0901",
+        "desc": "Por donaciones a determinadas entidades destinadas a la investigación, el desarrollo científico o tecnológico, o a la innovación"
+      },
+      {
+        "box": "0902",
+        "desc": "Por donaciones, cesiones de uso o contratos de comodato y convenios de colaboración empresarial, relativos al mecenazgo cultural, científico y de desarrollo tecnológico y al consumo cultural"
+      },
+      {
+        "box": "0903",
+        "desc": "Por inversión en la adquisición de acciones o participaciones sociales de nuevas entidades o de reciente creación (se traslada este importe a la casilla [1136"
+      },
+      {
+        "box": "0904",
+        "desc": "Por donaciones, cesiones de uso o contratos de comodato y convenios de colaboración, relativos al mecenazgo deportivo"
+      },
+      {
+        "box": "0905",
+        "desc": "Por donaciones a determinadas entidades que tengan por objeto el fomento de la lengua catalana"
+      },
+      {
+        "box": "0906",
+        "desc": "Para los declarantes con discapacidad física, psíquica o sensorial o con descendientes con esa condición"
+      },
+      {
+        "box": "0907",
+        "desc": "Por arrendamiento de vivienda habitual (importe de la casilla [1130"
+      },
+      {
+        "box": "0908",
+        "desc": "Para cursar estudios de educación superior fuera de la isla de residencia habitual"
+      },
+      {
+        "box": "0909",
+        "desc": "Para el arrendador de bienes inmuebles destinados a vivienda permanente en el territorio de las Illes Balears. Primas de seguros"
+      },
+      {
+        "box": "1720",
+        "desc": "Para el arrendador de bienes inmuebles destinados a vivienda permanente en el territorio de las Illes Balears. Otros gastos"
+      },
+      {
+        "box": "0910",
+        "desc": "Por arrendamiento de vivienda en el territorio de las Illes Balears derivado del traslado temporal de residencia por motivos laborales"
+      },
+      {
+        "box": "0911",
+        "desc": "NIF/NIE del arrendador"
+      },
+      {
+        "box": "0912",
+        "desc": "Marque una 'X' si en la casilla [0911"
+      },
+      {
+        "box": "0913",
+        "desc": "Por donaciones a entidades del tercer sector"
+      },
+      {
+        "box": "0914",
+        "desc": "Por gastos relativos a los descendientes o acogidos menores de seis años por motivos de conciliación"
+      },
+      {
+        "box": "0915",
+        "desc": "Por determinadas subvenciones y ayudas otorgadas por razón de una declaración de zona afectada gravemente por una emergencia de protección civil"
+      },
+      {
+        "box": "1698",
+        "desc": "Por determinados gastos relativos a personas mayores de 65 años o a personas con discapacidad"
+      },
+      {
+        "box": "1699",
+        "desc": "NIF de la persona contratada, residencia o Centro de día 1"
+      },
+      {
+        "box": "1700",
+        "desc": "NIF de la persona contratada, residencia o Centro de día 2"
+      },
+      {
+        "box": "0770",
+        "desc": "Por gastos derivados de la esclerosis lateral amiotrófica (ELA)"
+      },
+      {
+        "box": "1716",
+        "desc": "Para el fomento de la autoocupación"
+      },
+      {
+        "box": "1763",
+        "desc": "Por ocupación de plazas declaradas de difícil cobertura"
+      },
+      {
+        "box": "2237",
+        "desc": "Para compensar los gastos derivados de una vivienda ocupada ilegalmente o por razón de suspensión del lanzamiento (no aplicable a contribuyentes fallecidos con anterioridad al 25 de julio de 2025) "
+      },
+      {
+        "box": "0564",
+        "desc": "(suma de las casillas [0898"
+      }
+    ],
+    "canarias": [
+      {
+        "box": "0916",
+        "desc": "Por donaciones con finalidad ecológica"
+      },
+      {
+        "box": "0917",
+        "desc": "Por donaciones para la rehabilitación o conservación del patrimonio histórico de Canarias"
+      },
+      {
+        "box": "0918",
+        "desc": "Por cantidades destinadas por sus titulares a la restauración, rehabilitación o reparación de bienes inmuebles declarados de Interés Cultural"
+      },
+      {
+        "box": "0919",
+        "desc": "Por gastos de estudios de educación superior (información adicional en el anexo B.13)"
+      },
+      {
+        "box": "0920",
+        "desc": "Por trasladar la residencia habitual a otra isla del Archipiélago para realizar una actividad laboral por cuenta ajena o una actividad económica"
+      },
+      {
+        "box": "0922",
+        "desc": "Por nacimiento o adopción de hijos"
+      },
+      {
+        "box": "0923",
+        "desc": "Por contribuyentes con discapacidad y mayores de 65 años"
+      },
+      {
+        "box": "0924",
+        "desc": "Por gastos de custodia en guardería"
+      },
+      {
+        "box": "2040",
+        "desc": "NIF de la guardería autorizada 1"
+      },
+      {
+        "box": "2041",
+        "desc": "Importe abonado 1"
+      },
+      {
+        "box": "2042",
+        "desc": "NIF de la guardería autorizada 1"
+      },
+      {
+        "box": "2043",
+        "desc": "Importe abonado 2"
+      },
+      {
+        "box": "0925",
+        "desc": "Por familia numerosa"
+      },
+      {
+        "box": "0926",
+        "desc": "Por inversión en vivienda habitual"
+      },
+      {
+        "box": "0927",
+        "desc": "Por obras de adecuación de la vivienda habitual por razón de discapacidad"
+      },
+      {
+        "box": "0928",
+        "desc": "Por alquiler de vivienda habitual (importe de la casilla [1130"
+      },
+      {
+        "box": "0929",
+        "desc": "Referencia catastral 1"
+      },
+      {
+        "box": "0930",
+        "desc": "Si no tiene referencia catastral, marque con una 'X' esta casilla"
+      },
+      {
+        "box": "0931",
+        "desc": "Referencia catastral 2"
+      },
+      {
+        "box": "0932",
+        "desc": "Si no tiene referencia catastral, marque con una 'X' esta casilla"
+      },
+      {
+        "box": "0933",
+        "desc": "Por contribuyentes desempleados"
+      },
+      {
+        "box": "0934",
+        "desc": "Por donaciones y aportaciones para fines culturales, deportivos, investigación o docencia"
+      },
+      {
+        "box": "0935",
+        "desc": "Por donaciones a entidades sin ánimo de lucro"
+      },
+      {
+        "box": "0936",
+        "desc": "Por gastos de estudios no superiores"
+      },
+      {
+        "box": "0937",
+        "desc": "Por acogimiento de menores"
+      },
+      {
+        "box": "0938",
+        "desc": "Por familias monoparentales"
+      },
+      {
+        "box": "0939",
+        "desc": "Por obras de rehabilitación energética de la vivienda habitual (importe de la casilla [2001"
+      },
+      {
+        "box": "0940",
+        "desc": "Por gasto de enfermedad (importe de la casilla [2103"
+      },
+      {
+        "box": "0941",
+        "desc": "Por familiares dependientes con discapacidad"
+      },
+      {
+        "box": "2044",
+        "desc": "NIF/NIE 1"
+      },
+      {
+        "box": "2045",
+        "desc": "NIF/NIE 3"
+      },
+      {
+        "box": "2046",
+        "desc": "NIF/NIE 3"
+      },
+      {
+        "box": "2047",
+        "desc": "NIF/NIE 4"
+      },
+      {
+        "box": "0942",
+        "desc": "Por arrendamiento de vivienda habitual vinculado a determinadas operaciones de dación en pago (importe de la casilla [1170"
+      },
+      {
+        "box": "0944",
+        "desc": "Por gastos en primas de seguros de crédito para cubrir impagos de rentas de arrendamientos de vivienda (deducción del arrendador) (importe de la casilla [1203"
+      },
+      {
+        "box": "2049",
+        "desc": "Por gastos derivados de la adecuación de un inmueble con destino al arrendamiento como vivienda habitual (importe de la casilla [2142"
+      },
+      {
+        "box": "2050",
+        "desc": "Por la puesta de viviendas en el mercado de arrendamiento de viviendas habituales (información adicional en el anexo B.13)"
+      },
+      {
+        "box": "2051",
+        "desc": "Por cuotas satisfechas a la Seguridad Social por la contratación de empleados o empleadas de hogar"
+      },
+      {
+        "box": "2052",
+        "desc": "NIF/NIE 1"
+      },
+      {
+        "box": "2053",
+        "desc": "NIF/NIE 3"
+      },
+      {
+        "box": "2054",
+        "desc": "NIF/NIE 3"
+      },
+      {
+        "box": "2055",
+        "desc": "NIF/NIE 4"
+      },
+      {
+        "box": "2246",
+        "desc": "Por inversión en la adquisición de acciones y participaciones sociales de nuevas entidades o de reciente creación (importe de la casilla [1136"
+      },
+      {
+        "box": "0564",
+        "desc": "(suma de las casillas [0916"
+      }
+    ],
+    "cantabria": [
+      {
+        "box": "0773",
+        "desc": "Para compensar los gastos de desplazamiento y permanencia de nuevos residentes en Cantabria"
+      },
+      {
+        "box": "0776",
+        "desc": "Importe generado en 2025"
+      },
+      {
+        "box": "0946",
+        "desc": "Por arrendamiento de vivienda habitual por jóvenes, mayores y con discapacidad (importe de la casilla [1130"
+      },
+      {
+        "box": "0947",
+        "desc": "Por cuidado de familiares"
+      },
+      {
+        "box": "0948",
+        "desc": "Por obras de mejora en viviendas"
+      },
+      {
+        "box": "0997",
+        "desc": "Importe generado en 2023 pendiente de aplicación"
+      },
+      {
+        "box": "0998",
+        "desc": "Importe generado en 2024 pendiente de aplicación"
+      },
+      {
+        "box": "0949",
+        "desc": "NIF de la persona o entidadque realiza las obras"
+      },
+      {
+        "box": "0950",
+        "desc": "Importe generado"
+      },
+      {
+        "box": "0951",
+        "desc": "Por donativos a fundaciones o al Fondo Cantabria Coopera o a Asociaciones que persigan entre sus fines el apoyo a personas con discapacidad"
+      },
+      {
+        "box": "0952",
+        "desc": "Por acogimiento familiar de menores"
+      },
+      {
+        "box": "0953",
+        "desc": "Por inversión en la adquisición de acciones o participaciones sociales de nuevas entidades o de reciente creación (importe de la casilla [1136"
+      },
+      {
+        "box": "0954",
+        "desc": "Por gastos de enfermedad"
+      },
+      {
+        "box": "0772",
+        "desc": "Por gastos de guarderia"
+      },
+      {
+        "box": "0774",
+        "desc": "Por nacimiento o adopción de hijos"
+      },
+      {
+        "box": "0775",
+        "desc": "Por familias monoparentales"
+      },
+      {
+        "box": "0818",
+        "desc": "Por arrendamiento de viviendas situadas en municipios afectados por riesgo de despoblamiento en Cantabria que constituyan o vayan a constituir la vivienda habitual del arrendatario (deducción para el arrendatario) (importe de la casilla [0646"
+      },
+      {
+        "box": "0820",
+        "desc": "Por gastos de guardería para contribuyentes que tengan su residencia habitual en municipios afectados por riesgo de despoblamiento en Cantabria"
+      },
+      {
+        "box": "0821",
+        "desc": "Por gastos ocasionados al trasladar la residencia habitual a un municipio afectado por riesgo de despoblamiento en Cantabria por motivos laborales por cuenta ajena o por cuenta propia"
+      },
+      {
+        "box": "0823",
+        "desc": "Por inversiones o donaciones a entidades de la Economía Social establecidas en Cantabria (importe de la casilla [1179"
+      },
+      {
+        "box": "1707",
+        "desc": "Por gastos de traslado por razón de estudios en municipios afectados por riesgo de despoblamiento en Cantabria"
+      },
+      {
+        "box": "1710",
+        "desc": "Por gastos de educación"
+      },
+      {
+        "box": "1711",
+        "desc": "Por ayuda doméstica"
+      },
+      {
+        "box": "1712",
+        "desc": "Código cuenta cotización"
+      },
+      {
+        "box": "1701",
+        "desc": "Por residencia habitual en un municipio afectado por riesgo de despoblamiento"
+      },
+      {
+        "box": "1706",
+        "desc": "Por el arrendamiento de viviendas vacías (información adicional en el anexo B.13)"
+      },
+      {
+        "box": "1708",
+        "desc": "Por inversiones de nuevos contribuyentes procedentes del extranjero (información adicional en el anexo B.15)"
+      },
+      {
+        "box": "1714",
+        "desc": "Importe generado en 2025"
+      },
+      {
+        "box": "0564",
+        "desc": "(suma de las casillas [0946"
+      },
+      {
+        "box": "1715",
+        "desc": "Importe generado en 2025 pendiente de aplicación"
+      },
+      {
+        "box": "1713",
+        "desc": "Importe generado en 2024 pendiente de aplicación"
+      },
+      {
+        "box": "0956",
+        "desc": "Importe generado en 2025 pendiente de aplicación"
+      },
+      {
+        "box": "1717",
+        "desc": "Importe generado en 2025 pendiente de aplicación"
+      }
+    ],
+    "castilla_la_mancha": [
+      {
+        "box": "0957",
+        "desc": "Por nacimiento o adopción de hijos"
+      },
+      {
+        "box": "0958",
+        "desc": "Por discapacidad del contribuyente"
+      },
+      {
+        "box": "0959",
+        "desc": "Por discapacidad de ascendientes o descendientes"
+      },
+      {
+        "box": "0960",
+        "desc": "Para contribuyentes mayores de 75 años"
+      },
+      {
+        "box": "0961",
+        "desc": "Por el cuidado de ascendientes mayores de 75 años"
+      },
+      {
+        "box": "0962",
+        "desc": "Por cantidades donadas para la Cooperación Internacional al desarrollo y a las entidades para la lucha contra la pobreza, la exclusión social y la ayuda a personas con discapacidad"
+      },
+      {
+        "box": "0963",
+        "desc": "Por familia numerosa"
+      },
+      {
+        "box": "0964",
+        "desc": "Por donaciones con finalidad en investigación y desarrollo e innovación empresarial"
+      },
+      {
+        "box": "0965",
+        "desc": "Por gastos en la adquisición de libros de texto, por la enseñanza de idiomas y otros gastos relacionados con la educación"
+      },
+      {
+        "box": "0966",
+        "desc": "Por acogimiento familiar no remunerado de menores"
+      },
+      {
+        "box": "0967",
+        "desc": "Por acogimiento no remunerado de mayores de 65 años y/o con discapacidad"
+      },
+      {
+        "box": "0968",
+        "desc": "Por arrendamiento de vivienda habitual para contribuyentes menores de 36 años (importe de la casilla [1130"
+      },
+      {
+        "box": "0763",
+        "desc": "Por donaciones de bienes culturales y contribuciones a favor de la conservación, reparación y restauración de bienes pertenecientes al patrimonio cultural de Castilla-La Mancha, y para fines culturales, incluidos en el plan de mecenazgo cultural de Castilla-La Mancha"
+      },
+      {
+        "box": "1907",
+        "desc": "Código del municipio: "
+      },
+      {
+        "box": "0201",
+        "desc": "Por residencia habitual en zonas rurales"
+      },
+      {
+        "box": "1946",
+        "desc": "Código del municipio: "
+      },
+      {
+        "box": "0204",
+        "desc": "Por adquisición o rehabilitación de la vivienda habitual en zonas rurales"
+      },
+      {
+        "box": "0207",
+        "desc": "Por traslado de vivienda habitual"
+      },
+      {
+        "box": "0209",
+        "desc": "Por familia monoparental"
+      },
+      {
+        "box": "0210",
+        "desc": "NIF de la guarderia o centro de educación infantil autorizado"
+      },
+      {
+        "box": "0211",
+        "desc": "Por gastos de guardería"
+      },
+      {
+        "box": "0212",
+        "desc": "Por arrendamiento de vivienda habitual vinculado a determinadas operaciones de dación en pago (importe de la casilla [1170"
+      },
+      {
+        "box": "0213",
+        "desc": "Por arrendamiento de vivienda habitual por familias numerosas (importe de la casilla [1130"
+      },
+      {
+        "box": "0228",
+        "desc": "Por arrendamiento de vivienda habitual por familias monoparentales (importe de la casilla [1130"
+      },
+      {
+        "box": "0229",
+        "desc": "Por arrendamiento de vivienda habitual por personas con discapacidad (importe de la casilla [1130"
+      },
+      {
+        "box": "1906",
+        "desc": "Por los gastos en intereses por la financiación ajena de la adquisición de primera vivienda habitual por menores de 40 años"
+      },
+      {
+        "box": "1908",
+        "desc": "Por inversión en adquisición de acciones y participaciones sociales como consecuencia de acuerdos de constitución de sociedades o ampliación de capital en las sociedades mercantiles (importe de la casilla [1136"
+      },
+      {
+        "box": "1909",
+        "desc": "Por inversión en entidades de la economía social (importe de la casilla [1179"
+      },
+      {
+        "box": "0969",
+        "desc": "Otras deducciones"
+      },
+      {
+        "box": "0564",
+        "desc": "(suma de las casillas [0957"
+      }
+    ],
+    "castillayleon": [
+      {
+        "box": "0970",
+        "desc": "Por contribuyentes con discapacidad"
+      },
+      {
+        "box": "0971",
+        "desc": "Por adquisición o rehabilitación de vivienda habitual por jóvenes en el medio rural"
+      },
+      {
+        "box": "0972",
+        "desc": "Por cantidades donadas a fundaciones de Castilla y León y para la recuperación del patrimonio histórico, cultural y natural"
+      },
+      {
+        "box": "0973",
+        "desc": "Por cantidades donadas para el fomento de la investigación, el desarrollo y la innovación"
+      },
+      {
+        "box": "0974",
+        "desc": "Por cantidades invertidas en la recuperación del patrimonio histórico, cultural y natural"
+      },
+      {
+        "box": "0943",
+        "desc": "Número de matrícula del vehículo: "
+      },
+      {
+        "box": "0799",
+        "desc": "Importe de la deducción"
+      },
+      {
+        "box": "0975",
+        "desc": "Por arrendamiento de vivienda habitual por jóvenes (importe de la casilla [1130"
+      },
+      {
+        "box": "0976",
+        "desc": "Por actuaciones de rehabilitación subvencionadas en el marco de planes estatales o autónomicos de vivienda destinadas a la mejora de la eficiencia energética, la sostenibilidad y la adecuación a la discapacidad de la vivienda habitual (importe de la casilla [2001"
+      },
+      {
+        "box": "0977",
+        "desc": "Fecha de visado del proyecto de ejecución: "
+      },
+      {
+        "box": "0978",
+        "desc": "Importe de la deducción"
+      },
+      {
+        "box": "0979",
+        "desc": "Para el fomento de emprendimiento (importe de la casilla [1136"
+      },
+      {
+        "box": "0980",
+        "desc": "Por rehabilitación de viviendas en el medio rural destinadas a su alquiler"
+      },
+      {
+        "box": "0985",
+        "desc": "Por familia numerosa"
+      },
+      {
+        "box": "0986",
+        "desc": "Por nacimiento o adopción de hijos"
+      },
+      {
+        "box": "0987",
+        "desc": "Por partos múltiples o adopciones simultáneas"
+      },
+      {
+        "box": "0988",
+        "desc": "Por partos múltiples o adopciones simultáneas producidos en el año 2023 y/o 2024"
+      },
+      {
+        "box": "0989",
+        "desc": "NIF de la persona empleada del hogar, Escuela, Centro o Guardería Infantil"
+      },
+      {
+        "box": "0990",
+        "desc": "Por cuidado de hijos menores"
+      },
+      {
+        "box": "1206",
+        "desc": "NIF del otro progenitor 1"
+      },
+      {
+        "box": "1244",
+        "desc": "NIF del otro progenitor 2"
+      },
+      {
+        "box": "0992",
+        "desc": "Por gastos de adopción"
+      },
+      {
+        "box": "0993",
+        "desc": "NIF de la persona empleada: "
+      },
+      {
+        "box": "0994",
+        "desc": "Por cuotas a la Seguridad Social de empleados del hogar"
+      },
+      {
+        "box": "0983",
+        "desc": "Importe generado en 2022 pendiente de aplicación"
+      },
+      {
+        "box": "0984",
+        "desc": "Importe aplicado en el ejercicio"
+      },
+      {
+        "box": "0564",
+        "desc": "(suma de las casillas [0799"
+      }
+    ],
+    "catalunya": [
+      {
+        "box": "1000",
+        "desc": "Por nacimiento o adopción de un hijo o de una hija o por acogimiento familiar"
+      },
+      {
+        "box": "1001",
+        "desc": "Por donativos a entidades que fomentan el uso de la lengua catalana o de la occitana"
+      },
+      {
+        "box": "1002",
+        "desc": "Por donativos a entidades que fomentan la investigación científica y el desarrollo y la innovación tecnológicos"
+      },
+      {
+        "box": "1003",
+        "desc": "Por alquiler de la vivienda habitual (se traslada este importe a la casilla [1130"
+      },
+      {
+        "box": "1004",
+        "desc": "Por el pago de intereses de préstamos para los estudios de máster y de doctorado"
+      },
+      {
+        "box": "1928",
+        "desc": "Número de identificación del préstamo"
+      },
+      {
+        "box": "1936",
+        "desc": "Año de viudedad"
+      },
+      {
+        "box": "1005",
+        "desc": "Para contribuyentes que queden viudos en los ejercicios 2023, 2024 y 2025"
+      },
+      {
+        "box": "1006",
+        "desc": "Por rehabilitación de la vivienda habitual"
+      },
+      {
+        "box": "1007",
+        "desc": "Por donaciones a determinadas entidades en beneficio del medio ambiente, la conservación del patrimonio natural y de custodia del territorio"
+      },
+      {
+        "box": "1008",
+        "desc": "Por inversión por un ángel inversor por la adquisición de acciones o participaciones sociales de entidades nuevas o de creación reciente (importe de la casilla [1136"
+      },
+      {
+        "box": "0824",
+        "desc": "Por obligación de presentar la declaración del IRPF por razón de tener más de un pagador"
+      },
+      {
+        "box": "2002",
+        "desc": "Por alquiler de la vivienda habitual de víctimas de violencia machista (importe de la casilla [2213"
+      },
+      {
+        "box": "2003",
+        "desc": "Por inversión en sociedades cooperativas agrarias y de vivienda (importe de la casilla [2172"
+      },
+      {
+        "box": "2004",
+        "desc": "Importe generado en 2025"
+      },
+      {
+        "box": "0564",
+        "desc": "(suma de las casillas [1000"
+      },
+      {
+        "box": "2005",
+        "desc": "Importe generado en 2025 pendiente de aplicación"
+      }
+    ],
+    "extremadura": [
+      {
+        "box": "1010",
+        "desc": "Por adquisición o rehabilitación de vivienda habitual para jóvenes y para víctimas del terrorismo"
+      },
+      {
+        "box": "1091",
+        "desc": "Por adquisición o rehabilitación de vivienda habitual en zonas rurales"
+      },
+      {
+        "box": "1011",
+        "desc": "Por trabajo dependiente"
+      },
+      {
+        "box": "1012",
+        "desc": "Por cuidado de familiares con discapacidad"
+      },
+      {
+        "box": "1013",
+        "desc": "Por acogimiento de menores"
+      },
+      {
+        "box": "1014",
+        "desc": "Por partos múltiples"
+      },
+      {
+        "box": "1015",
+        "desc": "Por compra de material escolar"
+      },
+      {
+        "box": "1016",
+        "desc": "Por inversión en la adquisición de acciones o participaciones sociales como consecuencia de acuerdos de constitución o ampliación de capital en sociedades mercantiles (importe de la casilla [1136"
+      },
+      {
+        "box": "1017",
+        "desc": "Por cuidado de hijos menores de hasta 14 años inclusive"
+      },
+      {
+        "box": "1018",
+        "desc": "Para contribuyentes viudos"
+      },
+      {
+        "box": "1019",
+        "desc": "Por arrendamiento de vivienda habitual (se traslada este importe a la casilla [1130"
+      },
+      {
+        "box": "1105",
+        "desc": "Por residir habitualmente en municipios y entidades locales menores de Extremadura con población inferior a 3.000 habitantes"
+      },
+      {
+        "box": "1910",
+        "desc": "Por intereses de financiación ajena para la inversión en vivienda habitual para jóvenes"
+      },
+      {
+        "box": "2006",
+        "desc": "Para arrendadores de viviendas vacías (información adicional en el anexo B.13)"
+      },
+      {
+        "box": "2007",
+        "desc": "Por inversiones en la rehabilitación de viviendas en zonas rurales para ser destinadas a su alquiler"
+      },
+      {
+        "box": "2008",
+        "desc": "Por donaciones de dinero a entidades culturales, artísticas y para patrocinio a deportistas"
+      },
+      {
+        "box": "2009",
+        "desc": "Para contribuyentes que trasladen su residencia habitual a Extremadura"
+      },
+      {
+        "box": "2010",
+        "desc": "Por la obtención de ayudas o subvenciones otorgadas por la C. A. de Extremadura a las personas con ELA "
+      },
+      {
+        "box": "2011",
+        "desc": "Destinadas a los enfermos de ELA y sus familiares "
+      },
+      {
+        "box": "0564",
+        "desc": "Total deducciones autonómicas: (suma de las casillas [1010"
+      }
+    ],
+    "galicia": [
+      {
+        "box": "1021",
+        "desc": "Por nacimiento o adopción de hijos"
+      },
+      {
+        "box": "0822",
+        "desc": "Para familias con 2 hijos e hijas"
+      },
+      {
+        "box": "1022",
+        "desc": "Por familia numerosa"
+      },
+      {
+        "box": "1023",
+        "desc": "Por cuidado de hijos menores"
+      },
+      {
+        "box": "1024",
+        "desc": "Por contribuyentes con discapacidad de edad igual o superior a 65 años que precisen ayuda de terceras personas"
+      },
+      {
+        "box": "1025",
+        "desc": "Por gastos dirigidos al uso de nuevas tecnologías en los hogares gallegos"
+      },
+      {
+        "box": "1026",
+        "desc": "Por alquiler de vivienda habitual por contribuyentes de edad igual o inferior a 35 años ( importe de la casilla [1130"
+      },
+      {
+        "box": "1027",
+        "desc": "Por acogimiento de menores"
+      },
+      {
+        "box": "1028",
+        "desc": "Por inversión en la adquisición de acciones o participaciones sociales en entidades nuevas o de reciente creación (importe de la casilla [1136"
+      },
+      {
+        "box": "1029",
+        "desc": "Por inversión en la adquisición de acciones o participaciones sociales en entidades nuevas o de reciente creación y su financiación (importe de la casilla [1148"
+      },
+      {
+        "box": "1030",
+        "desc": "Por inversión en acciones de entidades que cotizan en el segmento de empresas en expansión del Mercado Alternativo Bolsista (importe de la casilla [1142"
+      },
+      {
+        "box": "1031",
+        "desc": "Por donaciones con finalidad en investigación y desarrollo científico e innovación tecnológica"
+      },
+      {
+        "box": "1032",
+        "desc": "Por inversión en instalaciones de climatización y/o agua caliente sanitaria que empleen energías renovables en la vivienda habitual y destinadas exclusivamente al autoconsumo"
+      },
+      {
+        "box": "1033",
+        "desc": "Código de la instalación facilitado por la Oficina Virtual de Industria: "
+      },
+      {
+        "box": "1034",
+        "desc": "Por rehabilitación de bienes inmuebles situados en centros históricos"
+      },
+      {
+        "box": "1035",
+        "desc": "Por inversión en empresas que desarrollen actividades agrarias (importe de la casilla [1154"
+      },
+      {
+        "box": "0825",
+        "desc": "Por obras de mejora de eficiencia energética en edificios de viviendas o en viviendas unifamiliares"
+      },
+      {
+        "box": "0826",
+        "desc": "Número de inscripción del certificado 1: "
+      },
+      {
+        "box": "0827",
+        "desc": "Número de inscripción del certificado 2: "
+      },
+      {
+        "box": "0828",
+        "desc": "Por las ayudas y subvenciones recibidas por los deportistas de alto nivel de Galicia"
+      },
+      {
+        "box": "0230",
+        "desc": "Por adquisición y rehabilitación de viviendas en los proyectos de aldeas modelo"
+      },
+      {
+        "box": "1077",
+        "desc": "Por inversión en la adquisición de acciones o participaciones sociales en entidades que realicen determinados proyectos declarados de especial interés público, social o económico (importe de la casilla [2083"
+      },
+      {
+        "box": "1078",
+        "desc": "Por gastos derivados de la adecuación de un inmueble vacío con destino al arrendamiento como vivienda (información adicional en el anexo B.15)"
+      },
+      {
+        "box": "0829",
+        "desc": "Importe generado en 2025"
+      },
+      {
+        "box": "1036",
+        "desc": "Por el arrendamiento de viviendas vacías (información adicional en el anexo B.13)"
+      },
+      {
+        "box": "1037",
+        "desc": "Importe generado en 2025"
+      },
+      {
+        "box": "2238",
+        "desc": "Por las subvenciones y/o ayudas obtenidas como consecuencia de los daños causados por los incendios forestales que provocaron la activación del PEIFOGA en Situación 2 ocurridos en Galicia en 2025"
+      },
+      {
+        "box": "2239",
+        "desc": "Por las ayudas y subvenciones recibidas por personas con diagnóstico de esclerosis lateral amiotrófica o con sus fenotipos"
+      },
+      {
+        "box": "2240",
+        "desc": "Por la adquisición de libros de texto y material escolar"
+      },
+      {
+        "box": "2241",
+        "desc": "Por las ayudas recibidas por las personas afectadas por la talidomida en España durante el período 1950-1985 "
+      },
+      {
+        "box": "0564",
+        "desc": "(suma de las casillas [1021"
+      },
+      {
+        "box": "0981",
+        "desc": "Importe generado en 2025 pendiente de aplicación"
+      },
+      {
+        "box": "0982",
+        "desc": "Importe generado en 2025 pendiente de aplicación"
+      }
+    ],
+    "madrid": [
+      {
+        "box": "1039",
+        "desc": "Por nacimiento o adopción de hijos"
+      },
+      {
+        "box": "1040",
+        "desc": "Por adopción internacional de niños"
+      },
+      {
+        "box": "1041",
+        "desc": "Por acogimiento familiar de menores"
+      },
+      {
+        "box": "1042",
+        "desc": "Por acogimiento no remunerado de mayores de 65 años y/o con discapacidad"
+      },
+      {
+        "box": "1043",
+        "desc": "Por arrendamiento de vivienda habitual (importe de la casilla [1130"
+      },
+      {
+        "box": "1044",
+        "desc": "Por gastos educativos"
+      },
+      {
+        "box": "1045",
+        "desc": "Para familias con dos o más descendientes e ingresos reducidos"
+      },
+      {
+        "box": "1046",
+        "desc": "Por inversión en la adquisición de acciones y participaciones sociales de nuevas entidades o de reciente creación (importe de la casilla [1136"
+      },
+      {
+        "box": "1047",
+        "desc": "Para el fomento del autoempleo de jóvenes menores de 35 años"
+      },
+      {
+        "box": "1048",
+        "desc": "Por inversiones realizadas en entidades cotizadas en el Mercado Alternativo Bursátil (importe de la casilla [1142"
+      },
+      {
+        "box": "1049",
+        "desc": "Por donativos a fundaciones y clubes deportivos"
+      },
+      {
+        "box": "2016",
+        "desc": "Código Cuenta de Cotización: "
+      },
+      {
+        "box": "1050",
+        "desc": "Importe de la deducción"
+      },
+      {
+        "box": "1115",
+        "desc": "Por cuidado de ascendientes"
+      },
+      {
+        "box": "1116",
+        "desc": "Por gastos derivados de arrendamiento de vivienda"
+      },
+      {
+        "box": "1117",
+        "desc": "Por el pago de intereses de préstamos para adquisición de vivienda por jóvenes menores de 30 años"
+      },
+      {
+        "box": "1118",
+        "desc": "Por el pago de intereses de préstamos a estudios de Grado, Master y Doctorado"
+      },
+      {
+        "box": "1119",
+        "desc": "Por adquisición de vivienda habitual por nacimiento o adopción de hijos"
+      },
+      {
+        "box": "2017",
+        "desc": "Precio de adquisición/cantidades invertidas"
+      },
+      {
+        "box": "2018",
+        "desc": "Año de adquisición"
+      },
+      {
+        "box": "2019",
+        "desc": "Fecha de efectos título de familia numerosa"
+      },
+      {
+        "box": "1120",
+        "desc": "Importe de la deducción"
+      },
+      {
+        "box": "2020",
+        "desc": "Por incremento de los costes de la financiación ajena para la inversión en vivienda habitual derivado del alza de los tipos de interés"
+      },
+      {
+        "box": "2021",
+        "desc": "Por el arrendamiento de viviendas vacías(información adicional en el anexo B.13)"
+      },
+      {
+        "box": "2026",
+        "desc": "Por cambio de residencia a un municipio en riesgo de despoblación"
+      },
+      {
+        "box": "2027",
+        "desc": "Por adquisición de vivienda habitual en municipios en riesgo de despoblación"
+      },
+      {
+        "box": "2028",
+        "desc": "Precio de adquisición/cantidades invertidas"
+      },
+      {
+        "box": "2029",
+        "desc": "Año de adquisición"
+      },
+      {
+        "box": "2030",
+        "desc": "Por inversiones de nuevos contribuyentes procedentes del extranjero"
+      },
+      {
+        "box": "2022",
+        "desc": "Importe generado en 2024 pendiente de aplicación"
+      },
+      {
+        "box": "2031",
+        "desc": "Importe generado en 2025"
+      },
+      {
+        "box": "0564",
+        "desc": "(suma de las casillas [1039"
+      },
+      {
+        "box": "2023",
+        "desc": "Importe generado en 2024 pendiente de aplicación"
+      },
+      {
+        "box": "2032",
+        "desc": "Importe generado en 2025 pendiente de aplicación"
+      }
+    ],
+    "murcia": [
+      {
+        "box": "1052",
+        "desc": "Por inversión en vivienda habitual por jóvenes de edad igual o inferior a 40 años (incluido el régimen transitorio)"
+      },
+      {
+        "box": "1053",
+        "desc": "Por donativos para la protección del patrimonio cultural de la Región de Murcia o promoción de actividades  culturales, artísticas, sociales, científico-tecnológicas y medioambientales"
+      },
+      {
+        "box": "1054",
+        "desc": "Por gastos de guardería"
+      },
+      {
+        "box": "1056",
+        "desc": "Por inversiones en dispositivos domésticos de ahorro de agua"
+      },
+      {
+        "box": "1057",
+        "desc": "Por inversión en la adquisición de acciones y participaciones sociales de nuevas entidades o de reciente creación (importe de la casilla [1136"
+      },
+      {
+        "box": "1058",
+        "desc": "Por inversiones realizadas en entidades cotizadas en el Mercado Alternativo Bursátil (importe de la casilla [1142"
+      },
+      {
+        "box": "1059",
+        "desc": "Por gastos de material escolar y libros de texto"
+      },
+      {
+        "box": "1060",
+        "desc": "Por donativos para la investigación biosanitaria"
+      },
+      {
+        "box": "1073",
+        "desc": "Por adopción o nacimiento"
+      },
+      {
+        "box": "1157",
+        "desc": "Por contribuyentes con discapacidad"
+      },
+      {
+        "box": "1158",
+        "desc": "Por conciliación. Descendientes menores"
+      },
+      {
+        "box": "1160",
+        "desc": "Código cuenta de cotización"
+      },
+      {
+        "box": "2033",
+        "desc": "Por conciliación. Ascendientes mayores de 65 años"
+      },
+      {
+        "box": "2034",
+        "desc": "Código cuenta de cotización"
+      },
+      {
+        "box": "1161",
+        "desc": "Por acogimiento no remunerado de mayores de 65 años y/o personas con discapacidad"
+      },
+      {
+        "box": "0991",
+        "desc": "Por arrendamiento de vivienda habitual (importe de la casilla [1130"
+      },
+      {
+        "box": "1171",
+        "desc": "Para mujeres trabajadoras"
+      },
+      {
+        "box": "0846",
+        "desc": "Por donaciones de bienes inscritos en el Inventario del Patrimonio Cultural  de la Comunidad Autónoma de la Región de Murcia"
+      },
+      {
+        "box": "0847",
+        "desc": "Por adquisición de nueva vivienda habitual o ampliación de la vivienda habitual actual por familias numerosas"
+      },
+      {
+        "box": "2035",
+        "desc": "Por familia monoparental"
+      },
+      {
+        "box": "2036",
+        "desc": "Por gastos de enseñanza de idiomas"
+      },
+      {
+        "box": "2037",
+        "desc": "Por gastos de acceso a Internet"
+      },
+      {
+        "box": "2149",
+        "desc": "Por cristales graduados, lentes de contacto y soluciones de limpieza"
+      },
+      {
+        "box": "2150",
+        "desc": "Por gastos asociados a la práctica del deporte y actividades saludables (importe de la casilla [2122"
+      },
+      {
+        "box": "2151",
+        "desc": "Por gastos asociados a las Enfermedades Raras "
+      },
+      {
+        "box": "2152",
+        "desc": "Por inversión en entidades de economía social (casilla [1179"
+      },
+      {
+        "box": "2153",
+        "desc": "Por gastos veterinarios"
+      },
+      {
+        "box": "2154",
+        "desc": "Número de matrícula del vehículo: "
+      },
+      {
+        "box": "2155",
+        "desc": "Importe de la deducción"
+      },
+      {
+        "box": "2156",
+        "desc": "Importe generado en 2025"
+      },
+      {
+        "box": "2157",
+        "desc": "Por gastos en la instalación de infraestructuras de recarga de vehículos eléctricos"
+      },
+      {
+        "box": "2158",
+        "desc": "Referencia catastral"
+      },
+      {
+        "box": "2159",
+        "desc": "Si no tiene referencia catastral, marque con una 'X' esta casilla"
+      },
+      {
+        "box": "2162",
+        "desc": "Importe generado en 2025"
+      },
+      {
+        "box": "1055",
+        "desc": "Por inversión en instalaciones de recursos energéticos renovables (Importe de la casilla [2001"
+      },
+      {
+        "box": "2163",
+        "desc": "Importe generado en 2024 pendiente de aplicación"
+      },
+      {
+        "box": "2038",
+        "desc": "Importe generado en 2025"
+      },
+      {
+        "box": "0564",
+        "desc": "Total deducciones autonómicas (suma de las casillas [0991"
+      },
+      {
+        "box": "2164",
+        "desc": "Importe generado en 2025 pendiente de aplicación"
+      },
+      {
+        "box": "2165",
+        "desc": "Importe generado en 2025 pendiente de aplicación"
+      },
+      {
+        "box": "2166",
+        "desc": "Importe generado en 2024 pendiente de aplicación"
+      },
+      {
+        "box": "2039",
+        "desc": "Importe generado en 2025 pendiente de aplicación"
+      }
+    ],
+    "larioja": [
+      {
+        "box": "1061",
+        "desc": "Por nacimiento y adopción de hijos"
+      },
+      {
+        "box": "1062",
+        "desc": "Por las cantidades invertidas en obras de rehabilitación de vivienda habitual"
+      },
+      {
+        "box": "1063",
+        "desc": "Por cantidades invertidas en la adquisición o construcción de vivienda habitual para jóvenes"
+      },
+      {
+        "box": "1064",
+        "desc": "Código del municipio: "
+      },
+      {
+        "box": "1065",
+        "desc": "Importe de la deducción"
+      },
+      {
+        "box": "1066",
+        "desc": "Por cantidades invertidas en obras de adecuación de vivienda habitual para personas con discapacidad"
+      },
+      {
+        "box": "1067",
+        "desc": "Código del municipio: "
+      },
+      {
+        "box": "1068",
+        "desc": "Importe de la deducción"
+      },
+      {
+        "box": "1069",
+        "desc": "Por gastos en escuelas o centros de educación infantil o personal contratado para el cuidado de hijos de 0 a 3 años por contribuyentes residentes en pequeños municipios"
+      },
+      {
+        "box": "1070",
+        "desc": "NIF de la persona empleada del hogar,Escuela, Centro o Guardería Infantil"
+      },
+      {
+        "box": "1071",
+        "desc": "Código del municipio: "
+      },
+      {
+        "box": "1072",
+        "desc": "Por cada menor en régimen de acogimiento familiar de urgencia temporal o permanente o guarda con fines de adopción"
+      },
+      {
+        "box": "1162",
+        "desc": "Código del municipio: "
+      },
+      {
+        "box": "1163",
+        "desc": "Importe de la deducción"
+      },
+      {
+        "box": "1075",
+        "desc": "Por cada hijo de 0 a 3 años por gastos en escuelas infantiles o centros de educación infantil de cualquier municipio de la Rioja"
+      },
+      {
+        "box": "1076",
+        "desc": "NIF de la Escuela, Centro  o Guardería Infantil"
+      },
+      {
+        "box": "0255",
+        "desc": "Por adquisición de vehículos eléctricos nuevos"
+      },
+      {
+        "box": "1204",
+        "desc": "Código del pequeño municipio: "
+      },
+      {
+        "box": "1079",
+        "desc": "Por acceso a internet para jóvenes emancipados"
+      },
+      {
+        "box": "1205",
+        "desc": "Código del pequeño municipio: "
+      },
+      {
+        "box": "1080",
+        "desc": "Por suministro de luz y gas de uso doméstico para jóvenes emancipados"
+      },
+      {
+        "box": "1081",
+        "desc": "Por inversión en vivienda habitual de jóvenes menores de 36 años"
+      },
+      {
+        "box": "1164",
+        "desc": "Código del pequeño municipio: "
+      },
+      {
+        "box": "1165",
+        "desc": "Por arrendamiento en vivienda habitual para contribuyentes menores de 36 años (importe de la casilla [1130"
+      },
+      {
+        "box": "1166",
+        "desc": "Por adquisición de bicicletas de pedaleo no asistido"
+      },
+      {
+        "box": "0250",
+        "desc": "Por donaciones para la promoción y estímulo de las actividades de fomento de mecenazgo"
+      },
+      {
+        "box": "0251",
+        "desc": "Por donaciones para la investigación, conservación, restauración, rehabilitación, consolidación, difusión, exposición y adquisición de bienes de interés cultural del Patrimonio Histórico de La Rioja"
+      },
+      {
+        "box": "0252",
+        "desc": "Por donaciones a empresas culturales"
+      },
+      {
+        "box": "0253",
+        "desc": "Por donación de bienes culturales por sus autores o creadores y sus herederos"
+      },
+      {
+        "box": "0254",
+        "desc": "Por cantidades destinadas a investigación, conservación, restauración, rehabilitación o consolidación de bienes que formen parte del patrimonio histórico de La Rioja"
+      },
+      {
+        "box": "1168",
+        "desc": "Para fomentar el ejercicio físico y la práctica deportiva(importe de la casilla [2122"
+      },
+      {
+        "box": "1167",
+        "desc": "Para paliar la subida de los intereses de los préstamos hipotecarios destinados a la adquisición de vivienda habitual"
+      },
+      {
+        "box": "1785",
+        "desc": "Destinada a los enfermos de ELA"
+      },
+      {
+        "box": "2056",
+        "desc": "De cuotas satisfechas a organizaciones profesionales agrarias"
+      },
+      {
+        "box": "2247",
+        "desc": "Nº de colegiado / Código Numérico Personal del médico: "
+      },
+      {
+        "box": "2248",
+        "desc": "Por enfermedad celíaca diagnosticada"
+      },
+      {
+        "box": "2057",
+        "desc": "Para fomentar la fijación de población ocupada en el medio rural"
+      },
+      {
+        "box": "2058",
+        "desc": "Importe generado en 2025"
+      },
+      {
+        "box": "0564",
+        "desc": "(suma de las casillas [0250"
+      },
+      {
+        "box": "2059",
+        "desc": "Importe generado en 2025 pendiente de aplicación"
+      }
+    ],
+    "cvalenciana": [
+      {
+        "box": "1083",
+        "desc": "Por nacimiento, adopción, delegación de guarda con fines de adopción o acogimiento familiar"
+      },
+      {
+        "box": "1084",
+        "desc": "Por nacimiento o adopción múltiples"
+      },
+      {
+        "box": "1085",
+        "desc": "Por nacimiento, adopción, acogimiento o delegación de guarda de personas con discapacidad"
+      },
+      {
+        "box": "1086",
+        "desc": "Por familia numerosa o monoparental"
+      },
+      {
+        "box": "1087",
+        "desc": "Por cantidades destinadas a custodia no ocasional en guarderías y centros de primer ciclo de educación infantil de hijos e hijas o personas adoptadas o acogidas o con delegación de guarda con fines de adopción, menores de tres años"
+      },
+      {
+        "box": "1088",
+        "desc": "Por conciliación del trabajo con la vida familiar"
+      },
+      {
+        "box": "1089",
+        "desc": "Para contribuyentes con un grado de discapacidad igual o superior al 33 por 100, de edad igual o superior a 65 años"
+      },
+      {
+        "box": "1090",
+        "desc": "Por ascendientes mayores de 75 años o mayores de 65 años que sean personas con discapacidad"
+      },
+      {
+        "box": "0801",
+        "desc": "Por contratar de manera indefinida a personas afiliadas en el Sistema Especial de Empleados de Hogar del Régimen General de la Seguridad Social para el cuidado de personas"
+      },
+      {
+        "box": "0804",
+        "desc": "NIF de la persona empleada"
+      },
+      {
+        "box": "1092",
+        "desc": "Por primera adquisición de su vivienda habitual por contribuyentes de edad igual o inferior a 35 años"
+      },
+      {
+        "box": "1093",
+        "desc": "Por adquisición de vivienda habitual por personas con discapacidad"
+      },
+      {
+        "box": "1094",
+        "desc": "Por cantidades destinadas a la adquisición o rehabilitación de vivienda habitual, procedentes de ayudas públicas"
+      },
+      {
+        "box": "1095",
+        "desc": "Por arrendamiento o pago por la cesión en uso de la vivienda habitual (importe de la casilla [1130"
+      },
+      {
+        "box": "1097",
+        "desc": "Por arrendamiento de una vivienda por actividades en distinto municipio"
+      },
+      {
+        "box": "1096",
+        "desc": "NIF del arrendador"
+      },
+      {
+        "box": "1098",
+        "desc": "Marque una \"X\" si en la casilla [1096"
+      },
+      {
+        "box": "1111",
+        "desc": "Por obtención de rentas derivadas del arrendamiento de vivienda cuya renta no supere el precio de referencia de alquileres privados"
+      },
+      {
+        "box": "1099",
+        "desc": "Por donaciones con finalidad ecológica"
+      },
+      {
+        "box": "1100",
+        "desc": "Por donaciones de bienes integrantes del Patrimonio Cultural Valenciano"
+      },
+      {
+        "box": "1101",
+        "desc": "Por cantidades donadas para la conservación, reparación y restauración de bienes integrantes del Patrimonio Cultural Valenciano"
+      },
+      {
+        "box": "1102",
+        "desc": "Por cantidades destinadas por sus titulares a la conservación, reparación y restauración de bienes integrantes del Patrimonio Cultural Valenciano"
+      },
+      {
+        "box": "1103",
+        "desc": "Por donaciones destinadas al fomento de la Lengua Valenciana"
+      },
+      {
+        "box": "1104",
+        "desc": "Por contribuyentes con dos o más descendientes"
+      },
+      {
+        "box": "1106",
+        "desc": "Por adquisición de material escolar"
+      },
+      {
+        "box": "1108",
+        "desc": "Por obras de conservación o mejora en la vivienda habitual (realizadas desde el 1 de enero de 2014 hasta el 31 de diciembre de 2015)"
+      },
+      {
+        "box": "1107",
+        "desc": "NIF de la persona o entidad que realiza las obras: "
+      },
+      {
+        "box": "1110",
+        "desc": "Por obras de conservación o mejora en la vivienda habitual realizadas en el período"
+      },
+      {
+        "box": "1109",
+        "desc": "NIF de la persona o entidad que realiza las obras: "
+      },
+      {
+        "box": "1112",
+        "desc": "Por donaciones o cesiones de uso o comodatos para otros fines de interés cultural, científico o deportivo no profesional"
+      },
+      {
+        "box": "1113",
+        "desc": "Por cantidades destinadas a abonos culturales"
+      },
+      {
+        "box": "1114",
+        "desc": "Por cantidades invertidas hasta 2022 en instalaciones de autoconsumo o de generación de energía eléctrica o térmica a través de fuentes renovables (importe de la casilla [1114"
+      },
+      {
+        "box": "1169",
+        "desc": "Por cantidades procedentes de ayudas públicas concedidas por la Generalitat en virtud del Decreto Ley 3/2020, de 10 de abril, a trabajadores y las trabajadoras afectados por un ERTE y a los que han reducido la jornada laboral por conciliación familiar con motivo de la declaración del estado de alarma por la crisis sanitaria provocada por la Covid-19"
+      },
+      {
+        "box": "1172",
+        "desc": "Por donaciones dinerarias dirigidas a financiar programas de investigación, innovación y desarrollo científico o tecnológico en el campo del tratamiento y prevención de las infecciones producidas por el Covid-19"
+      },
+      {
+        "box": "1173",
+        "desc": "Por donaciones para contribuir a la financiación de los gastos ocasionados por la crisis sanitaria producida por la Covid-19"
+      },
+      {
+        "box": "1180",
+        "desc": "Por adquisición de vehículos nuevos pertenecientes a las categorías incluidas en la Orden 5/2020, de 8 de junio"
+      },
+      {
+        "box": "1181",
+        "desc": "Por residir habitualmente en un municipio en riesgo de despoblamiento"
+      },
+      {
+        "box": "0805",
+        "desc": "Por el incremento de los costes de la financiación ajena en la inversión de la vivienda habitual"
+      },
+      {
+        "box": "0806",
+        "desc": "Por las cantidades satisfechas en tratamientos de fertilidad realizados en clínicas o centros autorizados"
+      },
+      {
+        "box": "1959",
+        "desc": "Por cantidades satisfechas en determinados gastos de salud"
+      },
+      {
+        "box": "1960",
+        "desc": "Por cantidades satisfechas en gastos asociados a la práctica del deporte y actividades saludables (importe de la casilla [2122"
+      },
+      {
+        "box": "1183",
+        "desc": "Por inversión en adquisición de acciones o participaciones sociales en entidades nuevas o de reciente creación"
+      },
+      {
+        "box": "1961",
+        "desc": "Importe generado en 2022 pendiente de aplicación"
+      },
+      {
+        "box": "1209",
+        "desc": "Importe generado en 2023 pendiente de aplicación"
+      },
+      {
+        "box": "0807",
+        "desc": "Importe generado en 2024 pendiente de aplicación"
+      },
+      {
+        "box": "1182",
+        "desc": "Importe generado en 2025 (importe de la casilla [1136"
+      },
+      {
+        "box": "1962",
+        "desc": "Por cantidades invertidas a partir de 2023 en instalaciones de autoconsumo o de generación de energía eléctrica o térmica a través de fuentes renovables (importe de la casilla [2001"
+      },
+      {
+        "box": "1958",
+        "desc": "Importe generado en 2023 pendiente de aplicación"
+      },
+      {
+        "box": "1186",
+        "desc": "Importe generado en 2024 pendiente de aplicación"
+      },
+      {
+        "box": "1963",
+        "desc": "Importe generado en 2025"
+      },
+      {
+        "box": "1702",
+        "desc": "Por destinar cantidades a paliar los daños materiales sobre la vivienda habitual derivados del temporal"
+      },
+      {
+        "box": "1185",
+        "desc": "Importe generado en 2024 pendiente de aplicación"
+      },
+      {
+        "box": "1703",
+        "desc": "Importe generado en 2025"
+      },
+      {
+        "box": "1704",
+        "desc": "Por aportaciones a los fondos propios de entidades que desarrollen actividades económicas (casilla [2148"
+      },
+      {
+        "box": "2012",
+        "desc": "Importe generado en 2024 pendiente de aplicación"
+      },
+      {
+        "box": "1705",
+        "desc": "Importe generado en 2025"
+      },
+      {
+        "box": "1121",
+        "desc": "Otras deducciones"
+      },
+      {
+        "box": "0564",
+        "desc": "(suma de las casillas [0801"
+      },
+      {
+        "box": "1210",
+        "desc": "Importe generado en 2023 pendiente de aplicación"
+      },
+      {
+        "box": "1184",
+        "desc": "Importe generado en 2024 pendiente de aplicación"
+      },
+      {
+        "box": "1964",
+        "desc": "Importe generado en 2025 pendiente de aplicación"
+      },
+      {
+        "box": "2013",
+        "desc": "Importe generado en 2023 pendiente de aplicación"
+      },
+      {
+        "box": "1965",
+        "desc": "Importe generado en 2024 pendiente de aplicación"
+      },
+      {
+        "box": "0848",
+        "desc": "Importe generado en 2025 pendiente de aplicación"
+      },
+      {
+        "box": "2014",
+        "desc": "Importe generado en 2024 pendiente de aplicación"
+      },
+      {
+        "box": "1690",
+        "desc": "Importe generado en 2025 pendiente de aplicación"
+      },
+      {
+        "box": "2015",
+        "desc": "Importe generado en 2024 pendiente de aplicación"
+      },
+      {
+        "box": "1691",
+        "desc": "Importe generado en 2025 pendiente de aplicación"
+      }
+    ]
+  }
+}

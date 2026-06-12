@@ -1,0 +1,712 @@
+{% extends "layout.html" %}
+{% block content %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@500;700&family=Public+Sans:wght@700&display=swap');
+
+    :root {
+        --aeat-navy: #000a23;
+        --aeat-slate: #515f74;
+        --aeat-gold: #facc15;
+        --surface-low: #f8fafc;
+        --surface-card: #ffffff;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f1f5f9;
+        color: #1e293b;
+        line-height: 1.5;
+    }
+
+    .report-container {
+        width: 100% !important;
+        max-width: 1300px !important;
+        margin: 0 auto;
+        padding: 3rem 2rem;
+    }
+
+    /* Sovereign Ledger Typography */
+    .font-mono-ledger {
+        font-family: 'Roboto Mono', monospace !important;
+    }
+
+    .font-public {
+        font-family: 'Public Sans', sans-serif !important;
+    }
+
+    /* Modern Card Architecture */
+    .card-ledger {
+        background: var(--surface-card);
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 20px rgba(0, 10, 35, 0.03);
+        margin-bottom: 2rem;
+        overflow: hidden;
+        border: 1px solid rgba(0, 10, 35, 0.05);
+    }
+
+    .ledger-header-row {
+        background-color: var(--aeat-navy);
+        color: #ffffff;
+        padding: 1.5rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .casilla-badge {
+        display: inline-flex;
+        align-items: center;
+        background: rgba(0, 10, 35, 0.05);
+        color: var(--aeat-slate);
+        font-size: 0.65rem;
+        font-weight: 700;
+        padding: 0.15rem 0.4rem;
+        border-radius: 4px;
+        margin-left: 0.5rem;
+        vertical-align: middle;
+        border: 1px solid rgba(0, 10, 35, 0.1);
+    }
+
+    .casilla-badge-gold {
+        background: rgba(250, 204, 21, 0.1);
+        color: #854d0e;
+        border-color: rgba(250, 204, 21, 0.3);
+    }
+
+    /* Grid Architecture - Extreme Precision */
+    .ledger-grid {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        padding: 1rem 2rem;
+    }
+
+    .col-asset {
+        width: 35%;
+        text-align: left;
+    }
+
+    .col-val {
+        width: 20%;
+        text-align: right;
+    }
+
+    .col-result {
+        width: 25%;
+        text-align: right;
+    }
+
+    .table-header-modern {
+        background: var(--surface-low);
+        border-bottom: 1px solid #e2e8f0;
+        text-transform: uppercase;
+        font-size: 0.7rem;
+        font-weight: 800;
+        letter-spacing: 0.075em;
+        color: var(--aeat-slate);
+    }
+
+    .row-platform {
+        transition: background-color 0.2s;
+        border-bottom: 1px solid #f1f5f9;
+        cursor: pointer;
+    }
+
+    .row-platform:hover {
+        background-color: #f8fafc;
+    }
+
+    .row-asset {
+        background-color: #fbfcfd;
+        font-size: 0.875rem;
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+    /* Glassmorphism Header */
+    .top-bar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid #e2e8f0;
+        padding: 1rem 2rem;
+    }
+
+    .expand-icon {
+        transition: transform 0.2s;
+        font-size: 0.75rem;
+        opacity: 0.5;
+    }
+
+    details[open] .expand-icon {
+        transform: rotate(90deg);
+    }
+</style>
+
+<div class="top-bar d-flex justify-content-between align-items-center mb-5 rounded-3 shadow-sm">
+    <div class="d-flex align-items-center gap-3">
+        <a href="/" class="btn btn-light rounded-circle p-2 shadow-sm d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; color: var(--aeat-navy); border: 1px solid #e2e8f0;" title="Volver a Auditoría">
+            <i class="bi bi-arrow-left fs-5"></i>
+        </a>
+        <div>
+            <h1 class="h4 fw-bold font-public text-aeat-navy mb-0">Informe de Auditoría Fiscal 2025</h1>
+            <p class="small text-muted mb-0">Rent A Wall Street • Auditoría Reconciliada • {{ now.strftime('%d/%m/%Y %H:%M') }}</p>
+        </div>
+    </div>
+
+    <div class="text-end">
+        <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2">AUDITORÍA
+            VALIDADA</span>
+    </div>
+</div>
+
+<div class="report-container pt-0">
+    {% if warnings %}
+    <div class="mb-5">
+        {% for w in warnings %}
+        <div class="alert alert-danger d-flex align-items-center border-0 shadow-sm mb-2"
+            style="border-left: 5px solid #dc3545 !important; background: white;">
+            <span class="me-3 fs-4">⚠️</span>
+            <div class="small fw-bold text-danger">{{ w }}</div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if summary_ind1 and summary_ind2 %}
+    <section class="card-ledger border-0 shadow-lg mb-5" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white;">
+        <div class="p-4 border-bottom border-secondary border-opacity-25">
+            <h2 class="h5 fw-bold font-public mb-0 text-uppercase tracking-wider text-warning-aeat" style="color: var(--aeat-gold);">Comparativa: Opción Más Favorable</h2>
+            <p class="text-white-50 small mb-0 mt-1">Análisis de tributación Conjunta vs. Individuales</p>
+        </div>
+        <div class="p-4">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="p-4 rounded-3 border border-secondary border-opacity-50 text-center h-100" style="background: rgba(0,0,0,0.2);">
+                        <div class="text-white-50 small fw-bold tracking-wider mb-2">DECLARACIÓN CONJUNTA</div>
+                        <div class="display-6 fw-bold font-mono-ledger {% if (summary.resultado|default(0)) < 0 %}text-success{% else %}text-danger{% endif %}">
+                            {{ summary.resultado|default(0)|euro }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-4 rounded-3 border border-secondary border-opacity-50 text-center h-100" style="background: rgba(0,0,0,0.2);">
+                        <div class="text-white-50 small fw-bold tracking-wider mb-2">INDIVIDUAL 1 (TITULAR)</div>
+                        <div class="display-6 fw-bold font-mono-ledger {% if (summary_ind1.resultado|default(0)) < 0 %}text-success{% else %}text-danger{% endif %}">
+                            {{ summary_ind1.resultado|default(0)|euro }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-4 rounded-3 border border-secondary border-opacity-50 text-center h-100" style="background: rgba(0,0,0,0.2);">
+                        <div class="text-white-50 small fw-bold tracking-wider mb-2">INDIVIDUAL 2 (CÓNYUGE)</div>
+                        <div class="display-6 fw-bold font-mono-ledger {% if (summary_ind2.resultado|default(0)) < 0 %}text-success{% else %}text-danger{% endif %}">
+                            {{ summary_ind2.resultado|default(0)|euro }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-4 p-3 rounded-3" style="background: rgba(255,255,255,0.05);">
+                {% set sum_ind = (summary_ind1.resultado|default(0)) + (summary_ind2.resultado|default(0)) %}
+                {% set conj = summary.resultado|default(0) %}
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="text-white-50 small fw-bold me-2">SUMA INDIVIDUALES:</span>
+                        <span class="font-mono-ledger fw-bold fs-5">{{ sum_ind|euro }}</span>
+                    </div>
+                    <div>
+                        {% if conj <= sum_ind %}
+                        <span class="badge bg-success border border-success-subtle px-3 py-2 fs-6">✓ CONJUNTA MÁS FAVORABLE</span>
+                        {% else %}
+                        <span class="badge bg-info border border-info-subtle text-dark px-3 py-2 fs-6">✓ INDIVIDUALES MÁS FAVORABLES</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- BLOQUE 1: RENDIMIENTOS DEL TRABAJO -->
+    {% if summary.work_neto and summary.work_neto > 0 %}
+    <section class="card-ledger">
+        <div class="ledger-header-row">
+            <h2 class="h6 fw-bold mb-0 text-uppercase tracking-wider">Bloque 1: Rendimientos del Trabajo</h2>
+            <div class="font-mono-ledger fw-bold">
+                {{ summary.work_neto|euro }} <span class="casilla-badge casilla-badge-gold text-white"
+                    style="background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2);">NETO REDUCIDO [0025]</span>
+            </div>
+        </div>
+
+        <div class="p-4">
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="p-3 bg-light rounded-3 border-0 shadow-sm" style="background: #f8fafc !important;">
+                        <p class="small text-muted text-uppercase fw-bold mb-1" style="font-size: 0.65rem;">Retribuciones Dinerarias</p>
+                        <p class="h5 mb-0 font-mono-ledger text-aeat-navy">{{ summary.work_bruto|euro }} <span
+                                class="casilla-badge">[0003]</span></p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="p-3 bg-light rounded-3 border-0 shadow-sm" style="background: #f8fafc !important;">
+                        <p class="small text-muted text-uppercase fw-bold mb-1" style="font-size: 0.65rem;">Retenciones Trabajo</p>
+                        <p class="h5 mb-0 font-mono-ledger text-aeat-navy">{{ summary.work_retenciones|euro }} <span
+                                class="casilla-badge">[0596]</span></p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="p-3 bg-light rounded-3 border-0 shadow-sm" style="background: #f8fafc !important;">
+                        <p class="small text-muted text-uppercase fw-bold mb-1" style="font-size: 0.65rem;">Cotiz. Seg. Social</p>
+                        <p class="h5 mb-0 font-mono-ledger text-aeat-navy">{{ summary.work_ss|euro }} <span
+                                class="casilla-badge">[0013]</span></p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="p-3 bg-light rounded-3 border-0 shadow-sm" style="background: #f8fafc !important;">
+                        <p class="small text-muted text-uppercase fw-bold mb-1" style="font-size: 0.65rem;">Otros Gastos Deducibles</p>
+                        <p class="h5 mb-0 font-mono-ledger text-aeat-navy">{{ summary.work_gastos|euro }} <span
+                                class="casilla-badge">[0019]</span> <span class="text-muted small">(automático)</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- BLOQUE 2: RENDIMIENTOS DEL CAPITAL MOBILIARIO -->
+    <section class="card-ledger">
+        <div class="ledger-header-row">
+            <h2 class="h6 fw-bold mb-0 text-uppercase tracking-wider">Bloque 2: Rendimientos del Capital Mobiliario</h2>
+            <div class="font-mono-ledger fw-bold">
+                {% set total_capital_bruto = (summary.interest_details.values()|map(attribute='gross')|sum|default(0) +
+                summary.dividend_details.values()|map(attribute='gross')|sum|default(0)) %}
+                {{ total_capital_bruto|euro }} <span class="casilla-badge-gold casilla-badge text-white"
+                    style="background: rgba(255,255,255,0.1);">BRUTO RCM [0029]+[0027]</span>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 0027: INTERESES -->
+        <div class="table-header-modern ledger-grid">
+            <div class="col-asset">Intereses de Cuentas y Depósitos</div>
+            <div class="col-val" style="width: 15%;">BRUTO <span class="casilla-badge">[0027]</span></div>
+            <div class="col-val" style="width: 15%;">RET. ORIGEN</div>
+            <div class="col-val" style="width: 15%;">RET. ESPAÑA</div>
+            <div class="col-result" style="width: 20%;">NETO</div>
+        </div>
+        {% if summary.interest_details %}
+        {% for platform, data in summary.interest_details.items() %}
+        <details>
+            <summary class="row-platform ledger-grid" style="list-style: none; outline: none;">
+                <div class="col-asset fw-bold text-aeat-navy"><span class="expand-icon me-2">▶</span> {{ platform|upper
+                    }}</div>
+                <div class="col-val font-mono-ledger" style="width: 15%;">{{ data.gross|euro }}</div>
+                <div class="col-val font-mono-ledger text-muted" style="width: 15%;">{{ data.wht_ext|euro }}</div>
+                <div class="col-val font-mono-ledger text-danger" style="width: 15%;">{{ data.wht_esp|euro }}</div>
+                <div class="col-result font-mono-ledger fw-bold" style="width: 20%;">{{ (data.gross - data.wht_ext -
+                    data.wht_esp)|euro }}</div>
+            </summary>
+            <div class="bg-light">
+                {% for asset, a_data in data.assets.items() %}
+                <div class="ledger-grid row-asset py-2">
+                    <div class="col-asset ps-5 text-aeat-slate">
+                        <span class="text-muted opacity-50">↳</span> {{ asset }}
+                    </div>
+                    <div class="col-val font-mono-ledger small" style="width: 15%;">{{ a_data.gross|euro }}</div>
+                    <div class="col-val font-mono-ledger small text-muted" style="width: 15%;">{{ a_data.wht_ext|euro }}
+                    </div>
+                    <div class="col-val font-mono-ledger small text-danger" style="width: 15%;">{{ a_data.wht_esp|euro
+                        }}</div>
+                    <div class="col-result font-mono-ledger small fw-bold" style="width: 20%;">{{ (a_data.gross -
+                        a_data.wht_ext - a_data.wht_esp)|euro }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </details>
+        {% endfor %}
+        {% else %}
+        <div class="p-4 text-center text-muted small italic">No se han detectado intereses para la Casilla [0027].</div>
+        {% endif %}
+
+        <!-- SECCIÓN 0029: DIVIDENDOS -->
+        <div class="table-header-modern ledger-grid mt-2">
+            <div class="col-asset">Dividendos y Participaciones</div>
+            <div class="col-val" style="width: 15%;">BRUTO <span class="casilla-badge">[0029]</span></div>
+            <div class="col-val" style="width: 15%;">RET. ORIGEN</div>
+            <div class="col-val" style="width: 15%;">RET. ESPAÑA</div>
+            <div class="col-result" style="width: 20%;">NETO</div>
+        </div>
+        {% if summary.dividend_details %}
+        {% for platform, data in summary.dividend_details.items() %}
+        <details>
+            <summary class="row-platform ledger-grid" style="list-style: none; outline: none;">
+                <div class="col-asset fw-bold text-aeat-navy"><span class="expand-icon me-2">▶</span> {{ platform|upper
+                    }}</div>
+                <div class="col-val font-mono-ledger" style="width: 15%;">{{ data.gross|euro }}</div>
+                <div class="col-val font-mono-ledger text-muted" style="width: 15%;">{{ data.wht_ext|euro }}</div>
+                <div class="col-val font-mono-ledger text-danger" style="width: 15%;">{{ data.wht_esp|euro }}</div>
+                <div class="col-result font-mono-ledger fw-bold" style="width: 20%;">{{ (data.gross - data.wht_ext -
+                    data.wht_esp)|euro }}</div>
+            </summary>
+            <div class="bg-light">
+                {% for asset, a_data in data.assets.items() %}
+                <div class="ledger-grid row-asset py-2">
+                    <div class="col-asset ps-5 text-aeat-slate">
+                        <span class="text-muted opacity-50">↳</span> {{ asset }}
+                    </div>
+                    <div class="col-val font-mono-ledger small" style="width: 15%;">{{ a_data.gross|euro }}</div>
+                    <div class="col-val font-mono-ledger small text-muted" style="width: 15%;">{{ a_data.wht_ext|euro }}
+                    </div>
+                    <div class="col-val font-mono-ledger small text-danger" style="width: 15%;">{{ a_data.wht_esp|euro
+                        }}</div>
+                    <div class="col-result font-mono-ledger small fw-bold" style="width: 20%;">{{ (a_data.gross -
+                        a_data.wht_ext - a_data.wht_esp)|euro }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </details>
+        {% endfor %}
+        {% else %}
+        <div class="p-4 text-center text-muted small italic">No se han detectado dividendos para la Casilla [0029].
+        </div>
+        {% endif %}
+    </section>
+
+    <!-- BLOQUE 3: GANANCIAS Y PÉRDIDAS PATRIMONIALES -->
+    <section class="card-ledger">
+        <div class="ledger-header-row" style="background: linear-gradient(90deg, #000a23 0%, #001a3d 100%);">
+            <h2 class="h6 fw-bold mb-0 text-uppercase tracking-wider">Bloque 3: Ganancias y Pérdidas Patrimoniales</h2>
+            <div class="font-mono-ledger fw-bold">
+                {{ summary.gpp_neto|default(0)|euro }} <span class="casilla-badge casilla-badge-gold text-white"
+                    style="background: rgba(255,255,255,0.1);">G/P NETA BASE AHORRO</span>
+            </div>
+        </div>
+
+        {% set categories = [
+        ('acciones_aeat', 'Acciones y Participaciones cotizadas', '0328'),
+        ('iic_aeat', 'IIC / Fondos de Inversión', '0312'),
+        ('cripto_aeat', 'Monedas Virtuales (Criptoactivos)', '1804'),
+        ('inmuebles_aeat', 'Bienes Inmuebles', '0304')
+        ] %}
+
+        {% for key, title, code in categories %}
+        {% set platform_data = summary.get(key, {}) %}
+        {% if platform_data %}
+        <div class="table-header-modern ledger-grid mt-2">
+            <div class="col-asset">{{ title }} <span class="casilla-badge">[{{ code }}]</span></div>
+            <div class="col-val">ADQUISICIÓN</div>
+            <div class="col-val">TRANSMISIÓN</div>
+            <div class="col-result">RESULTADO</div>
+        </div>
+
+        {% for platform, assets in platform_data.items() %}
+        <details>
+            <summary class="row-platform ledger-grid" style="list-style: none; outline: none;">
+                <div class="col-asset fw-bold text-aeat-navy">
+                    <span class="expand-icon me-2">▶</span> {{ platform|upper }}
+                </div>
+                <div class="col-val font-mono-ledger text-muted">
+                    {{ assets.values()|list|sum(attribute='adquisicion')|default(0)|euro }}
+                </div>
+                <div class="col-val font-mono-ledger text-muted">
+                    {{ assets.values()|list|sum(attribute='transmision')|default(0)|euro }}
+                </div>
+                <div class="col-result font-mono-ledger fw-bold">
+                    {{ (assets.values()|list|sum(attribute='ganancia')|default(0) -
+                    assets.values()|list|sum(attribute='perdida')|default(0))|euro }}
+                </div>
+            </summary>
+
+            <div class="bg-light">
+                {% for isin, item in assets.items() %}
+                {% set gain_loss = item.ganancia - item.perdida %}
+                <div class="ledger-grid row-asset py-2">
+                    <div class="col-asset ps-5 text-aeat-slate">
+                        <span class="text-muted opacity-50">↳</span> {{ item.nombre }}
+                    </div>
+                    <div class="col-val font-mono-ledger small">{{ item.adquisicion|euro }}</div>
+                    <div class="col-val font-mono-ledger small">{{ item.transmision|euro }}</div>
+                    <div
+                        class="col-result font-mono-ledger small fw-bold {% if gain_loss >= 0 %}text-success{% else %}text-danger{% endif %}">
+                        {{ gain_loss|euro }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </details>
+        {% endfor %}
+        {% endif %}
+        {% endfor %}
+    </section>
+
+    <!-- BLOQUE 4: DEDUCCIONES Y BONIFICACIONES -->
+    <section class="card-ledger">
+        <div class="ledger-header-row" style="background: #0f172a;">
+            <h2 class="h6 fw-bold mb-0 text-uppercase tracking-wider">Bloque 4: Deducciones y Bonificaciones</h2>
+            <div class="font-mono-ledger fw-bold">
+                {{ summary.deducciones_ccaa|euro }} <span class="casilla-badge casilla-badge-gold text-white"
+                    style="background: rgba(255,255,255,0.1);">TOTAL [0518+]</span>
+            </div>
+        </div>
+
+        <div class="p-0">
+            {% if summary.applied_deductions.state or summary.applied_deductions.regional %}
+                {% if summary.applied_deductions.state %}
+                <div class="table-header-modern ledger-grid">
+                    <div class="col-asset">Deducciones Estatales</div>
+                    <div class="col-val">IMPORTE</div>
+                    <div class="col-result">ESTADO</div>
+                </div>
+                {% for d in summary.applied_deductions.state %}
+                <div class="ledger-grid row-asset border-bottom py-3">
+                    <div class="col-asset ps-3">
+                        <span class="badge bg-aeat-navy me-2" style="font-size: 0.6rem;">{{ d.box_id }}</span>
+                        <span class="fw-bold text-aeat-navy">{{ d.description }}</span>
+                    </div>
+                    <div class="col-val font-mono-ledger">{{ d.value|euro }}</div>
+                    <div class="col-result text-success small fw-bold">APLICADA</div>
+                </div>
+                {% endfor %}
+                {% endif %}
+
+                {% if summary.applied_deductions.regional %}
+                <div class="table-header-modern ledger-grid mt-3">
+                    <div class="col-asset">Deducciones Autonómicas ({{ summary.region|upper }})</div>
+                    <div class="col-val">IMPORTE</div>
+                    <div class="col-result">ESTADO</div>
+                </div>
+                {% for d in summary.applied_deductions.regional %}
+                <div class="ledger-grid row-asset border-bottom py-3">
+                    <div class="col-asset ps-3">
+                        <span class="badge bg-secondary me-2" style="font-size: 0.6rem;">{{ d.box_id }}</span>
+                        <span class="fw-bold text-aeat-navy">{{ d.description }}</span>
+                    </div>
+                    <div class="col-val font-mono-ledger">{{ d.value|euro }}</div>
+                    <div class="col-result text-success small fw-bold">APLICADA</div>
+                </div>
+                {% endfor %}
+                {% endif %}
+            {% else %}
+                <div class="p-4 text-center text-muted small italic">
+                    No se han aplicado deducciones adicionales en esta liquidación.
+                </div>
+            {% endif %}
+
+            {% if summary.deduccion_doble_imposicion and summary.deduccion_doble_imposicion > 0 %}
+            <div class="table-header-modern ledger-grid mt-3">
+                <div class="col-asset">Deducción por Doble Imposición Internacional (Art. 80 LIRPF)</div>
+                <div class="col-val">IMPORTE</div>
+                <div class="col-result">ESTADO</div>
+            </div>
+            <div class="ledger-grid row-asset border-bottom py-3">
+                <div class="col-asset ps-3">
+                    <span class="badge bg-info me-2" style="font-size: 0.6rem;">0588</span>
+                    <span class="fw-bold text-aeat-navy">Retenciones en origen sobre dividendos extranjeros (límite 15%)</span>
+                </div>
+                <div class="col-val font-mono-ledger">{{ summary.deduccion_doble_imposicion|euro }}</div>
+                <div class="col-result text-success small fw-bold">APLICADA</div>
+            </div>
+            {% endif %}
+
+            {% if summary.deduccion_rentas_trabajo and summary.deduccion_rentas_trabajo > 0 %}
+            <div class="table-header-modern ledger-grid mt-3">
+                <div class="col-asset">Deducción Rentas Bajas — DA 61ª LIRPF (Ley 5/2025)</div>
+                <div class="col-val">IMPORTE</div>
+                <div class="col-result">ESTADO</div>
+            </div>
+            <div class="ledger-grid row-asset border-bottom py-3">
+                <div class="col-asset ps-3">
+                    <span class="badge bg-info me-2" style="font-size: 0.6rem;">0595</span>
+                    <span class="fw-bold text-aeat-navy">Deducción por obtención de rendimientos del trabajo (RIT &lt; 18.276€)</span>
+                </div>
+                <div class="col-val font-mono-ledger">{{ summary.deduccion_rentas_trabajo|euro }}</div>
+                <div class="col-result text-success small fw-bold">APLICADA</div>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- RESULTADO FINAL -->
+    <section class="card-ledger border-0 shadow-lg" style="background: var(--aeat-navy); color: white;">
+        <div class="p-5">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h2 class="h4 fw-bold font-public mb-2">Resultado Final de la Liquidación</h2>
+                    <p class="text-white-50 mb-0">Consolidado final integrando Rendimientos del Trabajo, Capital e
+                        Incrementos Patrimoniales.</p>
+                </div>
+                <div class="col-md-4 text-end">
+                    <div class="mb-1 text-white-50 small uppercase fw-bold tracking-widest">CUOTA DIFERENCIAL
+                        <span class="casilla-badge ms-1" style="background: rgba(255,255,255,0.15); color: #facc15; border-color: rgba(250,204,21,0.3);">[0610]</span>
+                    </div>
+                    <div class="display-4 fw-bold font-mono-ledger text-warning-aeat">
+                        {{ summary.resultado|default(0)|euro }}
+                    </div>
+                    <button class="btn btn-outline-light mt-4 px-4 py-2 fw-bold text-uppercase tracking-wider"
+                        style="font-size: 0.75rem;" onclick="window.print()">
+                        <i class="bi bi-printer me-2"></i> Exportar Auditoría PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESUMEN DE LA DECLARACIÓN (estructura borrador AEAT) -->
+    <style>
+        .aeat-resumen { font-size: 0.88rem; }
+        .aeat-resumen .aeat-top-result {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0.9rem 1.5rem; border-bottom: 2px solid #e2e8f0;
+            background: #f8fafc;
+        }
+        .aeat-resumen .aeat-top-result .result-amount {
+            font-family: 'Roboto Mono', monospace; font-size: 1.6rem; font-weight: 700;
+        }
+        .aeat-resumen .aeat-section {
+            display: flex; align-items: center; gap: 0.5rem;
+            padding: 0.55rem 1.5rem;
+            background: #edf2fb; border-bottom: 1px solid #c8d8f0;
+            font-weight: 700; color: #1a3a6e;
+        }
+        .aeat-resumen .aeat-section .aeat-arrow {
+            color: #1a3a6e; font-size: 1rem; flex-shrink: 0;
+        }
+        .aeat-resumen .aeat-row {
+            display: flex; align-items: flex-end; justify-content: space-between;
+            padding: 0.3rem 1.5rem 0 2.8rem;
+            border-bottom: 1px solid #e2e8f0; min-height: 2rem;
+        }
+        .aeat-resumen .aeat-row .aeat-concept {
+            color: #1e40af; flex: 1; padding-bottom: 0.25rem;
+        }
+        .aeat-resumen .aeat-row .aeat-line {
+            flex: 0 0 220px; text-align: right;
+            border-bottom: 1px solid #94a3b8;
+            padding-bottom: 0.15rem; margin-left: 1rem;
+            font-family: 'Roboto Mono', monospace; font-size: 0.82rem;
+            color: #1e293b;
+        }
+        .aeat-resumen .aeat-row .aeat-line.empty { color: transparent; }
+        .aeat-resumen .aeat-separator {
+            display: flex; align-items: center; gap: 0.5rem;
+            padding: 0.5rem 1.5rem; border-bottom: 1px solid #e2e8f0;
+            background: #f1f5f9;
+        }
+        .aeat-resumen .aeat-separator .aeat-arrow { color: #64748b; }
+        .aeat-resumen .aeat-subsection {
+            display: flex; align-items: center; gap: 0.5rem;
+            padding: 0.45rem 1.5rem;
+            background: #f8fafc; border-bottom: 1px solid #e2e8f0;
+            font-weight: 600; color: #374151;
+        }
+    </style>
+
+    <section class="card-ledger mt-4">
+        <div class="ledger-header-row">
+            <h2 class="h6 fw-bold mb-0 text-uppercase tracking-wider">Resumen de la Declaración</h2>
+            <div class="text-white-50 small">Estructura del borrador AEAT — Renta 2025</div>
+        </div>
+
+    <!-- MACRO PARA EL RESUMEN AEAT -->
+    {% macro aeat_column(sum_obj, title, bg_color) %}
+    <div class="col-md-4">
+        <div class="p-3 rounded-top" style="background: {{ bg_color }}; color: white;">
+            <h3 class="h6 fw-bold mb-0 text-center">{{ title }}</h3>
+        </div>
+        <div class="aeat-resumen border border-top-0 rounded-bottom" style="background: white;">
+            <div class="aeat-top-result">
+                <span class="fw-bold" style="color:#1e293b;">⇒ Resultado</span>
+                <span class="result-amount {% if (sum_obj.resultado|default(0)) < 0 %}text-success{% else %}text-danger{% endif %}">
+                    {{ sum_obj.resultado|default(0)|euro }}
+                </span>
+            </div>
+
+            {% if sum_obj.work_bruto and sum_obj.work_bruto > 0 %}
+            <div class="aeat-section"><span class="aeat-arrow">⇒</span><span>Rendimientos del trabajo</span></div>
+            <div class="aeat-row"><span class="aeat-concept">Ingresos</span><span class="aeat-line">{{ sum_obj.work_bruto|euro }}</span></div>
+            <div class="aeat-row"><span class="aeat-concept">Neto reducido</span><span class="aeat-line">{{ sum_obj.work_neto|default(0)|euro }}</span></div>
+            {% endif %}
+
+            {% if sum_obj.capital_yield_total and sum_obj.capital_yield_total > 0 %}
+            <div class="aeat-section"><span class="aeat-arrow">⇒</span><span>Capital mobiliario</span></div>
+            <div class="aeat-row"><span class="aeat-concept">Ingresos</span><span class="aeat-line">{{ sum_obj.capital_yield_total|euro }}</span></div>
+            <div class="aeat-row"><span class="aeat-concept">Neto reducido</span><span class="aeat-line">{{ sum_obj.rcm_neto_reducido|default(0)|euro }}</span></div>
+            {% endif %}
+
+            {% if sum_obj.stock_gain_loss is defined and sum_obj.stock_gain_loss != 0 %}
+            <div class="aeat-section"><span class="aeat-arrow">⇒</span><span>GPP Acciones</span></div>
+            <div class="aeat-row"><span class="aeat-concept">Imputable a 2025</span><span class="aeat-line">{{ sum_obj.stock_gain_loss|euro }}</span></div>
+            {% endif %}
+
+            {% if sum_obj.crypto_gain_loss is defined and sum_obj.crypto_gain_loss != 0 %}
+            <div class="aeat-section"><span class="aeat-arrow">⇒</span><span>GPP Cripto</span></div>
+            <div class="aeat-row"><span class="aeat-concept">Imputable a 2025</span><span class="aeat-line">{{ sum_obj.crypto_gain_loss|euro }}</span></div>
+            {% endif %}
+
+            <div class="aeat-row pt-2"><span class="aeat-concept fw-semibold">Base imponible general</span><span class="aeat-line fw-semibold">{{ sum_obj.base_general|default(0)|euro }}</span></div>
+            <div class="aeat-row"><span class="aeat-concept fw-semibold">Base imponible del ahorro</span><span class="aeat-line fw-semibold">{{ sum_obj.base_ahorro|default(0)|euro }}</span></div>
+
+            <div class="aeat-section"><span class="aeat-arrow">⇒</span><span>Mínimo personal y familiar</span></div>
+            <div class="aeat-row"><span class="aeat-concept">Estatal</span><span class="aeat-line">{{ sum_obj.minimo_pf_estatal|default(0)|euro }}</span></div>
+            <div class="aeat-row"><span class="aeat-concept">Autonómica</span><span class="aeat-line">{{ sum_obj.minimo_pf_autonomico|default(0)|euro }}</span></div>
+
+            <div class="aeat-section"><span class="aeat-arrow">⇒</span><span>Cuota íntegra</span></div>
+            <div class="aeat-row"><span class="aeat-concept">Estatal</span><span class="aeat-line">{{ sum_obj.cuota_integra_estatal|default(0)|euro }}</span></div>
+            <div class="aeat-row"><span class="aeat-concept">Autonómica</span><span class="aeat-line">{{ sum_obj.cuota_integra_autonomica|default(0)|euro }}</span></div>
+
+            <div class="aeat-separator"><span class="aeat-arrow">⇒</span><span class="fw-semibold">Deducciones CCAA</span><span class="ms-auto font-mono-ledger">{{ sum_obj.deducciones_ccaa|default(0)|euro }}</span></div>
+
+            <div class="aeat-subsection"><span>Cuotas Líquidas</span></div>
+            <div class="aeat-row"><span class="aeat-concept">Estatal</span><span class="aeat-line">{{ sum_obj.cuota_liquida_estatal|default(0)|euro }}</span></div>
+            <div class="aeat-row"><span class="aeat-concept">Autonómica</span><span class="aeat-line">{{ sum_obj.cuota_liquida_autonomica|default(0)|euro }}</span></div>
+            <div class="aeat-row"><span class="aeat-concept fw-semibold">Total Incremetada</span><span class="aeat-line fw-semibold">{{ sum_obj.cuota_liquida|default(0)|euro }}</span></div>
+
+            <div class="aeat-separator"><span class="aeat-arrow">⇒</span><span class="fw-semibold">Cuota resultante autoliquidación</span><span class="ms-auto font-mono-ledger">{{ sum_obj.cuota_resultante|default(0)|euro }}</span></div>
+
+            <div class="aeat-section"><span class="aeat-arrow">⇒</span><span>Retenciones</span></div>
+            <div class="aeat-row"><span class="aeat-concept">Trabajo</span><span class="aeat-line">{{ sum_obj.retenciones_trabajo_total|default(0)|euro }}</span></div>
+            <div class="aeat-row"><span class="aeat-concept">Capital</span><span class="aeat-line">{{ sum_obj.retenciones_capital|default(0)|euro }}</span></div>
+
+            <div class="aeat-separator" style="background:#fef9c3; border-top: 2px solid #fbbf24;">
+                <span class="aeat-arrow" style="color:#92400e;">⇒</span>
+                <span class="fw-bold" style="color:#92400e;">Cuota diferencial</span>
+                <span class="ms-auto font-mono-ledger fw-bold {% if (sum_obj.cuota_diferencial|default(0)) < 0 %}text-success{% else %}text-danger{% endif %}">
+                    {{ sum_obj.cuota_diferencial|default(0)|euro }}
+                </span>
+            </div>
+        </div>
+    </div>
+    {% endmacro %}
+
+    <section class="card-ledger mt-4">
+        <div class="ledger-header-row">
+            <h2 class="h6 fw-bold mb-0 text-uppercase tracking-wider">Desglose Técnico: Opción Más Favorable</h2>
+            <div class="text-white-50 small">Estructura del borrador AEAT — Renta 2025</div>
+        </div>
+        
+        <div class="p-4 bg-light">
+            {% if summary_ind1 and summary_ind2 %}
+            <div class="row g-4">
+                {{ aeat_column(summary, 'CONJUNTA', 'var(--aeat-navy)') }}
+                {{ aeat_column(summary_ind1, 'INDIVIDUAL 1', '#1e293b') }}
+                {{ aeat_column(summary_ind2, 'INDIVIDUAL 2', '#334155') }}
+            </div>
+            {% else %}
+            <div class="row g-4 justify-content-center">
+                {{ aeat_column(summary, 'DECLARACIÓN INDIVIDUAL', 'var(--aeat-navy)') }}
+            </div>
+            {% endif %}
+        </div>
+    </section>
+    </section>
+</div>
+
+<div style="display:none">
+    {% for a in audit_annex %}
+    <div class="audit-item">
+        {{ a.date }} - {{ a.description }} - {{ a.amount|euro }}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

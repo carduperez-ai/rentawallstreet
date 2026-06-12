@@ -1,0 +1,20 @@
+TEST: INC-CAS-CON-W-35K (INDIVIDAL DECLARANTE - VERIFICADO)
+FECHA: 2026-05-10
+-----------------------------------------
+INPUTS (Individual 1):
+- Sueldo Bruto: 35.000,00 €
+- Seguridad Social: 2.222,50 €
+- Retenciones: 8.750,00 €
+- CCAA: Madrid
+
+OUTPUTS (Resultados AEAT):
+- Base Imponible General: 30.777,50 €
+- Base Liquidable General: 30.777,50 €
+- Mínimo Personal: 5.550,00 € (Estatal) / 5.956,65 € (Autonómico)
+- Cuota Íntegra Estatal: 3.172,13 €
+- Cuota Íntegra Autonómica: 2.740,14 €
+- Cuota Líquida Total: 5.912,27 €
+- Retenciones totales: 8.750,00 €
+- RESULTADO DECLARACIÓN: -2.837,73 € (A devolver)
+-----------------------------------------
+STATUS: 100% Coherente con Renta Web 2025. MAS FAVORABLE.

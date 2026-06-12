@@ -1,0 +1,23 @@
+TEST: INC-IND-WG-35K (VERIFICADO)
+FECHA: 2026-05-10
+-----------------------------------------
+INPUTS (Entradas):
+- Sueldo Bruto: 35.000,00 €
+- Seguridad Social: 2.222,50 €
+- Retenciones: 8.750,00 €
+- Ganancia Patrimonial (Crypto/Acciones): 10.000,00 € (Venta 20k / Compra 10k)
+- CCAA: Madrid
+- Perfil: Soltero, 30 años, sin hijos.
+
+OUTPUTS (Resultados AEAT):
+- Base Imponible General: 30.777,50 €
+- Base Imponible Ahorro: 10.000,00 €
+- Mínimo Personal Estatal: 5.550,00 €
+- Mínimo Personal Autonómico: 5.956,65 €
+- Cuota Íntegra Estatal: 4.162,13 €
+- Cuota Íntegra Autonómica: 3.730,14 €
+- Cuota Líquida Total: 7.892,27 €
+- Retenciones totales: 8.750,00 €
+- RESULTADO DECLARACIÓN: -857,73 € (A devolver)
+-----------------------------------------
+STATUS: 100% Coherente con Renta Web 2025.

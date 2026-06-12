@@ -1,0 +1,25 @@
+TEST: INC-CAS-K3-45K (MODALIDAD CONJUNTA - VERIFICADO)
+FECHA: 2026-05-10
+-----------------------------------------
+INPUTS (Unidad Familiar):
+- Declarante 1: 30.000,00 € (Ret: 3.600€)
+- Declarante 2 (Cónyuge): 15.000,00 € (Ret: 300€)
+- Hijos: 3 (10, 7 y 1 año)
+- Gastos Guardería (Hijo 3): 1.000,00 €
+- Familia Numerosa: Categoría General
+- CCAA: Madrid
+
+OUTPUTS (Resultados AEAT):
+- Base Imponible General: 40.142,50 €
+- Reducción Conjunta: 3.400,00 €
+- Base Liquidable General: 36.742,50 €
+- Mínimo Personal y Familiar: 17.450,00 € (Estatal) / 18.835,49 € (Autonómico)
+- Cuota Íntegra Estatal: 2.865,36 €
+- Cuota Íntegra Autonómica: 2.349,12 €
+- Suma Deducciones Autonómicas (Madrid): 1.174,56 €
+- Deducción Maternidad: 1.200,00 €
+- Incremento Guardería: 1.000,00 €
+- Deducción Familia Numerosa (Estatal): 1.200,00 €
+- RESULTADO DECLARACIÓN: -3.260,08 € (A devolver)
+-----------------------------------------
+STATUS: 100% Coherente con Renta Web 2025.

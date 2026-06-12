@@ -1,0 +1,658 @@
+{% extends "layout.html" %}
+{% set active_tab = 'load' %}
+
+{% block extra_css %}
+<style>
+    .report-container {
+        max-width: 1400px !important;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .card-ledger {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        margin-bottom: 2rem;
+        padding: 2.5rem;
+        border: 1px solid #f1f5f9;
+    }
+
+    .section-title-modern {
+        font-family: 'Public Sans', sans-serif;
+        font-size: 1.25rem;
+        font-weight: 800;
+        color: var(--aeat-navy);
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        border-bottom: 2px solid #f8fafc;
+        padding-bottom: 1rem;
+    }
+
+    .drop-zone-premium {
+        border: 2px dashed #cbd5e1;
+        border-radius: 16px;
+        padding: 3.5rem 2rem;
+        text-align: center;
+        cursor: pointer;
+        background: #fbfcfd;
+        transition: all 0.3s;
+        margin-bottom: 1.5rem;
+    }
+
+    .drop-zone-premium:hover {
+        border-color: var(--aeat-navy);
+        background: #f8fafc;
+    }
+
+    .file-row-modern {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 1.5rem;
+        background: white;
+        border: 1px solid #f1f5f9;
+        border-radius: 12px;
+        margin-bottom: 0.75rem;
+        transition: all 0.2s;
+    }
+
+    .file-row-modern:hover {
+        border-color: #e2e8f0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
+
+    .platform-select {
+        font-size: 0.85rem;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        border: 1px solid #e2e8f0;
+        background: #f8fafc;
+        font-weight: 600;
+        color: var(--aeat-navy);
+    }
+
+    .input-premium {
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        padding: 0.8rem 1rem;
+        font-size: 0.95rem;
+        width: 100%;
+        background: #f8fafc;
+        transition: border-color 0.2s;
+    }
+
+    .input-premium:focus {
+        border-color: var(--aeat-navy);
+        outline: none;
+    }
+
+    .label-premium {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--aeat-slate);
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+        display: block;
+        letter-spacing: 0.05em;
+    }
+
+    .btn-calc-premium {
+        background: var(--aeat-navy);
+        color: white;
+        border: none;
+        padding: 1.25rem;
+        border-radius: 12px;
+        font-weight: 800;
+        font-family: 'Public Sans', sans-serif;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        width: 100%;
+        transition: all 0.3s;
+        box-shadow: 0 10px 15px -3px rgba(0, 10, 35, 0.2);
+    }
+
+    .btn-calc-premium:hover {
+        background: #001a3d;
+        transform: translateY(-2px);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="report-container">
+    <div class="mb-5">
+        <h1 class="h2 fw-extrabold font-public text-aeat-navy mb-1">Centro de Auditoría Fiscal Reconciliada 2025</h1>
+        <p class="text-muted">Gestión institucional de activos y rendimientos para el IRPF.</p>
+    </div>
+
+    <!-- CALCULO DE ESTADO (NAMESPACE PARA PERSISTENCIA) -->
+    {% set audit = namespace(t212_csv=false, t212_pdf=false, degiro_csv=0, binance=false, revolut=false, nexo=false, crypto_otros=false, ibkr=false) %}
+    {% for item in mailbox %}
+        {% set p = (item.platform|upper if item.platform != 'auto' else item.meta_platform|upper)|replace(' ', '') %}
+        {% if 'TRADING212' in p or 'T212' in p %}
+            {% if item.extension == '.csv' %}{% set audit.t212_csv = true %}{% else %}{% set audit.t212_pdf = true %}{% endif %}
+        {% elif 'DEGIRO' in p %}
+            {% set audit.degiro_csv = audit.degiro_csv + 1 %}
+        {% elif 'BINANCE' in p %}
+            {% set audit.binance = true %}
+        {% elif 'REVOLUT' in p %}
+            {% set audit.revolut = true %}
+        {% elif 'NEXO' in p %}
+            {% set audit.nexo = true %}
+        {% elif 'CRYPTO' in p %}
+            {% set audit.crypto_otros = true %}
+        {% elif 'IBKR' in p %}
+            {% set audit.ibkr = true %}
+        {% endif %}
+    {% endfor %}
+
+    <div class="card-ledger mb-4 border-0 shadow-sm"
+        style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);">
+        <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="bg-aeat-navy text-white rounded-circle p-2 d-flex align-items-center justify-content-center"
+                style="width: 32px; height: 32px;">
+                <i class="bi bi-shield-check small"></i>
+            </div>
+            <h4 class="h6 mb-0 fw-bold text-aeat-navy text-uppercase letter-spacing-1">Estado de Integridad Documental
+            </h4>
+        </div>
+        
+        {% if mailbox %}
+        <div class="bg-white rounded-4 border border-light p-3 shadow-sm">
+            <ul class="list-unstyled mb-0">
+                {% if audit.t212_csv or audit.t212_pdf %}
+                <li class="d-flex align-items-center justify-content-between py-2 border-bottom border-light-subtle">
+                    <div>
+                        <span class="fw-bold text-aeat-navy me-2">TRADING 212:</span>
+                        <span class="text-success small">{% if audit.t212_csv %}✓ Historial CSV{% endif %} {% if audit.t212_pdf %} ✓ Annual Statement PDF{% endif %}</span>
+                    </div>
+                    {% if audit.t212_csv and audit.t212_pdf %}
+                    <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3">COMPLETO</span>
+                    {% else %}
+                    <span class="text-warning small fw-bold">⚠ PENDIENTE: {% if not audit.t212_csv %}CSV Historial{% else %}Annual Statement PDF{% endif %}</span>
+                    {% endif %}
+                </li>
+                {% endif %}
+
+                {% if audit.degiro_csv > 0 %}
+                <li class="d-flex align-items-center justify-content-between py-2 border-bottom border-light-subtle">
+                    <div>
+                        <span class="fw-bold text-aeat-navy me-2">DEGIRO:</span>
+                        <span class="text-success small">Archivos cargados: {{ audit.degiro_csv }}/2</span>
+                    </div>
+                    {% if audit.degiro_csv >= 2 %}
+                    <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3">COMPLETO</span>
+                    {% else %}
+                    <span class="text-warning small fw-bold">⚠ PENDIENTE: 2º Archivo (Transacciones/Estado de Cuenta)</span>
+                    {% endif %}
+                </li>
+                {% endif %}
+
+                {% if audit.binance %}
+                <li class="d-flex align-items-center justify-content-between py-2 border-bottom border-light-subtle">
+                    <div>
+                        <span class="fw-bold text-aeat-navy me-2">BINANCE:</span>
+                        <span class="text-success small">✓ Documentación cargada</span>
+                    </div>
+                    <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3">COMPLETO</span>
+                </li>
+                {% endif %}
+                {% if audit.revolut %}
+                <li class="d-flex align-items-center justify-content-between py-2 border-bottom border-light-subtle">
+                    <div>
+                        <span class="fw-bold text-aeat-navy me-2">REVOLUT:</span>
+                        <span class="text-success small">✓ Documentación cargada</span>
+                    </div>
+                    <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3">COMPLETO</span>
+                </li>
+                {% endif %}
+                {% if audit.nexo %}
+                <li class="d-flex align-items-center justify-content-between py-2 border-bottom border-light-subtle">
+                    <div>
+                        <span class="fw-bold text-aeat-navy me-2">NEXO:</span>
+                        <span class="text-success small">✓ Documentación cargada</span>
+                    </div>
+                    <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3">COMPLETO</span>
+                </li>
+                {% endif %}
+                {% if audit.crypto_otros %}
+                <li class="d-flex align-items-center justify-content-between py-2 border-bottom border-light-subtle">
+                    <div>
+                        <span class="fw-bold text-aeat-navy me-2">OTROS CRIPTO:</span>
+                        <span class="text-success small">✓ Documentación cargada</span>
+                    </div>
+                    <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3">COMPLETO</span>
+                </li>
+                {% endif %}
+
+                {% if audit.ibkr %}
+                <li class="d-flex align-items-center justify-content-between py-2">
+                    <div>
+                        <span class="fw-bold text-aeat-navy me-2">IBKR / OTROS:</span>
+                        <span class="text-success small">✓ Documentación cargada</span>
+                    </div>
+                    <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3">COMPLETO</span>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+        {% else %}
+        <div class="text-center py-3">
+            <span class="text-muted small text-uppercase letter-spacing-1">
+                <i class="bi bi-info-circle me-2"></i>Pendiente recibir documentación
+            </span>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- FLASH MESSAGES (REUBICADOS ENCIMA DE AUDITORIA) -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ 'danger' if category == 'danger' else 'success' }} rounded-4 border-0 shadow-sm mb-4 py-3 d-flex align-items-center gap-3 slide-in">
+            <div class="alert-icon bg-{{ 'danger' if category == 'danger' else 'success' }} text-white rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+                {% if category == 'success' %}<i class="bi bi-check-lg"></i>{% else %}<i class="bi bi-exclamation-triangle"></i>{% endif %}
+            </div>
+            <div class="flex-grow-1 fw-bold">{{ message }}</div>
+            <button type="button" class="btn-close shadow-none" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <form action="/calculate" method="POST" id="calc-form">
+                <!-- Hidden inputs (FULL EXPANSION) -->
+        <input type="hidden" name="fiscal_year" id="hidden_fiscal_year" value="2025">
+        <input type="hidden" name="region" id="hidden_region" value="andalucia">
+        
+        <!-- ESTADO CIVIL Y PENSIONES -->
+        <input type="hidden" name="marital_status" id="hidden_marital_status" value="single">
+        <input type="hidden" name="joint_declaration" id="hidden_joint_declaration" value="">
+        <input type="hidden" name="spouse_income" id="hidden_spouse_income" value="0">
+        <input type="hidden" name="alimonty" id="hidden_alimonty" value="0">
+        <input type="hidden" name="child_support" id="hidden_child_support" value="0">
+        <input type="hidden" name="pension_plan" id="hidden_pension_plan" value="0">
+        <input type="hidden" name="pension_empresa" id="hidden_pension_empresa" value="0">
+        <input type="hidden" name="pension_spouse" id="hidden_pension_spouse" value="0">
+
+        <!-- FAMILIA -->
+        <input type="hidden" name="age" id="hidden_age" value="30">
+        <input type="hidden" name="descendants" id="hidden_descendants" value="0">
+        <input type="hidden" name="children_under_3" id="hidden_children_under_3" value="0">
+        <input type="hidden" name="is_working_mother" id="hidden_is_working_mother" value="">
+        <input type="hidden" name="daycare_expenses" id="hidden_daycare_expenses" value="0">
+        <input type="hidden" name="family_type" id="hidden_family_type" value="none">
+        <input type="hidden" name="is_monoparental" id="hidden_is_monoparental" value="">
+        <input type="hidden" name="ascendants_over65" id="hidden_ascendants_over65" value="0">
+        <input type="hidden" name="ascendants_disabled" id="hidden_ascendants_disabled" value="0">
+        
+        <!-- DISCAPACIDAD -->
+        <input type="hidden" name="disability" id="hidden_disability" value="0">
+        <input type="hidden" name="disability_mobility_reduced" id="hidden_disability_mobility_reduced" value="">
+        <input type="hidden" name="disability_needs_help" id="hidden_disability_needs_help" value="">
+
+        <!-- VIVIENDA -->
+        <input type="hidden" name="is_rent_habitual" id="hidden_is_rent_habitual" value="">
+        <input type="hidden" name="rent_paid" id="hidden_rent_paid" value="0">
+        <input type="hidden" name="rent_pre2015" id="hidden_rent_pre2015" value="">
+        <input type="hidden" name="rent_pre2015_date" id="hidden_rent_pre2015_date" value="">
+        <input type="hidden" name="rent_pre2015_paid" id="hidden_rent_pre2015_paid" value="0">
+        <input type="hidden" name="is_protected_housing" id="hidden_is_protected_housing" value="">
+        
+        <input type="hidden" name="mortgage_pre2013" id="hidden_mortgage_pre2013" value="">
+        <input type="hidden" name="mortgage_acquisition_date" id="hidden_mortgage_acquisition_date" value="">
+        <input type="hidden" name="mortgage_paid" id="hidden_mortgage_paid" value="0">
+
+        <!-- OTROS GASTOS Y DEDUCCIONES -->
+        <input type="hidden" name="edu_expenses" id="hidden_edu_expenses" value="0">
+        <input type="hidden" name="is_celiac" id="hidden_is_celiac" value="">
+        <input type="hidden" name="vet_expenses" id="hidden_vet_expenses" value="0">
+        <input type="hidden" name="gym_expenses" id="hidden_gym_expenses" value="0">
+        <input type="hidden" name="legal_defense_expenses" id="hidden_legal_defense_expenses" value="0">
+        <input type="hidden" name="startup_investment" id="hidden_startup_investment" value="0">
+        <input type="hidden" name="donations" id="hidden_donations" value="0">
+        <input type="hidden" name="political_party" id="hidden_political_party" value="0">
+        <input type="hidden" name="energy_type" id="hidden_energy_type" value="0">
+        <input type="hidden" name="energy_inv" id="hidden_energy_inv" value="0">
+        <input type="hidden" name="is_victim" id="hidden_is_victim" value="">
+        <input type="hidden" name="ceuta_melilla_income" id="hidden_ceuta_melilla_income" value="">
+
+        <div class="row g-4 mb-4">
+            <div class="col-lg-8">
+                <div class="card-ledger h-100">
+                    <h3 class="section-title-modern"><i class="bi bi-folder2-open"></i> Documentación de Auditoría</h3>
+                    <div id="drop-zone" class="drop-zone-premium">
+                        <i class="bi bi-cloud-arrow-up display-5 text-aeat-slate mb-3 d-block"></i>
+                        <p class="fw-bold mb-1">Arrastre sus extractos o pulse para vincular</p>
+                        <p class="small text-muted mb-0">Soporta Excel, CSV y PDF (DeGiro, Binance, Trading 212, etc.)</p>
+                    </div>
+                    <div id="file-manager-list">
+                        {% if mailbox %}{% for item in mailbox %}
+                        <div class="file-row-modern" data-filename="{{ item.name }}" data-detected="{{ item.meta_platform|lower }}">
+                            <div class="d-flex align-items-center gap-3">
+                                <i class="bi bi-file-earmark-spreadsheet text-aeat-slate"></i>
+                                <span class="small fw-bold text-aeat-navy">{{ item.name }}</span>
+                                <span class="badge bg-light text-dark border small">{{ item.extension|upper }}</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-3">
+                                <select class="platform-select" onchange="persistPlatform('{{ item.name }}', this.value)">
+                                    <option value="auto">Auto ({{ item.meta_platform }})</option>
+                                    <option value="binance" {% if item.platform == 'binance' %}selected{% endif %}>Binance</option>
+                                    <option value="degiro" {% if item.platform == 'degiro' %}selected{% endif %}>DEGIRO</option>
+                                    <option value="t212" {% if item.platform == 't212' or item.platform == 'trading212' %}selected{% endif %}>Trading 212</option>
+                                    <option value="revolut" {% if item.platform == 'revolut' %}selected{% endif %}>Revolut</option>
+                                    <option value="ibkr" {% if item.platform == 'ibkr' %}selected{% endif %}>IBKR</option>
+                                    <option value="etoro" {% if item.platform == 'etoro' %}selected{% endif %}>eToro</option>
+                                </select>
+                                <form action="/delete/{{ item.name }}" method="POST" style="display:inline">
+                                    <button type="submit" class="btn btn-sm btn-danger text-white px-3 d-flex align-items-center gap-2">
+                                        <i class="bi bi-trash3-fill"></i> <span>Borrar</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        {% endfor %}{% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card-ledger h-100" style="background: var(--aeat-navy); color: white;">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h3 class="section-title-modern border-0 pb-0 mb-0 text-white"><i class="bi bi-magic"></i> Asistente Fiscal</h3>
+                    </div>
+                    <div id="wizard-container" class="p-3">
+                        <!-- Questions will be injected here via JS -->
+                        <div id="wizard-content">
+                            <h4 id="wizard-question" class="h5 fw-bold mb-4">¿Preparado para tu auditoría?</h4>
+                            <div id="wizard-options" class="d-grid gap-3">
+                                <button type="button" class="btn btn-warning btn-lg fw-bold py-3 shadow-lg" onclick="startWizard()">COMENZAR ASISTENTE</button>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-top border-secondary small opacity-50">
+                            Estilo TaxDown • Deducciones 2025
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-ledger mb-4">
+            <h3 class="section-title-modern"><i class="bi bi-briefcase"></i> Datos Económicos Finales</h3>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <label class="label-premium">Ingresos Brutos [0003]</label>
+                    <input type="text" name="gross_income" class="input-premium font-mono" placeholder="0,00">
+                </div>
+                <div class="col-md-4">
+                    <label class="label-premium">Retenciones [0010]</label>
+                    <input type="text" name="withholdings_paid" class="input-premium font-mono" placeholder="0,00">
+                </div>
+                <div class="col-md-4">
+                    <label class="label-premium">Seguridad Social [0019]</label>
+                    <input type="text" name="ss_employee" class="input-premium font-mono" placeholder="0,00">
+                </div>
+            </div>
+        </div>
+
+        <!-- RENDIMIENTOS DE CAPITAL MOBILIARIO MANUALES -->
+        <div class="card-ledger mb-4">
+            <h3 class="section-title-modern"><i class="bi bi-bank"></i> Rendimientos del Capital Mobiliario (entrada manual)</h3>
+            <p class="small text-muted mb-3">Añade aquí los rendimientos del borrador AEAT que no provengan de archivos cargados (ej: dividendos de banco español, cuentas remuneradas).</p>
+
+            <div id="rcm-list"></div>
+
+            <button type="button" class="btn btn-outline-secondary btn-sm mt-2" onclick="addRcmRow()">
+                <i class="bi bi-plus-circle me-1"></i> Añadir rendimiento
+            </button>
+        </div>
+
+        <!-- RENDIMIENTOS INMOBILIARIOS MANUALES -->
+        <div class="card-ledger mb-4">
+            <h3 class="section-title-modern"><i class="bi bi-house-door"></i> Rendimientos Inmobiliarios (Casilla 0091)</h3>
+            <p class="small text-muted mb-3">Añade aquí los inmuebles alquilados con sus ingresos íntegros y gastos deducibles. El motor aplicará automáticamente la reducción del 60% por vivienda habitual.</p>
+
+            <div id="rental-list"></div>
+
+            <button type="button" class="btn btn-outline-secondary btn-sm mt-2" onclick="addRentalRow()">
+                <i class="bi bi-plus-circle me-1"></i> Añadir inmueble
+            </button>
+        </div>
+
+        <button type="submit" id="btn-calc" class="btn-calc-premium mt-4 mb-5">CALCULAR Y GENERAR AUDITORÍA</button>
+    </form>
+</div>
+
+<form action="/upload" method="POST" enctype="multipart/form-data" id="upload-form" style="display:none">
+    <input type="file" name="file" multiple id="file-input" onchange="this.form.submit()">
+</form>
+
+<script>
+    const wizardFlow = [
+        { id: 'region', q: '¿En qué Comunidad Autónoma resides?', type: 'choice', options: [{l: 'Andalucía', v: 'andalucia'}, {l: 'Aragón', v: 'aragon'}, {l: 'Asturias', v: 'asturias'}, {l: 'Baleares', v: 'baleares'}, {l: 'Canarias', v: 'canarias'}, {l: 'Cantabria', v: 'cantabria'}, {l: 'C. La Mancha', v: 'castilla_la_mancha'}, {l: 'C. y León', v: 'castilla_leon'}, {l: 'Cataluña', v: 'cataluna'}, {l: 'Extremadura', v: 'extremadura'}, {l: 'Galicia', v: 'galicia'}, {l: 'Madrid', v: 'madrid'}, {l: 'Murcia', v: 'murcia'}, {l: 'La Rioja', v: 'la_rioja'}, {l: 'C. Valenciana', v: 'valenciana'}, {l: 'Ceuta', v: 'ceuta'}, {l: 'Melilla', v: 'melilla'}], target: 'hidden_region' },
+        { id: 'fiscal_year', q: 'Ejercicio Fiscal:', type: 'choice', options: [{l: 'Renta 2025', v: '2025'}, {l: 'Renta 2024', v: '2024'}], target: 'hidden_fiscal_year' },
+        { id: 'age', q: '¿Qué edad tenías a 31 de diciembre?', type: 'number', target: 'hidden_age', placeholder: 'Ej: 30' },
+        
+        // ESTADO CIVIL
+        { id: 'marital_status', q: '¿Cuál es tu estado civil?', type: 'choice', options: [{l: 'Soltero/a', v: 'single'}, {l: 'Casado/a', v: 'married'}, {l: 'Divorciado/a o Viudo/a', v: 'divorced'}], target: 'hidden_marital_status' },
+        { id: 'joint_declaration', q: '¿Optarás por tributación conjunta con tu cónyuge?', type: 'choice', options: [{l: 'Sí', v: 'on'}, {l: 'No', v: ''}], target: 'hidden_joint_declaration', condition: (ans) => ans.marital_status === 'married' },
+        { id: 'alimonty', q: 'Pensión compensatoria a ex-cónyuge pagada (si aplica):', type: 'number', target: 'hidden_alimonty', placeholder: '0.00', condition: (ans) => ans.marital_status === 'divorced' },
+        { id: 'child_support', q: 'Anualidades por alimentos a favor de los hijos:', type: 'number', target: 'hidden_child_support', placeholder: '0.00', condition: (ans) => ans.marital_status === 'divorced' },
+
+        // FAMILIA E HIJOS
+        { id: 'family_type', q: 'Situación familiar especial:', type: 'choice', options: [{l: 'Ninguna', v: 'none'}, {l: 'Familia Numerosa General', v: 'large_general'}, {l: 'Familia Numerosa Especial', v: 'large_special'}], target: 'hidden_family_type' },
+        { id: 'is_monoparental', q: '¿Familia Monoparental (sin convivir con otro progenitor)?', type: 'choice', options: [{l: 'Sí', v: 'on'}, {l: 'No', v: ''}], target: 'hidden_is_monoparental', condition: (ans) => ans.marital_status !== 'married' },
+        { id: 'descendants', q: '¿Cuántos descendientes (hijos) menores de 25 años conviven contigo?', type: 'number', target: 'hidden_descendants', placeholder: '0' },
+        
+        // CONDICIONALES DE GUARDERÍA
+        { id: 'children_under_3', q: '¿Cuántos hijos son menores de 3 años?', type: 'number', target: 'hidden_children_under_3', placeholder: '0', condition: (ans) => parseInt(ans.descendants || 0) > 0 },
+        { id: 'is_working_mother', q: '¿Eres madre trabajadora (dada de alta en SS)?', type: 'choice', options: [{l: 'Sí', v: 'on'}, {l: 'No', v: ''}], target: 'hidden_is_working_mother', condition: (ans) => parseInt(ans.children_under_3 || 0) > 0 },
+        { id: 'daycare_expenses', q: 'Gastos de guardería autorizada anuales:', type: 'number', target: 'hidden_daycare_expenses', placeholder: '0.00', condition: (ans) => ans.is_working_mother === 'on' },
+        
+        // ASCENDIENTES Y DISCAPACIDAD
+        { id: 'ascendants_over65', q: 'Ascendientes (mayores de 65) conviviendo contigo:', type: 'number', target: 'hidden_ascendants_over65', placeholder: '0' },
+        { id: 'disability', q: '¿Tienes algún grado de discapacidad?', type: 'choice', options: [{l: 'No', v: '0'}, {l: '≥33%', v: '33'}, {l: '≥65%', v: '65'}], target: 'hidden_disability' },
+        { id: 'disability_mobility_reduced', q: '¿Tienes movilidad reducida?', type: 'choice', options: [{l: 'Sí', v: 'on'}, {l: 'No', v: ''}], target: 'hidden_disability_mobility_reduced', condition: (ans) => ans.disability !== '0' },
+        { id: 'disability_needs_help', q: '¿Necesitas ayuda de terceras personas?', type: 'choice', options: [{l: 'Sí', v: 'on'}, {l: 'No', v: ''}], target: 'hidden_disability_needs_help', condition: (ans) => ans.disability !== '0' },
+
+        // VIVIENDA - RÉGIMEN TRANSITORIO HIPOTECA
+        { id: 'mortgage_pre2013', q: '¿Compraste tu vivienda habitual antes de 2013 con hipoteca?', type: 'choice', options: [{l: 'Sí', v: 'on'}, {l: 'No', v: ''}], target: 'hidden_mortgage_pre2013' },
+        { id: 'mortgage_acquisition_date', q: 'Fecha exacta de adquisición de la vivienda (DD/MM/AAAA):', type: 'number', target: 'hidden_mortgage_acquisition_date', placeholder: 'Ej: 10/11/2008', condition: (ans) => ans.mortgage_pre2013 === 'on' },
+        { id: 'mortgage_paid', q: 'Importe pagado en hipoteca durante el año:', type: 'number', target: 'hidden_mortgage_paid', placeholder: '0.00', condition: (ans) => ans.mortgage_pre2013 === 'on' },
+
+        // VIVIENDA - RÉGIMEN TRANSITORIO ALQUILER
+        { id: 'is_rent_habitual', q: '¿Vives de alquiler en tu vivienda habitual?', type: 'choice', options: [{l: 'Sí', v: 'on'}, {l: 'No', v: ''}], target: 'hidden_is_rent_habitual' },
+        { id: 'rent_paid', q: '¿Cuánto pagaste de alquiler en todo el año?', type: 'number', target: 'hidden_rent_paid', placeholder: '0.00', condition: (ans) => ans.is_rent_habitual === 'on' },
+        { id: 'rent_pre2015', q: '¿Tu contrato de alquiler original es anterior a 2015?', type: 'choice', options: [{l: 'Sí', v: 'on'}, {l: 'No', v: ''}], target: 'hidden_rent_pre2015', condition: (ans) => ans.is_rent_habitual === 'on' },
+        { id: 'rent_pre2015_date', q: 'Fecha exacta de la firma del contrato (DD/MM/AAAA):', type: 'number', target: 'hidden_rent_pre2015_date', placeholder: 'Ej: 01/01/2014', condition: (ans) => ans.rent_pre2015 === 'on' },
+        { id: 'rent_pre2015_paid', q: 'Importe pagado este año por ese contrato pre-2015:', type: 'number', target: 'hidden_rent_pre2015_paid', placeholder: '0.00', condition: (ans) => ans.rent_pre2015 === 'on' },
+        { id: 'vpo', q: '¿Tu vivienda alquilada/comprada es de Protección Oficial (VPO)?', type: 'choice', options: [{l: 'Sí', v: 'on'}, {l: 'No', v: ''}], target: 'hidden_is_protected_housing' },
+
+        // PENSIONES
+        { id: 'pension_plan', q: 'Aportaciones a Planes de Pensiones Individuales:', type: 'number', target: 'hidden_pension_plan', placeholder: '0.00' },
+        { id: 'pension_empresa', q: 'Aportaciones a Planes de Pensiones de Empresa:', type: 'number', target: 'hidden_pension_empresa', placeholder: '0.00' },
+
+        // VARIOS CCAA Y DEDUCCIONES
+        { id: 'edu', q: 'Gastos en idiomas, informática o material escolar:', type: 'number', target: 'hidden_edu_expenses', placeholder: '0.00', condition: (ans) => parseInt(ans.descendants || 0) > 0 },
+        { id: 'celiac', q: '¿Algún miembro es celíaco diagnosticado?', type: 'choice', options: [{l: 'Sí', v: 'on'}, {l: 'No', v: ''}], target: 'hidden_is_celiac' },
+        { id: 'gym', q: 'Gastos en gimnasio o deporte federado:', type: 'number', target: 'hidden_gym_expenses', placeholder: '0.00' },
+        { id: 'vet', q: 'Gastos veterinarios de mascotas:', type: 'number', target: 'hidden_vet_expenses', placeholder: '0.00' },
+        { id: 'legal', q: 'Gastos defensa jurídica (pleitos laborales):', type: 'number', target: 'hidden_legal_defense_expenses', placeholder: '0.00' },
+        { id: 'donations', q: 'Donativos a ONGs o fundaciones (Régimen General):', type: 'number', target: 'hidden_donations', placeholder: '0.00' },
+        { id: 'political_party', q: 'Cuotas pagadas a partidos políticos o sindicatos:', type: 'number', target: 'hidden_political_party', placeholder: '0.00' },
+        { id: 'startup', q: 'Inversión en Startups o empresas de nueva creación:', type: 'number', target: 'hidden_startup_investment', placeholder: '0.00' },
+        
+        { id: 'energy', q: '¿Obras de mejora energética en tu vivienda?', type: 'choice', options: [{l: 'No', v: '0'}, {l: 'Reducción Demanda (20%)', v: '20'}, {l: 'Consumo Energía Primaria (40%)', v: '40'}, {l: 'Rehabilitación Edificio (60%)', v: '60'}], target: 'hidden_energy_type' },
+        { id: 'energy_amt', q: 'Importe invertido en la mejora energética:', type: 'number', target: 'hidden_energy_inv', placeholder: '0.00', condition: (ans) => ans.energy !== '0' }
+    ];
+
+    let currentStep = 0;
+    let answers = {};
+
+    const WIZARD_KEY = 'fiscal_wizard_answers';
+
+    function saveToStorage() {
+        localStorage.setItem(WIZARD_KEY, JSON.stringify(answers));
+    }
+
+    function loadFromStorage() {
+        try { return JSON.parse(localStorage.getItem(WIZARD_KEY)) || null; } catch { return null; }
+    }
+
+    function applyAnswersToForm(saved) {
+        wizardFlow.forEach(step => {
+            if (step.target && saved[step.id] !== undefined) {
+                const el = document.getElementById(step.target);
+                if (el) el.value = saved[step.id];
+            }
+        });
+        if (saved.family) {
+            const elLarge = document.getElementById('hidden_is_large_family');
+            const elMono = document.getElementById('hidden_is_monoparental');
+            if (elLarge) elLarge.value = (saved.family === 'large' ? 'on' : '');
+            if (elMono) elMono.value = (saved.family === 'mono' ? 'on' : '');
+        }
+    }
+
+    function startWizard() {
+        currentStep = 0;
+        answers = {};
+        localStorage.removeItem(WIZARD_KEY);
+        renderStep();
+    }
+
+    function renderStep() {
+        const step = wizardFlow[currentStep];
+        if (!step) {
+            finishWizard();
+            return;
+        }
+
+        if (step.condition && !step.condition(answers)) {
+            currentStep++;
+            renderStep();
+            return;
+        }
+
+        const container = document.getElementById('wizard-content');
+        let html = `<h4 class="h5 fw-bold mb-4 animate__animated animate__fadeIn">${step.q}</h4>`;
+        
+        if (step.type === 'number') {
+            html += `
+                <div class="mb-3">
+                    <input type="text" id="wizard-input" class="form-control form-control-lg bg-light border-0 text-center fw-bold" 
+                           placeholder="${step.placeholder}" onkeydown="if(event.key==='Enter'){event.preventDefault(); saveAndNext();}">
+                </div>
+                <button type="button" class="btn btn-warning w-100 fw-bold" onclick="saveAndNext()">SIGUIENTE</button>
+            `;
+        } else if (step.type === 'choice') {
+            html += `<div class="d-grid gap-2">`;
+            step.options.forEach(opt => {
+                html += `<button type="button" class="btn btn-outline-light fw-bold py-3" onclick="saveChoiceAndNext('${step.id}', '${opt.v}', '${step.target}')">${opt.l}</button>`;
+            });
+            html += `</div>`;
+        }
+
+        container.innerHTML = html;
+        if (step.type === 'number') document.getElementById('wizard-input').focus();
+    }
+
+    function saveAndNext() {
+        let val = document.getElementById('wizard-input').value;
+        val = val.replace(',', '.');
+        const step = wizardFlow[currentStep];
+        answers[step.id] = val;
+        if (step.target) {
+            const el = document.getElementById(step.target);
+            if (el) el.value = val;
+        }
+        currentStep++;
+        renderStep();
+    }
+
+    function saveChoiceAndNext(id, val, target) {
+        answers[id] = val;
+        if (target) {
+            const el = document.getElementById(target);
+            if (el) el.value = val;
+        }
+        
+        if (id === 'family') {
+            const elLarge = document.getElementById('hidden_is_large_family');
+            const elMono = document.getElementById('hidden_is_monoparental');
+            if (elLarge) elLarge.value = (val === 'large' ? 'on' : '');
+            if (elMono) elMono.value = (val === 'mono' ? 'on' : '');
+        }
+
+        currentStep++;
+        renderStep();
+    }
+
+    function finishWizard() {
+        saveToStorage();
+        applyAnswersToForm(answers);
+        const regionLabels = { andalucia: 'Andalucía', aragon: 'Aragón', asturias: 'Asturias', baleares: 'Baleares', canarias: 'Canarias', cantabria: 'Cantabria', castilla_la_mancha: 'C. La Mancha', castilla_leon: 'C. y León', cataluna: 'Cataluña', extremadura: 'Extremadura', galicia: 'Galicia', madrid: 'Madrid', murcia: 'Murcia', la_rioja: 'La Rioja', valenciana: 'C. Valenciana', ceuta: 'Ceuta', melilla: 'Melilla' };
+        const regionName = regionLabels[answers.region] || answers.region || '';
+        const container = document.getElementById('wizard-content');
+        container.innerHTML = `
+            <div class="text-center animate__animated animate__bounceIn">
+                <i class="bi bi-check-circle-fill display-4 text-warning mb-3"></i>
+                <h4 class="h5 fw-bold mb-2">¡Auditoría Configurada!</h4>
+                <p class="small opacity-75 mb-4">Hemos mapeado tus deducciones autonómicas${regionName ? ' de ' + regionName : ''}.</p>
+                <button type="button" class="btn btn-outline-warning btn-sm w-100" onclick="startWizard()">REINICIAR ASISTENTE</button>
+            </div>
+        `;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const saved = loadFromStorage();
+        if (saved) {
+            answers = saved;
+            applyAnswersToForm(saved);
+            finishWizard();
+        }
+    });
+
+    function persistPlatform(f, p) { fetch('/update_platform', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ filename: f, platform: p }) }); }
+
+    function addRcmRow() {
+        const list = document.getElementById('rcm-list');
+        const row = document.createElement('div');
+        row.className = 'row g-2 mb-2 align-items-center rcm-row';
+        row.innerHTML = `
+            <div class="col-md-5">
+                <input type="text" name="rcm_nombre[]" class="input-premium" placeholder="Nombre emisor (ej: Banco Santander SA)">
+            </div>
+            <div class="col-md-3">
+                <input type="text" name="rcm_importe[]" class="input-premium font-mono" placeholder="Importe íntegro">
+            </div>
+            <div class="col-md-3">
+                <input type="text" name="rcm_retencion[]" class="input-premium font-mono" placeholder="Retenciones">
+            </div>
+            <div class="col-md-1">
+                <button type="button" class="btn btn-outline-danger btn-sm w-100" onclick="this.closest('.rcm-row').remove()">
+                    <i class="bi bi-x"></i>
+                </button>
+            </div>
+        `;
+        list.appendChild(row);
+    }
+    
+    const dz = document.getElementById('drop-zone');
+    const fi = document.getElementById('file-input');
+    if(dz) {
+        dz.onclick = () => fi.click();
+        dz.ondragover = (e) => { e.preventDefault(); dz.style.borderColor = 'var(--aeat-navy)'; dz.style.background = '#f8fafc'; };
+        dz.ondragleave = () => { dz.style.borderColor = '#cbd5e1'; dz.style.background = '#fbfcfd'; };
+        dz.ondrop = (e) => {
+            e.preventDefault();
+            const dt = new DataTransfer();
+            for (let f of e.dataTransfer.files) { dt.items.add(f); }
+            fi.files = dt.files;
+            document.getElementById('upload-form').submit();
+        };
+    }
+</script>
+{% endblock %}

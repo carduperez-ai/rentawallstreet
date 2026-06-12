@@ -1,0 +1,22 @@
+TEST: INC-CAS-K3-45K (INDIVIDUAL DECLARANTE - VERIFICADO)
+FECHA: 2026-05-10
+-----------------------------------------
+INPUTS (Individual 1):
+- Sueldo Bruto: 30.000,00 €
+- Seguridad Social: 1.905,00 €
+- Retenciones: 3.600,00 €
+- Hijos: 3 (Al 50% de mínimos y deducciones compartidas)
+- CCAA: Madrid
+
+OUTPUTS (Resultados AEAT):
+- Base Imponible General: 26.095,00 €
+- Base Liquidable General: 26.095,00 €
+- Mínimo Personal y Familiar: 11.500,00 € (Estatal) / 12.396,08 € (Autonómico)
+- Cuota Íntegra Estatal: 1.904,50 €
+- Cuota Íntegra Autonómica: 1.593,43 €
+- Suma Deducciones Autonómicas (Madrid): 796,72 €
+- Deducción Familia Numerosa (50%): 600,00 €
+- Retenciones totales: 3.600,00 €
+- RESULTADO DECLARACIÓN: -1.498,79 € (A devolver)
+-----------------------------------------
+STATUS: 100% Coherente con Renta Web 2025. MAS FAVORABLE.

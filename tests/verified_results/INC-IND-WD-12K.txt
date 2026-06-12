@@ -1,0 +1,22 @@
+TEST: INC-IND-WD-12K (VERIFICADO)
+FECHA: 2026-05-10
+-----------------------------------------
+INPUTS (Entradas):
+- Sueldo Bruto: 12.000,00 €
+- Seguridad Social: 762,00 €
+- Retenciones Nómina: 240,00 €
+- Dividendos Brutos: 500,00 €
+- Retención Dividendos: 95,00 €
+- CCAA: Madrid
+- Perfil: Soltero, 30 años, sin hijos.
+
+OUTPUTS (Resultados AEAT):
+- Base Imponible General: 1.936,00 €
+- Base Imponible Ahorro: 500,00 €
+- Mínimo Personal Estatal: 5.550,00 €
+- Mínimo Personal Autonómico: 5.956,65 €
+- Cuota Íntegra Estatal/Autonómica: 0,00 € (Bases absorbidas por mínimos)
+- Retenciones Totales: 335,00 € (240 + 95)
+- RESULTADO DECLARACIÓN: -335,00 € (A devolver)
+-----------------------------------------
+STATUS: 100% Coherente con Renta Web 2025.

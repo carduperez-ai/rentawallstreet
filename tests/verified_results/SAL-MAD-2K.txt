@@ -1,0 +1,21 @@
+TEST: SAL-MAD-2K (VERIFICADO)
+FECHA: 2026-05-10
+-----------------------------------------
+INPUTS (Entradas):
+- Sueldo Bruto: 2.000,00 €
+- Seguridad Social: 127,00 €
+- Retenciones: 40,00 €
+- CCAA: Madrid
+- Perfil: Soltero, 30 años, sin hijos.
+
+OUTPUTS (Resultados AEAT):
+- Base Imponible General: 0,00 €
+- Base Liquidable General: 0,00 €
+- Mínimo Personal Estatal: 5.550,00 €
+- Mínimo Personal Autonómico: 5.956,65 €
+- Cuota Íntegra Estatal: 0,00 €
+- Cuota Íntegra Autonómica: 0,00 €
+- Retenciones totales: 40,00 €
+- RESULTADO DECLARACIÓN: -40,00 € (A devolver)
+-----------------------------------------
+STATUS: 100% Coherente con Renta Web 2025.

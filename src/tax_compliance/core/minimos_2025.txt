@@ -1,0 +1,125 @@
+{
+    "estatal": {
+        "base": 5550,
+        "sup_65": 1150,
+        "sup_75": 1400,
+        "tramos_desc": [2400, 2700, 4000, 4500],
+        "u3_supp": 2800,
+        "asc_base": 1150,
+        "asc_75": 1400,
+        "desc_dis_33": 3000,
+        "desc_dis_65": 9000,
+        "asc_dis_33": 3000,
+        "needs_help": 3000
+    },
+    "andalucia": {
+        "base": 5790,
+        "sup_65": 1200,
+        "sup_75": 1460,
+        "tramos_desc": [2510, 2820, 4170, 4700],
+        "u3_supp": 2920,
+        "asc_base": 1200,
+        "asc_75": 1460,
+        "desc_dis_33": 3130,
+        "desc_dis_65": 9390,
+        "asc_dis_33": 3130,
+        "needs_help": 3130
+    },
+    "aragon": {
+        "base": 5550
+    },
+    "asturias": {
+        "base": 6105,
+        "sup_65": 1265,
+        "sup_75": 1540,
+        "tramos_desc": [2640, 2970, 4400, 4950],
+        "u3_supp": 3080,
+        "asc_base": 1265,
+        "asc_75": 1540,
+        "desc_dis_33": 3300,
+        "desc_dis_65": 9900,
+        "asc_dis_33": 3300,
+        "needs_help": 3300
+    },
+    "baleares": {
+        "base": 6105,
+        "sup_65": 1265,
+        "sup_75": 1540,
+        "tramos_desc": [2640, 2970, 4400, 4950],
+        "u3_supp": 3080,
+        "asc_base": 1265,
+        "asc_75": 1540,
+        "desc_dis_33": 3300,
+        "desc_dis_65": 9900,
+        "asc_dis_33": 3300,
+        "needs_help": 3300
+    },
+    "canarias": {
+        "base": 5606,
+        "sup_65": 1162,
+        "sup_75": 1414,
+        "tramos_desc": [2424, 2727, 4040, 4545],
+        "u3_supp": 2828,
+        "asc_base": 1162,
+        "asc_75": 1414,
+        "desc_dis_33": 3030,
+        "desc_dis_65": 9090,
+        "asc_dis_33": 3030,
+        "needs_help": 3030
+    },
+    "cantabria": {
+        "base": 5550
+    },
+    "castilla_la_mancha": {
+        "base": 5550
+    },
+    "castilla_leon": {
+        "base": 5606
+    },
+    "cataluna": {
+        "base": 5550
+    },
+    "extremadura": {
+        "base": 5550
+    },
+    "galicia": {
+        "base": 5789,
+        "sup_65": 1199,
+        "tramos_desc": [2503, 2816, 4172, 4694],
+        "u3_supp": 2920
+    },
+    "madrid": {
+        "base": 5956.65,
+        "sup_65": 1162,
+        "sup_75": 1414,
+        "tramos_desc": [2424, 2727, 4040, 4545],
+        "u3_supp": 2828,
+        "asc_base": 1162,
+        "asc_75": 1414,
+        "desc_dis_33": 3030,
+        "desc_dis_65": 9090,
+        "asc_dis_33": 3030,
+        "needs_help": 3030
+    },
+    "murcia": {
+        "base": 5550
+    },
+    "la_rioja": {
+        "base": 5606,
+        "desc_dis_65": 9900,
+        "needs_help": 3300
+    },
+    "valenciana": {
+        "base": 6105,
+        "sup_65": 1265,
+        "sup_75": 1540,
+        "tramos_desc": [2640, 2970, 4400, 4950],
+        "u3_supp": 3080,
+        "asc_base": 1265,
+        "asc_75": 1540,
+        "desc_dis_33": 3300,
+        "desc_dis_65": 9900,
+        "asc_dis_33": 3300,
+        "needs_help": 3300
+    }
+}

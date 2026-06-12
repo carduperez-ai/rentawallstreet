@@ -1,0 +1,11 @@
+flask
+openpyxl>=3.1.0
+pandas
+pdfplumber
+playwright
+PyPDF2
+pypdf
+pytest
+requests
+
+tzdata

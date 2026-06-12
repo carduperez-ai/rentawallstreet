@@ -1,0 +1,20 @@
+TEST: INC-CAS-CON-W-35K (MODALIDAD CONJUNTA - VERIFICADO)
+FECHA: 2026-05-10
+-----------------------------------------
+INPUTS (Unidad Familiar):
+- Sueldo Declarante 1: 35.000,00 € (SS: 2.222,50€, Ret: 8.750€)
+- Sueldo Declarante 2: 15.000,00 € (SS: 952,50€, Ret: 300€)
+- Reducción Conjunta (Casilla 0461): 3.400,00 €
+- CCAA: Madrid
+
+OUTPUTS (Resultados AEAT):
+- Base Imponible General: 44.825,00 €
+- Base Liquidable General: 41.425,00 €
+- Mínimo Personal (Unidad): 5.550,00 € (Estatal) / 5.956,65 € (Autonómico)
+- Cuota Íntegra Estatal: 4.987,13 €
+- Cuota Íntegra Autonómica: 4.378,98 €
+- Cuota Líquida Total: 9.366,11 €
+- Retenciones Totales: 9.050,00 €
+- RESULTADO DECLARACIÓN: 316,11 € (A ingresar)
+-----------------------------------------
+STATUS: 100% Coherente con Renta Web 2025.

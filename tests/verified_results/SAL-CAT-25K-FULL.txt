@@ -1,0 +1,22 @@
+TEST: SAL-CAT-25K-FULL (CATALUÑA COMPLETO - VERIFICADO)
+FECHA: 2026-05-10
+-----------------------------------------
+INPUTS (Entradas):
+- Sueldo Bruto: 25.000,00 € (SS: 1.587,50€, Ret: 3.500€)
+- Dividendos: 2.000,00 € (Ret: 380,00 €)
+- Ganancia Acciones: 5.000,00 € (Venta 15k / Compra 10k)
+- Ganancia Cryptos: 3.000,00 € (Venta 8k / Compra 5k)
+- CCAA: Cataluña
+- Perfil: Soltero, 30 años, sin hijos.
+
+OUTPUTS (Resultados AEAT):
+- Base Imponible General: 21.412,50 €
+- Base Imponible Ahorro: 10.000,00 €
+- Mínimo Personal (Estatal/Autonómico): 5.550,00 €
+- Cuota Íntegra Estatal: 2.757,38 €
+- Cuota Íntegra Autonómica (Cataluña): 2.764,31 €
+- Cuota Líquida Total: 5.521,69 €
+- Retenciones totales: 3.880,00 €
+- RESULTADO DECLARACIÓN: 1.641,69 € (A ingresar)
+-----------------------------------------
+STATUS: 100% Coherente con Renta Web 2025.

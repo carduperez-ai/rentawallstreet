@@ -1,0 +1,23 @@
+TEST: INC-IND-DIS-67Y-30K (DISCAPACIDAD Y EDAD - VERIFICADO)
+FECHA: 2026-05-10
+-----------------------------------------
+INPUTS (Entradas):
+- Sueldo/Pensión Bruta: 30.000,00 €
+- Retenciones: 45.000,00 €
+- Edad: 67 años
+- Discapacidad: 33% (Grado entre 33% y 65%)
+- CCAA: Madrid
+- Perfil: Soltero, sin hijos.
+
+OUTPUTS (Resultados AEAT):
+- Base Imponible General: 28.000,00 € (Tras gastos de 2.000€)
+- Base Liquidable General: 28.000,00 €
+- Mínimo Personal y Familiar Estatal: 9.700,00 € (5550 + 1150 + 3000)
+- Mínimo Personal y Familiar Autonómico (Madrid): 10.410,72 € (Deflactado)
+- Cuota Íntegra Estatal: 2.361,25 €
+- Cuota Íntegra Autonómica: 2.006,03 €
+- Cuota Líquida Total: 4.367,28 €
+- Retenciones totales: 4.500,00 €
+- RESULTADO DECLARACIÓN: -132,72 € (A devolver)
+-----------------------------------------
+STATUS: 100% Coherente con Renta Web 2025.
