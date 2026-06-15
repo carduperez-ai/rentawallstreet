@@ -1,11 +1,11 @@
 from decimal import Decimal
-from typing import List
-from datetime import datetime
+from typing import List, Sequence
 import dataclasses
 
-from src.domain.crypto_entities import Trade, TaxEvent
 from src.accounting.fifo_calculator_stock import TaxEngine as CryptoTaxEngine
 from src.accounting.stock_calculator import StockTaxEngine
+from src.domain.shared_types import AnyTrade
+
 
 class InterwalletController:
     """
@@ -14,7 +14,8 @@ class InterwalletController:
     2. Ejecuta el Motor FIFO desde el año cero para obtener el historial inmutable.
     3. Aplica la Regla Anti-Lavado y el Desbloqueo Forense sin mutar el motor.
     """
-    def __init__(self, raw_crypto_trades: List, raw_stock_trades: List):
+
+    def __init__(self, raw_crypto_trades: Sequence[AnyTrade], raw_stock_trades: Sequence[AnyTrade]):
         self.raw_crypto_trades = raw_crypto_trades
         self.raw_stock_trades = raw_stock_trades
         self.crypto_warnings = []
@@ -29,76 +30,82 @@ class InterwalletController:
         crypto_tax_events = self._run_historical_simulation(
             crypto_trades, is_crypto=True, target_year=target_fiscal_year
         )
-        
+
         stock_tax_events = self._run_historical_simulation(
             stock_trades, is_crypto=False, target_year=target_fiscal_year
         )
-        
+
         return crypto_tax_events, stock_tax_events
 
-    def _filter_interwallet_transfers(self, trades: List, is_crypto: bool = True) -> List:
-        trades_sorted = sorted(trades, key=lambda x: getattr(x, 'date'))
+    def _filter_interwallet_transfers(self, trades: Sequence[AnyTrade], is_crypto: bool = True) -> List[AnyTrade]:
+        trades_sorted = sorted(trades, key=lambda x: x.date)
         unmatched_withdraws = []
         unmatched_deposits = []
         final_trades = []
 
         for trade in trades_sorted:
-            d = getattr(trade, 'direction', '')
-            if d == "withdraw": unmatched_withdraws.append(trade)
-            elif d == "deposit": unmatched_deposits.append(trade)
-            else: final_trades.append(trade)
+            d = getattr(trade, "direction", "")
+            if d == "withdraw":
+                unmatched_withdraws.append(trade)
+            elif d == "deposit":
+                unmatched_deposits.append(trade)
+            else:
+                final_trades.append(trade)
 
         for deposit in list(unmatched_deposits):
             matched = False
             for withdraw in list(unmatched_withdraws):
-                if getattr(deposit, 'asset') == getattr(withdraw, 'asset') and \
-                   abs((getattr(deposit, 'date') - getattr(withdraw, 'date')).total_seconds()) <= 86400:
-                    q_dep = getattr(deposit, 'quantity', Decimal('0'))
-                    q_wit = getattr(withdraw, 'quantity', Decimal('0'))
-                    
+                if deposit.asset == withdraw.asset and abs((deposit.date - withdraw.date).total_seconds()) <= 86400:
+                    q_dep = getattr(deposit, "quantity", Decimal("0"))
+                    q_wit = getattr(withdraw, "quantity", Decimal("0"))
+
                     if q_dep <= q_wit:
                         diff = q_wit - q_dep
-                        if diff > Decimal('0'):
+                        if diff > Decimal("0"):
                             # Diferencia = Network fee
                             fee_trade = dataclasses.replace(
                                 withdraw,
                                 quantity=diff,
-                                value_eur=Decimal('0'),
-                                fee_eur=Decimal('0'),
-                                notes="NETWORK_FEE (Traspaso)"
+                                value_eur=Decimal("0"),
+                                fee_eur=Decimal("0"),
+                                notes="NETWORK_FEE (Traspaso)",
                             )
                             final_trades.append(fee_trade)
-                        
+
                         unmatched_withdraws.remove(withdraw)
                         unmatched_deposits.remove(deposit)
                         matched = True
                         break
             if not matched:
-                is_income = any(kw in (getattr(deposit, 'notes', '') or '').upper() for kw in ['AIRDROP', 'MINING', 'INCOME', 'REWARD', 'STAKING'])
+                is_income = any(
+                    kw in (getattr(deposit, "notes", "") or "").upper()
+                    for kw in ["AIRDROP", "MINING", "INCOME", "REWARD", "STAKING"]
+                )
                 if not is_income:
                     # Anulamos el valor para que el motor FIFO le asigne coste 0 (Art. 34 LIRPF)
-                    modified_deposit = dataclasses.replace(deposit, value_eur=Decimal('0'))
-                    
+                    modified_deposit = dataclasses.replace(deposit, value_eur=Decimal("0"))
+
                     if is_crypto:
                         self.crypto_warnings.append(
-                            f"⚠️ TRASPASO CIEGO: Asignado coste 0.00€ al depósito de {getattr(modified_deposit, 'quantity')} {getattr(modified_deposit, 'asset')} el {getattr(modified_deposit, 'date').strftime('%d/%m/%Y')} (Art. 34 LIRPF). "
-                            f"Nota: {getattr(modified_deposit, 'notes')}. Unifica el historial completo para arrastrar el coste real."
+                            f"⚠️ TRASPASO CIEGO: Asignado coste 0.00€ al depósito de {modified_deposit.quantity} {modified_deposit.asset} el {modified_deposit.date.strftime('%d/%m/%Y')} (Art. 34 LIRPF). "
+                            f"Nota: {modified_deposit.notes}. Unifica el historial completo para arrastrar el coste real."
                         )
                     else:
                         self.stock_warnings.append(
-                            f"⚠️ TRASPASO CIEGO BURSÁTIL: Asignado coste 0.00€ al depósito de {getattr(modified_deposit, 'quantity')} {getattr(modified_deposit, 'asset')} el {getattr(modified_deposit, 'date').strftime('%d/%m/%Y')} (Art. 34 LIRPF). "
-                            f"Nota: {getattr(modified_deposit, 'notes')}. Unifica el historial de tus brokers."
+                            f"⚠️ TRASPASO CIEGO BURSÁTIL: Asignado coste 0.00€ al depósito de {modified_deposit.quantity} {modified_deposit.asset} el {modified_deposit.date.strftime('%d/%m/%Y')} (Art. 34 LIRPF). "
+                            f"Nota: {modified_deposit.notes}. Unifica el historial de tus brokers."
                         )
                     final_trades.append(modified_deposit)
                 else:
                     final_trades.append(deposit)
 
         final_trades.extend(unmatched_withdraws)
-        return sorted(final_trades, key=lambda x: getattr(x, 'date'))
+        return sorted(final_trades, key=lambda x: x.date)
 
-    def _run_historical_simulation(self, trades: List, is_crypto: bool, target_year: int) -> List:
-        if not trades: return []
-        
+    def _run_historical_simulation(self, trades: Sequence[AnyTrade], is_crypto: bool, target_year: int) -> List:
+        if not trades:
+            return []
+
         # El engine ya procesa todos los trades desde el origen, y guarda en 'tax_events'
         # SOLO los eventos correspondientes a 'self.tax_year'.
         # No necesitamos iterar todos los años si solo nos interesa el target_year.
@@ -106,24 +113,24 @@ class InterwalletController:
             engine = CryptoTaxEngine(tax_year=target_year)
         else:
             engine = StockTaxEngine(tax_year=target_year)
-            
+
         engine.process_trades(trades)
-        
+
         # Regla Anti-Aplicación (Wash Sales):
         # CRÍTICO: WASH SALES NO APLICA A CRYPTOS (DGT V1604-23). Venta con pérdida es plenamente deducible.
         # No bloquear ni alterar en absoluto la lógica del motor cripto respecto a este punto.
         # 2. Acciones: APLICA. Usamos el escáner de alta fidelidad.
         if not is_crypto:
-            if hasattr(engine, 'apply_wash_sale_rules'):
+            if hasattr(engine, "apply_wash_sale_rules"):
                 engine.apply_wash_sale_rules()
-                
-        if is_crypto:
-            self.crypto_warnings.extend(getattr(engine, 'warnings', []))
-        else:
-            self.stock_warnings.extend(getattr(engine, 'warnings', []))
 
-        final_events = getattr(engine, 'tax_events', [])
-        final_events.sort(key=lambda x: getattr(x, 'date'))
+        if is_crypto:
+            self.crypto_warnings.extend(getattr(engine, "warnings", []))
+        else:
+            self.stock_warnings.extend(getattr(engine, "warnings", []))
+
+        final_events = getattr(engine, "tax_events", [])
+        final_events.sort(key=lambda x: x.date)
         return final_events
 
     def _scale_tax_event(self, te, ratio: Decimal):
@@ -132,12 +139,20 @@ class InterwalletController:
         o el coste cuando el Wash Sale Scanner divide la venta.
         """
         import dataclasses
+
         cambios = {}
         # Campos monetarios susceptibles de estar en Stock o Crypto
         fields = [
-            'quantity_sold', 'acquisition_cost_eur', 'sale_proceeds_eur',
-            'buy_fee_eur', 'sell_fee_eur', 'fee_eur', 'gain_loss_eur',
-            'total_sale_eur', 'total_cost_eur', 'gain_loss_eur_effective'
+            "quantity_sold",
+            "acquisition_cost_eur",
+            "sale_proceeds_eur",
+            "buy_fee_eur",
+            "sell_fee_eur",
+            "fee_eur",
+            "gain_loss_eur",
+            "total_sale_eur",
+            "total_cost_eur",
+            "gain_loss_eur_effective",
         ]
         for f in fields:
             if hasattr(te, f):
@@ -147,5 +162,5 @@ class InterwalletController:
                     val = getattr(te, f)
                     if isinstance(val, Decimal):
                         cambios[f] = val * ratio
-                        
+
         return dataclasses.replace(te, **cambios)

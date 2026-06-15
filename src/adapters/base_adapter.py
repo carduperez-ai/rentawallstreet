@@ -5,8 +5,9 @@ Contrato base para todos los adaptadores de plataforma.
 Implementa el principio Open/Closed: para añadir una nueva plataforma
 se crea un archivo nuevo heredando de BaseAdapter, sin tocar el UniversalReader.
 """
+
 from abc import ABC, abstractmethod
-from typing import Tuple, List, TYPE_CHECKING
+from typing import Tuple, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from src.ingestion.file_classifier import FileMetadata

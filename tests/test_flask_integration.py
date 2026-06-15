@@ -3,14 +3,15 @@
 Suite de pruebas de integración para certificar el servidor Flask.
 Cubre la serialización de DTOs, el flujo de reanudación y la mitigación IDOR.
 """
+
 import unittest
 from datetime import datetime
 from decimal import Decimal
-from flask import session
 
 # Asegurar que el path del proyecto está configurado
 import sys
 import pathlib
+
 ROOT = pathlib.Path(__file__).parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
@@ -22,7 +23,7 @@ from main import (
     _stock_event_to_dict,
     _dict_to_stock_event,
     _dividend_to_dict,
-    _dict_to_dividend
+    _dict_to_dividend,
 )
 from src.domain.crypto_entities import TaxEvent as CryptoTaxEvent
 from src.domain.stock_entities import TaxEvent as StockTaxEvent
@@ -32,8 +33,8 @@ from src.domain.fiscal_entities import Dividend
 class TestFlaskIntegration(unittest.TestCase):
     def setUp(self):
         self.app = app
-        self.app.config['TESTING'] = True
-        self.app.config['SECRET_KEY'] = 'test-secret-key-1234'
+        self.app.config["TESTING"] = True
+        self.app.config["SECRET_KEY"] = "test-secret-key-1234"
         self.client = self.app.test_client()
 
     def test_dto_serialization_crypto(self):
@@ -59,7 +60,7 @@ class TestFlaskIntegration(unittest.TestCase):
             is_wash_sale=False,
             total_sale_eur=Decimal("14982.50"),
             total_cost_eur=Decimal("12016.00"),
-            gain_loss_eur_effective=Decimal("2966.50")
+            gain_loss_eur_effective=Decimal("2966.50"),
         )
 
         d = _crypto_event_to_dict(orig)
@@ -105,7 +106,7 @@ class TestFlaskIntegration(unittest.TestCase):
             gain_loss_eur=Decimal("294.50"),
             notes="Venta parcial de acciones",
             is_wash_sale=False,
-            source_module="mainstock"
+            source_module="mainstock",
         )
 
         d = _stock_event_to_dict(orig)
@@ -140,7 +141,7 @@ class TestFlaskIntegration(unittest.TestCase):
             withholding_spain_eur=Decimal("28.50"),
             country="US",
             type="dividend",
-            custody_fee_eur=Decimal("0.50")
+            custody_fee_eur=Decimal("0.50"),
         )
 
         d = _dividend_to_dict(orig)
@@ -160,31 +161,31 @@ class TestFlaskIntegration(unittest.TestCase):
     def test_idor_mitigation_download_audit_denied(self):
         """Valida que download_audit deniegue el acceso si no hay cookies de sesión válidas."""
         # Intento 1: Sin cookies en absoluto
-        resp = self.client.get('/download_audit/some-random-session-hash-12345')
+        resp = self.client.get("/download_audit/some-random-session-hash-12345")
         self.assertEqual(resp.status_code, 302)  # Debe redirigir con un flash
-        self.assertTrue(resp.headers['Location'].endswith('/'))
+        self.assertTrue(resp.headers["Location"].endswith("/"))
 
         # Intento 2: Con hash vacío o nulo
-        resp_empty = self.client.get('/download_audit/')
+        resp_empty = self.client.get("/download_audit/")
         # Debe dar error 404 de Flask o redirigir
         self.assertIn(resp_empty.status_code, (404, 302))
 
     def test_idor_mitigation_download_audit_with_forged_hash(self):
         """Valida que un usuario logueado con hash de sesión A no pueda descargar el hash B de otro usuario."""
         with self.client.session_transaction() as sess:
-            sess['review_session_hash'] = 'session-owner-hash'
-            sess['completed_session_hash'] = 'session-completed-hash'
+            sess["review_session_hash"] = "session-owner-hash"
+            sess["completed_session_hash"] = "session-completed-hash"
 
         # Acceder al hash correcto debe pasar la validación IDOR (dando 404 porque el archivo ZIP no existe físicamente en el test)
-        resp_allowed = self.client.get('/download_audit/session-owner-hash')
+        resp_allowed = self.client.get("/download_audit/session-owner-hash")
         self.assertEqual(resp_allowed.status_code, 302)
         # No redirige al index, sino que intenta buscar el archivo y al no existir hace flash "El paquete solicitado no existe"
         # y redirige a la página principal '/'. Miremos que no dé "Acceso denegado (Mitigación IDOR)".
-        
+
         # Acceder a un hash falsificado/ajeno de otro usuario
-        resp_forbidden = self.client.get('/download_audit/session-forged-hash-of-other-user')
+        resp_forbidden = self.client.get("/download_audit/session-forged-hash-of-other-user")
         self.assertEqual(resp_forbidden.status_code, 302)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

@@ -1,13 +1,11 @@
-
 import json
-import os
 
 
 def update_oracle_json():
     json_path = "c:/rentawallstreet/tests/oracle_generator/irpf_oracle_tests.json"
     with open(json_path, "r", encoding="utf-8") as f:
         cases = json.load(f)
-    
+
     # Mapeo de resultados reales extraídos (Estructura Extendida 25 campos)
     real_data = {
         "SAL-MAD-17K": {
@@ -35,7 +33,7 @@ def update_oracle_json():
             "deduccion_ascendientes_discapacidad": 0.0,
             "deduccion_conyuge_discapacidad": 0.0,
             "deduccion_familia_numerosa": 0.0,
-            "deduccion_ascendiente_2_hijos": 0.0
+            "deduccion_ascendiente_2_hijos": 0.0,
         },
         "SAL-AND-2K": {
             "resultado_declaracion": -40.0,
@@ -62,7 +60,7 @@ def update_oracle_json():
             "deduccion_ascendientes_discapacidad": 0.0,
             "deduccion_conyuge_discapacidad": 0.0,
             "deduccion_familia_numerosa": 0.0,
-            "deduccion_ascendiente_2_hijos": 0.0
+            "deduccion_ascendiente_2_hijos": 0.0,
         },
         "SAL-AND-14K": {
             "resultado_declaracion": -297.04,
@@ -89,7 +87,7 @@ def update_oracle_json():
             "deduccion_ascendientes_discapacidad": 0.0,
             "deduccion_conyuge_discapacidad": 0.0,
             "deduccion_familia_numerosa": 0.0,
-            "deduccion_ascendiente_2_hijos": 0.0
+            "deduccion_ascendiente_2_hijos": 0.0,
         },
         "SAL-AND-17K": {
             "resultado_declaracion": -902.29,
@@ -116,7 +114,7 @@ def update_oracle_json():
             "deduccion_ascendientes_discapacidad": 0.0,
             "deduccion_conyuge_discapacidad": 0.0,
             "deduccion_familia_numerosa": 0.0,
-            "deduccion_ascendiente_2_hijos": 0.0
+            "deduccion_ascendiente_2_hijos": 0.0,
         },
         "SAL-AND-19K": {
             "resultado_declaracion": -72.94,
@@ -143,7 +141,7 @@ def update_oracle_json():
             "deduccion_ascendientes_discapacidad": 0.0,
             "deduccion_conyuge_discapacidad": 0.0,
             "deduccion_familia_numerosa": 0.0,
-            "deduccion_ascendiente_2_hijos": 0.0
+            "deduccion_ascendiente_2_hijos": 0.0,
         },
         "SAL-AND-22K": {
             "resultado_declaracion": -548.83,
@@ -170,7 +168,7 @@ def update_oracle_json():
             "deduccion_ascendientes_discapacidad": 0.0,
             "deduccion_conyuge_discapacidad": 0.0,
             "deduccion_familia_numerosa": 0.0,
-            "deduccion_ascendiente_2_hijos": 0.0
+            "deduccion_ascendiente_2_hijos": 0.0,
         },
         "SAL-AND-60K": {
             "resultado_declaracion": -6366.25,
@@ -197,7 +195,7 @@ def update_oracle_json():
             "deduccion_ascendientes_discapacidad": 0.0,
             "deduccion_conyuge_discapacidad": 0.0,
             "deduccion_familia_numerosa": 0.0,
-            "deduccion_ascendiente_2_hijos": 0.0
+            "deduccion_ascendiente_2_hijos": 0.0,
         },
         "SAL-AND-300K": {
             "resultado_declaracion": 16993.45,
@@ -224,20 +222,20 @@ def update_oracle_json():
             "deduccion_ascendientes_discapacidad": 0.0,
             "deduccion_conyuge_discapacidad": 0.0,
             "deduccion_familia_numerosa": 0.0,
-            "deduccion_ascendiente_2_hijos": 0.0
-        }
+            "deduccion_ascendiente_2_hijos": 0.0,
+        },
         # Añadir más casos aquí con la misma estructura
     }
-    
+
     updated_count = 0
     for case in cases:
         if case["name"] in real_data:
             case["expected_results"].update(real_data[case["name"]])
             updated_count += 1
-            
+
     with open(json_path, "w", encoding="utf-8") as f:
         json.dump(cases, f, indent=2, ensure_ascii=False)
-    
+
     print(f"Actualizados {updated_count} casos con esquema extendido en el Oráculo.")
 
 

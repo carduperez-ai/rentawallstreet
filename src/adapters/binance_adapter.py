@@ -1,8 +1,9 @@
 """
 src/adapters/binance_adapter.py
 """
+
 import logging
-from typing import Tuple, List
+from typing import Tuple
 
 from src.adapters.base_adapter import BaseAdapter
 from src.ingestion.binance_reader import BinanceIngestor

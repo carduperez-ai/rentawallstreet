@@ -5,17 +5,53 @@ from src.tax_compliance.regions.base_profile import RegionalFiscalProfileBase
 from .scale import MadridRegion
 from .deductor import MadridDeductor
 
+
 class MadridFiscalProfile(RegionalFiscalProfileBase):
-    def get_general_scale(self) -> List[Tuple[Decimal, Decimal]]: return MadridRegion.get_general_scale() if hasattr(MadridRegion, 'get_general_scale') else []
-    def get_savings_scale(self) -> List[Tuple[Decimal, Decimal]]: return MadridRegion.get_savings_scale() if hasattr(MadridRegion, 'get_savings_scale') else []
-    def get_personal_minimum(self) -> Decimal: return MadridRegion.get_personal_minimum() if hasattr(MadridRegion, 'get_personal_minimum') else Decimal('5550')
-    def get_age_supplements(self) -> Tuple[Decimal, Decimal]: return MadridRegion.get_age_supplements() if hasattr(MadridRegion, 'get_age_supplements') else (Decimal('1150'), Decimal('1400'))
-    def get_descendants_brackets(self) -> List[Decimal]: return MadridRegion.get_descendants_brackets() if hasattr(MadridRegion, 'get_descendants_brackets') else [Decimal('2400'), Decimal('2700'), Decimal('4000'), Decimal('4500')]
-    def get_descendants_under3(self) -> Decimal: return MadridRegion.get_descendants_under3() if hasattr(MadridRegion, 'get_descendants_under3') else Decimal('2800')
-    def get_disability_limits(self) -> Tuple[Decimal, Decimal, Decimal]: return MadridRegion.get_disability_limits() if hasattr(MadridRegion, 'get_disability_limits') else (Decimal('3000'), Decimal('9000'), Decimal('3000'))
-    
-    def calculate_deductions(self, profile: TaxpayerProfile, base_general: Decimal, base_ahorro: Decimal) -> Dict[str, Decimal]:
+    def get_general_scale(self) -> List[Tuple[Decimal, Decimal]]:
+        return MadridRegion.get_general_scale() if hasattr(MadridRegion, "get_general_scale") else []
+
+    def get_savings_scale(self) -> List[Tuple[Decimal, Decimal]]:
+        return MadridRegion.get_savings_scale() if hasattr(MadridRegion, "get_savings_scale") else []
+
+    def get_personal_minimum(self) -> Decimal:
+        return MadridRegion.get_personal_minimum() if hasattr(MadridRegion, "get_personal_minimum") else Decimal("5550")
+
+    def get_age_supplements(self) -> Tuple[Decimal, Decimal]:
+        return (
+            MadridRegion.get_age_supplements()
+            if hasattr(MadridRegion, "get_age_supplements")
+            else (Decimal("1150"), Decimal("1400"))
+        )
+
+    def get_descendants_brackets(self) -> List[Decimal]:
+        return (
+            MadridRegion.get_descendants_brackets()
+            if hasattr(MadridRegion, "get_descendants_brackets")
+            else [Decimal("2400"), Decimal("2700"), Decimal("4000"), Decimal("4500")]
+        )
+
+    def get_descendants_under3(self) -> Decimal:
+        return (
+            MadridRegion.get_descendants_under3()
+            if hasattr(MadridRegion, "get_descendants_under3")
+            else Decimal("2800")
+        )
+
+    def get_disability_limits(self) -> Tuple[Decimal, Decimal, Decimal]:
+        return (
+            MadridRegion.get_disability_limits()
+            if hasattr(MadridRegion, "get_disability_limits")
+            else (Decimal("3000"), Decimal("9000"), Decimal("3000"))
+        )
+
+    def calculate_deductions(
+        self, profile: TaxpayerProfile, base_general: Decimal, base_ahorro: Decimal
+    ) -> Dict[str, Decimal]:
         try:
             return MadridDeductor(profile, base_general, base_ahorro).calculate_all()
         except TypeError:
-            return MadridDeductor().calculate_all(profile, base_general, base_ahorro) if hasattr(MadridDeductor, 'calculate_all') else {}
+            return (
+                MadridDeductor().calculate_all(profile, base_general, base_ahorro)
+                if hasattr(MadridDeductor, "calculate_all")
+                else {}
+            )

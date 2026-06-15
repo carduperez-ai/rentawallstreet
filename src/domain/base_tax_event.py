@@ -10,6 +10,7 @@ class BaseTaxEvent(Protocol):
     Permite que IRPFCalculator y reporting procesen listas heterogéneas sin
     acoplar el tipo concreto de cada motor.
     """
+
     date: datetime
     asset: str
     gain_loss_eur: Decimal

@@ -7,13 +7,13 @@ with sync_playwright() as p:
     page.wait_for_load_state("networkidle")
     page.locator("button:has-text('Nueva declaración')").first.click()
     page.wait_for_timeout(2000)
-    
-    html = page.evaluate('''() => {
+
+    html = page.evaluate("""() => {
         let spans = Array.from(document.querySelectorAll('span'));
         let target = spans.find(s => s.innerText.includes('Estado Civil'));
         if (!target) return 'No span found';
         return target.parentElement.parentElement.innerHTML;
-    }''')
+    }""")
     print("DOM of Estado Civil container:")
     print(html)
     browser.close()

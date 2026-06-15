@@ -1,85 +1,126 @@
 import os
 import requests
 import csv
-from datetime import datetime
+import sqlite3
+from datetime import datetime, timedelta
 from decimal import Decimal
-from typing import Dict, Optional
+
 
 class StockBCEOracle:
     """
     Oráculo de tipos de cambio oficiales del BCE para el ecosistema de Acciones.
-    Incluye persistencia en caché local para auditoría.
+    Incluye persistencia en SQLite para evitar rate limiting y reducir memoria.
     """
-    
+
     CSV_URL = "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.csv"
-    CACHE_FILE = "stock_bce_rates_cache.csv"
-    
+    DB_FILE = "bce_rates.db"
+
     def __init__(self, cache_dir: str = "."):
-        self.cache_path = os.path.join(cache_dir, self.CACHE_FILE)
-        self.rates: Dict[str, Dict[str, Decimal]] = {}
+        self.db_path = os.path.join(cache_dir, self.DB_FILE)
+        self._init_db()
         self._load_cache()
-        
+
+    def _init_db(self):
+        with sqlite3.connect(self.db_path) as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS rates (
+                    date TEXT,
+                    currency TEXT,
+                    rate REAL,
+                    PRIMARY KEY (date, currency)
+                )
+            """)
+            conn.commit()
+
     def _load_cache(self):
-        """Carga el historial desde el archivo local o descarga si no existe."""
-        if not os.path.exists(self.cache_path):
-            self._update_cache()
-            
-        try:
-            with open(self.cache_path, mode='r', encoding='utf-8') as f:
-                reader = csv.DictReader(f)
-                for row in reader:
-                    date_str = row['Date']
-                    self.rates[date_str] = {k: Decimal(v) for k, v in row.items() if k != 'Date' and v and v != 'N/A'}
-        except Exception as e:
-            print(f"  [!] Error leyendo caché de tipos de cambio: {e}")
+        """Descarga si la BD está vacía."""
+        with sqlite3.connect(self.db_path) as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT COUNT(*) FROM rates")
+            if cursor.fetchone()[0] == 0:
+                self._update_cache()
 
     def _update_cache(self):
-        """Descarga masiva de tipos de cambio desde el servidor oficial del BCE."""
-        print(f"  [STOCK-ORACLE] Descargando tipos de cambio oficiales del BCE...")
+        """Descarga masiva de tipos de cambio y guarda en SQLite."""
+        import logging
+
+        logging.info("  [STOCK-ORACLE] Descargando tipos de cambio oficiales del BCE a SQLite...")
         try:
             response = requests.get(self.CSV_URL, timeout=15)
             if response.status_code == 200:
-                with open(self.cache_path, 'wb') as f:
-                    f.write(response.content)
-                print(f"  [OK] Cache de tipos de cambio guardada en {self.CACHE_FILE}")
+                content = response.content.decode("utf-8").splitlines()
+                reader = csv.DictReader(content)
+                data_to_insert = []
+                for row in reader:
+                    date_str = row["Date"]
+                    for curr, rate in row.items():
+                        if curr != "Date" and rate and rate != "N/A":
+                            data_to_insert.append((date_str, curr, float(rate)))
+
+                with sqlite3.connect(self.db_path) as conn:
+                    cursor = conn.cursor()
+                    cursor.executemany(
+                        """
+                        INSERT OR IGNORE INTO rates (date, currency, rate)
+                        VALUES (?, ?, ?)
+                    """,
+                        data_to_insert,
+                    )
+                    conn.commit()
+                logging.info(f"  [OK] Tipos de cambio guardados en SQLite {self.DB_FILE}")
             else:
-                print(f"  [!] Fallo en descarga BCE: {response.status_code}")
+                logging.error(f"  [!] Fallo en descarga BCE: {response.status_code}")
         except Exception as e:
-            print(f"  [!] Error de conexion con servidor BCE: {e}")
+            logging.error(f"  [!] Error de conexion con servidor BCE: {e}")
 
     def get_rate(self, date: datetime, currency: str) -> Decimal:
         """
         Devuelve el tipo de cambio oficial para una fecha y moneda.
-        Realiza búsqueda retrospectiva y fallback a API Frankfurter.
+        Realiza búsqueda retrospectiva en SQLite y fallback a API Frankfurter.
         """
         if currency == "EUR" or not currency:
-            return Decimal('1.0')
-            
+            return Decimal("1.0")
+
         currency = currency.upper().strip()
-        d_str = date.strftime('%Y-%m-%d')
-        
-        # 1. Intentar desde memoria/caché
-        from datetime import timedelta
-        for offset in range(8):
-            current_date = date - timedelta(days=offset)
-            curr_str = current_date.strftime('%Y-%m-%d')
-            if curr_str in self.rates and currency in self.rates[curr_str]:
-                return self.rates[curr_str][currency]
-            
-        # 2. Fallback: Petición puntual a Frankfurter API (Datos BCE)
+
+        with sqlite3.connect(self.db_path) as conn:
+            cursor = conn.cursor()
+
+            for offset in range(8):
+                current_date = date - timedelta(days=offset)
+                d_str = current_date.strftime("%Y-%m-%d")
+
+                cursor.execute("SELECT rate FROM rates WHERE date = ? AND currency = ?", (d_str, currency))
+                row = cursor.fetchone()
+                if row:
+                    return Decimal(str(row[0]))
+
+        # 2. Fallback: Petición puntual a Frankfurter API
+        d_str = date.strftime("%Y-%m-%d")
         try:
             url = f"https://api.frankfurter.app/{d_str}?to={currency}"
             response = requests.get(url, timeout=5)
             if response.status_code == 200:
                 data = response.json()
-                rate = Decimal(str(data['rates'][currency]))
-                # Guardar en memoria para evitar peticiones repetidas
-                if d_str not in self.rates: self.rates[d_str] = {}
-                self.rates[d_str][currency] = rate
+                rate = Decimal(str(data["rates"][currency]))
+                with sqlite3.connect(self.db_path) as conn:
+                    cursor = conn.cursor()
+                    cursor.execute(
+                        """
+                        INSERT OR IGNORE INTO rates (date, currency, rate)
+                        VALUES (?, ?, ?)
+                    """,
+                        (d_str, currency, float(rate)),
+                    )
+                    conn.commit()
                 return rate
         except Exception as e:
-            print(f"  [!] Fallo fallback Frankfurter para {d_str}: {e}")
-            
-        # Sin fallback silencioso: avisar y retornar None
-        print(f"  ⚠️ StockBCE: Tipo de cambio no encontrado para {currency} en {d_str}.")
+            import logging
+
+            logging.error(f"  [!] Fallo fallback Frankfurter para {d_str}: {e}")
+
+        import logging
+
+        logging.warning(f"  ⚠️ StockBCE: Tipo de cambio no encontrado para {currency} en {d_str}.")
         return None

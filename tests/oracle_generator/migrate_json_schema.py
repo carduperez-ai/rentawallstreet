@@ -1,6 +1,6 @@
-
 import json
 import os
+
 
 def migrate_json(file_path):
     if not os.path.exists(file_path):
@@ -35,7 +35,7 @@ def migrate_json(file_path):
         "deduccion_ascendientes_discapacidad": 0.0,
         "deduccion_conyuge_discapacidad": 0.0,
         "deduccion_familia_numerosa": 0.0,
-        "deduccion_ascendiente_2_hijos": 0.0
+        "deduccion_ascendiente_2_hijos": 0.0,
     }
 
     updated_count = 0
@@ -44,26 +44,27 @@ def migrate_json(file_path):
             # Preserve existing values if keys match, otherwise add new ones
             current_results = case["expected_results"]
             updated_results = new_results_template.copy()
-            
+
             # Special mapping for old keys if necessary
             # (In this case, most keys match or will be overwritten with 0.0)
             for k, v in current_results.items():
                 if k in updated_results:
                     updated_results[k] = v
-            
+
             case["expected_results"] = updated_results
             updated_count += 1
 
     with open(file_path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
-    
+
     print(f"Migrated {updated_count} cases in {file_path}")
+
 
 if __name__ == "__main__":
     files_to_migrate = [
         "c:/rentawallstreet/tests/oracle_generator/irpf_oracle_tests.json",
         "c:/rentawallstreet/tests/oracle_generator/smoke_tests.json",
-        "c:/rentawallstreet/tests/oracle_generator/temp_test.json"
+        "c:/rentawallstreet/tests/oracle_generator/temp_test.json",
     ]
     for file in files_to_migrate:
         migrate_json(file)

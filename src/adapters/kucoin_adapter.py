@@ -1,6 +1,7 @@
 """
 src/adapters/kucoin_adapter.py
 """
+
 import logging
 from typing import Tuple
 

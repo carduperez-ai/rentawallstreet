@@ -1,7 +1,8 @@
 from playwright.sync_api import sync_playwright
+
 try:
     with sync_playwright() as p:
-        browser = p.chromium.connect_over_cdp('http://127.0.0.1:9222')
+        browser = p.chromium.connect_over_cdp("http://127.0.0.1:9222")
         page = browser.contexts[0].pages[0]
         buttons = page.evaluate("""() => 
             Array.from(document.querySelectorAll('button'))

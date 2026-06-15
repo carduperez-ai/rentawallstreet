@@ -9,19 +9,20 @@ try:
     import openpyxl
     from openpyxl.styles import Font, PatternFill, Alignment
     from openpyxl.utils import get_column_letter
+
     HAS_OPENPYXL = True
 except ImportError:
     HAS_OPENPYXL = False
 
 
 # ─── Colores corporativos ─────────────────────────────────────────────────────
-COLOR_HEADER   = "1F4E79"   # azul oscuro
-COLOR_SUBHEAD  = "2E75B6"   # azul medio
-COLOR_GAIN     = "C6EFCE"   # verde claro
-COLOR_LOSS     = "FFC7CE"   # rojo claro
-COLOR_NEUTRAL  = "DDEBF7"   # azul muy claro
-COLOR_TOTAL    = "FFF2CC"   # amarillo suave
-COLOR_WHITE    = "FFFFFF"
+COLOR_HEADER = "1F4E79"  # azul oscuro
+COLOR_SUBHEAD = "2E75B6"  # azul medio
+COLOR_GAIN = "C6EFCE"  # verde claro
+COLOR_LOSS = "FFC7CE"  # rojo claro
+COLOR_NEUTRAL = "DDEBF7"  # azul muy claro
+COLOR_TOTAL = "FFF2CC"  # amarillo suave
+COLOR_WHITE = "FFFFFF"
 
 
 def _eur(val: float) -> str:
@@ -29,6 +30,7 @@ def _eur(val: float) -> str:
 
 
 # ─── Informe de consola ───────────────────────────────────────────────────────
+
 
 def print_console_report(calc: IRPFCalculator):
     s = calc.summary()
@@ -85,6 +87,7 @@ def print_console_report(calc: IRPFCalculator):
 
 
 # ─── Informe Excel ────────────────────────────────────────────────────────────
+
 
 def generate_excel_report(calc: IRPFCalculator, output_path: str):
     """Genera un fichero Excel con el informe completo."""
@@ -145,33 +148,53 @@ def _sheet_resumen(wb, calc: IRPFCalculator):
     ws.merge_cells("A1:C1")
 
     sections = [
-        ("RENDIMIENTOS DEL TRABAJO", COLOR_SUBHEAD, [
-            ("Rendimiento íntegro",          s["rendimiento_trabajo_bruto"]),
-            ("Cotización SS trabajador",      s["ss_trabajador"]),
-            ("Base imponible general",        s["base_general"]),
-            ("Cuota íntegra (trabajo)",       s["cuota_general"]),
-        ]),
-        ("GANANCIAS Y PÉRDIDAS PATRIMONIALES", COLOR_SUBHEAD, [
-            ("Ganancias brutas",              s["ganancias_patrimoniales_bruto"]),
-            ("Pérdidas brutas",               s["perdidas_patrimoniales_bruto"]),
-            ("GPP NETO",                      s["gpp_neto"]),
-        ]),
-        ("RENDIMIENTOS DEL CAPITAL MOBILIARIO (Dividendos)", COLOR_SUBHEAD, [
-            ("Dividendos brutos",             s["dividendos_brutos"]),
-            ("Retención extranjera",          s["retencion_extranjera_dividendos"]),
-            ("Retención española",            s["retencion_espania_dividendos"]),
-        ]),
-        ("BASE DEL AHORRO Y CUOTA", COLOR_SUBHEAD, [
-            ("Base imponible del ahorro",     s["base_ahorro"]),
-            ("Cuota íntegra (ahorro)",        s["cuota_ahorro"]),
-            ("Deducción doble imposición",    s["deduccion_doble_imposicion"]),
-        ]),
-        ("RESULTADO DECLARACIÓN", COLOR_TOTAL, [
-            ("Cuota íntegra total",           s["cuota_integra"]),
-            ("Cuota líquida",                 s["cuota_liquida"]),
-            ("Total retenciones pagadas",     s["total_retenciones"]),
-            (f"RESULTADO ({s['resultado_label']})", abs(s["resultado"])),
-        ]),
+        (
+            "RENDIMIENTOS DEL TRABAJO",
+            COLOR_SUBHEAD,
+            [
+                ("Rendimiento íntegro", s["rendimiento_trabajo_bruto"]),
+                ("Cotización SS trabajador", s["ss_trabajador"]),
+                ("Base imponible general", s["base_general"]),
+                ("Cuota íntegra (trabajo)", s["cuota_general"]),
+            ],
+        ),
+        (
+            "GANANCIAS Y PÉRDIDAS PATRIMONIALES",
+            COLOR_SUBHEAD,
+            [
+                ("Ganancias brutas", s["ganancias_patrimoniales_bruto"]),
+                ("Pérdidas brutas", s["perdidas_patrimoniales_bruto"]),
+                ("GPP NETO", s["gpp_neto"]),
+            ],
+        ),
+        (
+            "RENDIMIENTOS DEL CAPITAL MOBILIARIO (Dividendos)",
+            COLOR_SUBHEAD,
+            [
+                ("Dividendos brutos", s["dividendos_brutos"]),
+                ("Retención extranjera", s["retencion_extranjera_dividendos"]),
+                ("Retención española", s["retencion_espania_dividendos"]),
+            ],
+        ),
+        (
+            "BASE DEL AHORRO Y CUOTA",
+            COLOR_SUBHEAD,
+            [
+                ("Base imponible del ahorro", s["base_ahorro"]),
+                ("Cuota íntegra (ahorro)", s["cuota_ahorro"]),
+                ("Deducción doble imposición", s["deduccion_doble_imposicion"]),
+            ],
+        ),
+        (
+            "RESULTADO DECLARACIÓN",
+            COLOR_TOTAL,
+            [
+                ("Cuota íntegra total", s["cuota_integra"]),
+                ("Cuota líquida", s["cuota_liquida"]),
+                ("Total retenciones pagadas", s["total_retenciones"]),
+                (f"RESULTADO ({s['resultado_label']})", abs(s["resultado"])),
+            ],
+        ),
     ]
 
     row = 2
@@ -209,8 +232,18 @@ def _sheet_gpp(wb, engine: TaxEngine):
     _header_style(ws, 1, 9, f"Ganancias y Pérdidas Patrimoniales {year}")
     ws.merge_cells("A1:I1")
 
-    headers = ["Fecha venta", "Plataforma", "Activo", "Tipo", "Cantidad",
-               "Fecha compra", "Coste adq. (€)", "Ingresos (€)", "Comisión (€)", "G/P (€)"]
+    headers = [
+        "Fecha venta",
+        "Plataforma",
+        "Activo",
+        "Tipo",
+        "Cantidad",
+        "Fecha compra",
+        "Coste adq. (€)",
+        "Ingresos (€)",
+        "Comisión (€)",
+        "G/P (€)",
+    ]
     _col_headers(ws, 2, headers)
 
     total_gpp = 0.0
@@ -224,7 +257,9 @@ def _sheet_gpp(wb, engine: TaxEngine):
         ws.cell(row=i, column=3, value=ev.asset)
         ws.cell(row=i, column=4, value=ev.asset_type)
         ws.cell(row=i, column=5, value=round(ev.quantity_sold, 8)).number_format = "#,##0.########"
-        ws.cell(row=i, column=6, value=ev.acquisition_date.strftime("%d/%m/%Y")).alignment = Alignment(horizontal="center")
+        ws.cell(row=i, column=6, value=ev.acquisition_date.strftime("%d/%m/%Y")).alignment = Alignment(
+            horizontal="center"
+        )
         ws.cell(row=i, column=7, value=round(ev.acquisition_cost_eur, 2)).number_format = '#,##0.00 "€"'
         ws.cell(row=i, column=8, value=round(ev.sale_proceeds_eur, 2)).number_format = '#,##0.00 "€"'
         ws.cell(row=i, column=9, value=round(ev.fee_eur, 2)).number_format = '#,##0.00 "€"'

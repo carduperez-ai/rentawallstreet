@@ -1,6 +1,7 @@
 """
 src/adapters/trading212_adapter.py
 """
+
 import logging
 from typing import Tuple
 

@@ -1,5 +1,5 @@
-import sys
 from playwright.sync_api import sync_playwright
+
 
 def get_dom():
     with sync_playwright() as p:
@@ -14,6 +14,7 @@ def get_dom():
             print("DOM guardado en current_dom.html")
         except Exception as e:
             print(f"Error: {e}")
+
 
 if __name__ == "__main__":
     get_dom()

@@ -17,26 +17,28 @@ from src.tax_compliance.regions.valenciana.facade import ValencianaFiscalProfile
 from src.tax_compliance.regions.ceuta.facade import CeutaFiscalProfile
 from src.tax_compliance.regions.melilla.facade import MelillaFiscalProfile
 
+
 class RegionalContextFactory:
     _MAP = {
-        'andalucia': AndaluciaFiscalProfile,
-        'aragon': AragonFiscalProfile,
-        'asturias': AsturiasFiscalProfile,
-        'baleares': BalearesFiscalProfile,
-        'canarias': CanariasFiscalProfile,
-        'cantabria': CantabriaFiscalProfile,
-        'castilla_la_mancha': Castilla_la_manchaFiscalProfile,
-        'castilla_leon': Castilla_leonFiscalProfile,
-        'cataluna': CatalunaFiscalProfile,
-        'extremadura': ExtremaduraFiscalProfile,
-        'galicia': GaliciaFiscalProfile,
-        'madrid': MadridFiscalProfile,
-        'murcia': MurciaFiscalProfile,
-        'la_rioja': La_riojaFiscalProfile,
-        'valenciana': ValencianaFiscalProfile,
-        'ceuta': CeutaFiscalProfile,
-        'melilla': MelillaFiscalProfile,
+        "andalucia": AndaluciaFiscalProfile,
+        "aragon": AragonFiscalProfile,
+        "asturias": AsturiasFiscalProfile,
+        "baleares": BalearesFiscalProfile,
+        "canarias": CanariasFiscalProfile,
+        "cantabria": CantabriaFiscalProfile,
+        "castilla_la_mancha": Castilla_la_manchaFiscalProfile,
+        "castilla_leon": Castilla_leonFiscalProfile,
+        "cataluna": CatalunaFiscalProfile,
+        "extremadura": ExtremaduraFiscalProfile,
+        "galicia": GaliciaFiscalProfile,
+        "madrid": MadridFiscalProfile,
+        "murcia": MurciaFiscalProfile,
+        "la_rioja": La_riojaFiscalProfile,
+        "valenciana": ValencianaFiscalProfile,
+        "ceuta": CeutaFiscalProfile,
+        "melilla": MelillaFiscalProfile,
     }
+
     @staticmethod
     def get_context(region: str) -> RegionalFiscalProfileBase:
-        return RegionalContextFactory._MAP.get(region.lower(), RegionalContextFactory._MAP['andalucia'])()
+        return RegionalContextFactory._MAP.get(region.lower(), RegionalContextFactory._MAP["andalucia"])()

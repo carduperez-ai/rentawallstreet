@@ -12,6 +12,7 @@ class ProcessResult:
     Cuando es False, el informe generado es parcial y debe advertirse al usuario
     antes de usarlo en una declaración.
     """
+
     crypto_tax_events: List[BaseTaxEvent] = field(default_factory=list)
     stock_tax_events: List[BaseTaxEvent] = field(default_factory=list)
     excluded_cfds: int = 0

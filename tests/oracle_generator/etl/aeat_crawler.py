@@ -1,6 +1,6 @@
-import requests
 import re
 import json
+
 
 class AEATCrawler:
     def __init__(self, base_url: str):
@@ -12,7 +12,7 @@ class AEATCrawler:
         # response = requests.get(url)
         # response.raise_for_status()
         # return response.text
-        
+
         # Para la prueba de concepto, simulamos el HTML del Caso Práctico 1 del Capítulo 3
         return """
         <html>
@@ -35,26 +35,24 @@ class AEATCrawler:
     def extract_cases(self, html: str) -> list:
         """Extrae los bloques de texto de los casos prácticos y sus soluciones usando regex (PoC sin bs4)."""
         cases = []
-        
+
         # Regex básico para extraer contenido de tags <div> específicos
         caso_match = re.search(r'<div class="caso-practico">(.*?)</div>', html, re.DOTALL | re.IGNORECASE)
         solucion_match = re.search(r'<div class="solucion">(.*?)</div>', html, re.DOTALL | re.IGNORECASE)
-        
+
         if caso_match and solucion_match:
             # Limpiar tags HTML simples
-            supuesto_limpio = re.sub(r'<[^>]+>', ' ', caso_match.group(1)).strip()
-            solucion_limpia = re.sub(r'<[^>]+>', ' ', solucion_match.group(1)).strip()
-            
+            supuesto_limpio = re.sub(r"<[^>]+>", " ", caso_match.group(1)).strip()
+            solucion_limpia = re.sub(r"<[^>]+>", " ", solucion_match.group(1)).strip()
+
             # Limpiar espacios múltiples
-            supuesto_limpio = re.sub(r'\s+', ' ', supuesto_limpio)
-            solucion_limpia = re.sub(r'\s+', ' ', solucion_limpia)
-            
-            cases.append({
-                'supuesto': supuesto_limpio,
-                'solucion': solucion_limpia
-            })
-            
+            supuesto_limpio = re.sub(r"\s+", " ", supuesto_limpio)
+            solucion_limpia = re.sub(r"\s+", " ", solucion_limpia)
+
+            cases.append({"supuesto": supuesto_limpio, "solucion": solucion_limpia})
+
         return cases
+
 
 if __name__ == "__main__":
     crawler = AEATCrawler("https://sede.agenciatributaria.gob.es/")

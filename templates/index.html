@@ -263,7 +263,7 @@
     {% endif %}
     {% endwith %}
 
-    <form action="/calculate" method="POST" id="calc-form">
+    <form action="/calculate" method="POST" id="calc-form" onsubmit="document.getElementById('btn-calc').innerHTML = '<span class=\'spinner-border spinner-border-sm me-2\' role=\'status\' aria-hidden=\'true\'></span>CALCULANDO...'; document.getElementById('btn-calc').classList.add('disabled'); document.getElementById('btn-calc').style.pointerEvents = 'none';">
                 <!-- Hidden inputs (FULL EXPANSION) -->
         <input type="hidden" name="fiscal_year" id="hidden_fiscal_year" value="2025">
         <input type="hidden" name="region" id="hidden_region" value="andalucia">
@@ -347,11 +347,9 @@
                                     <option value="ibkr" {% if item.platform == 'ibkr' %}selected{% endif %}>IBKR</option>
                                     <option value="etoro" {% if item.platform == 'etoro' %}selected{% endif %}>eToro</option>
                                 </select>
-                                <form action="/delete/{{ item.name }}" method="POST" style="display:inline">
-                                    <button type="submit" class="btn btn-sm btn-danger text-white px-3 d-flex align-items-center gap-2">
-                                        <i class="bi bi-trash3-fill"></i> <span>Borrar</span>
-                                    </button>
-                                </form>
+                                <button type="button" class="btn btn-sm btn-danger text-white px-3 d-flex align-items-center gap-2" onclick="deleteFile('{{ item.name }}')">
+                                    <i class="bi bi-trash3-fill"></i> <span>Borrar</span>
+                                </button>
                             </div>
                         </div>
                         {% endfor %}{% endif %}
@@ -616,6 +614,14 @@
     });
 
     function persistPlatform(f, p) { fetch('/update_platform', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ filename: f, platform: p }) }); }
+
+    function deleteFile(filename) {
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/delete/' + encodeURIComponent(filename);
+        document.body.appendChild(form);
+        form.submit();
+    }
 
     function addRcmRow() {
         const list = document.getElementById('rcm-list');

@@ -1,7 +1,7 @@
 from decimal import Decimal
 import math
 from datetime import datetime
-import re
+
 
 def to_dec(val) -> Decimal:
     """
@@ -10,26 +10,28 @@ def to_dec(val) -> Decimal:
     """
     if isinstance(val, Decimal):
         return val
-        
+
     # Caza nulos, vacíos y NaNs de Pandas
     if val is None or val == "" or (isinstance(val, float) and math.isnan(val)):
-        return Decimal('0')
-    
+        return Decimal("0")
+
     # Manejo de strings: Limpieza de comas y espacios
     if isinstance(val, str):
-        val = val.strip().replace(',', '.')
+        val = val.strip().replace(",", ".")
         if val == "" or val == "-":
-            return Decimal('0')
-            
+            return Decimal("0")
+
     try:
         # Fuerzas string para evitar el error de precisión flotante
-        return Decimal(str(val).replace(',', '.'))
+        return Decimal(str(val).replace(",", "."))
     except:
-        return Decimal('0')
+        return Decimal("0")
+
 
 def clean_decimal(val) -> Decimal:
     """Alias para compatibilidad con lectores existentes."""
     return to_dec(val)
+
 
 def parse_date(val) -> datetime:
     """Parseo robusto de fechas heterogéneas."""
@@ -43,6 +45,7 @@ def parse_date(val) -> datetime:
         except:
             continue
     return datetime(1900, 1, 1)
+
 
 def fuzzy_match(cols, patterns, mandatory=True) -> str:
     """Busca una columna que coincida con patrones fuzzy."""

@@ -5,17 +5,55 @@ from src.tax_compliance.regions.base_profile import RegionalFiscalProfileBase
 from .scale import GaliciaRegion
 from .deductor import GaliciaDeductor
 
+
 class GaliciaFiscalProfile(RegionalFiscalProfileBase):
-    def get_general_scale(self) -> List[Tuple[Decimal, Decimal]]: return GaliciaRegion.get_general_scale() if hasattr(GaliciaRegion, 'get_general_scale') else []
-    def get_savings_scale(self) -> List[Tuple[Decimal, Decimal]]: return GaliciaRegion.get_savings_scale() if hasattr(GaliciaRegion, 'get_savings_scale') else []
-    def get_personal_minimum(self) -> Decimal: return GaliciaRegion.get_personal_minimum() if hasattr(GaliciaRegion, 'get_personal_minimum') else Decimal('5550')
-    def get_age_supplements(self) -> Tuple[Decimal, Decimal]: return GaliciaRegion.get_age_supplements() if hasattr(GaliciaRegion, 'get_age_supplements') else (Decimal('1150'), Decimal('1400'))
-    def get_descendants_brackets(self) -> List[Decimal]: return GaliciaRegion.get_descendants_brackets() if hasattr(GaliciaRegion, 'get_descendants_brackets') else [Decimal('2400'), Decimal('2700'), Decimal('4000'), Decimal('4500')]
-    def get_descendants_under3(self) -> Decimal: return GaliciaRegion.get_descendants_under3() if hasattr(GaliciaRegion, 'get_descendants_under3') else Decimal('2800')
-    def get_disability_limits(self) -> Tuple[Decimal, Decimal, Decimal]: return GaliciaRegion.get_disability_limits() if hasattr(GaliciaRegion, 'get_disability_limits') else (Decimal('3000'), Decimal('9000'), Decimal('3000'))
-    
-    def calculate_deductions(self, profile: TaxpayerProfile, base_general: Decimal, base_ahorro: Decimal) -> Dict[str, Decimal]:
+    def get_general_scale(self) -> List[Tuple[Decimal, Decimal]]:
+        return GaliciaRegion.get_general_scale() if hasattr(GaliciaRegion, "get_general_scale") else []
+
+    def get_savings_scale(self) -> List[Tuple[Decimal, Decimal]]:
+        return GaliciaRegion.get_savings_scale() if hasattr(GaliciaRegion, "get_savings_scale") else []
+
+    def get_personal_minimum(self) -> Decimal:
+        return (
+            GaliciaRegion.get_personal_minimum() if hasattr(GaliciaRegion, "get_personal_minimum") else Decimal("5550")
+        )
+
+    def get_age_supplements(self) -> Tuple[Decimal, Decimal]:
+        return (
+            GaliciaRegion.get_age_supplements()
+            if hasattr(GaliciaRegion, "get_age_supplements")
+            else (Decimal("1150"), Decimal("1400"))
+        )
+
+    def get_descendants_brackets(self) -> List[Decimal]:
+        return (
+            GaliciaRegion.get_descendants_brackets()
+            if hasattr(GaliciaRegion, "get_descendants_brackets")
+            else [Decimal("2400"), Decimal("2700"), Decimal("4000"), Decimal("4500")]
+        )
+
+    def get_descendants_under3(self) -> Decimal:
+        return (
+            GaliciaRegion.get_descendants_under3()
+            if hasattr(GaliciaRegion, "get_descendants_under3")
+            else Decimal("2800")
+        )
+
+    def get_disability_limits(self) -> Tuple[Decimal, Decimal, Decimal]:
+        return (
+            GaliciaRegion.get_disability_limits()
+            if hasattr(GaliciaRegion, "get_disability_limits")
+            else (Decimal("3000"), Decimal("9000"), Decimal("3000"))
+        )
+
+    def calculate_deductions(
+        self, profile: TaxpayerProfile, base_general: Decimal, base_ahorro: Decimal
+    ) -> Dict[str, Decimal]:
         try:
             return GaliciaDeductor(profile, base_general, base_ahorro).calculate_all()
         except TypeError:
-            return GaliciaDeductor().calculate_all(profile, base_general, base_ahorro) if hasattr(GaliciaDeductor, 'calculate_all') else {}
+            return (
+                GaliciaDeductor().calculate_all(profile, base_general, base_ahorro)
+                if hasattr(GaliciaDeductor, "calculate_all")
+                else {}
+            )

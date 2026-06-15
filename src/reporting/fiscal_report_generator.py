@@ -1,6 +1,7 @@
 import datetime
 from decimal import Decimal
-from typing import List, Dict
+from typing import Dict
+
 
 class FiscalReportGenerator:
     def __init__(self, data: Dict):
@@ -158,9 +159,9 @@ class FiscalReportGenerator:
                 </thead>
                 <tbody>
         """
-        
-        for asset, res in sorted(self.data['assets'].items(), key=lambda x: x[1]['gain'] - x[1]['loss'], reverse=True):
-            neto = res['gain'] - res['loss']
+
+        for asset, res in sorted(self.data["assets"].items(), key=lambda x: x[1]["gain"] - x[1]["loss"], reverse=True):
+            neto = res["gain"] - res["loss"]
             net_class = "pos" if neto >= 0 else "neg"
             html += f"""
                     <tr>
@@ -170,16 +171,64 @@ class FiscalReportGenerator:
                         <td style="text-align:right;" class="{net_class}">{neto:.2f} €</td>
                     </tr>
             """
-            
+
         html += """
                 </tbody>
             </table>
         </section>
+        """
 
+        if "m721" in self.data and self.data["m721"].get("required"):
+            html += f"""
+        <section style="margin-top: 40px;">
+            <h2 style="color:var(--primary); border-bottom: 1px solid #eee; padding-bottom:10px;">Modelo 721 (Criptoactivos en el Extranjero)</h2>
+            <div class="card danger">
+                <div class="label">Total Patrimonio a 31 de Diciembre</div>
+                <div class="value">{self.data['m721']['total_value_eur']:.2f} €</div>
+                <p style="margin-top:10px; font-size:0.85rem; font-weight:bold;">SUPERADO LÍMITE DE 50.000€ - OBLIGACIÓN DE PRESENTACIÓN</p>
+            </div>
+            <table style="margin-top: 20px;">
+                <thead>
+                    <tr>
+                        <th>Activo</th>
+                        <th style="text-align:right;">Cantidad</th>
+                        <th style="text-align:right;">Cotización 31/12</th>
+                        <th style="text-align:right;">Valoración EUR</th>
+                    </tr>
+                </thead>
+                <tbody>
+            """
+            for item in self.data["m721"]["inventory"]:
+                html += f"""
+                    <tr>
+                        <td><strong>{item['asset']}</strong></td>
+                        <td style="text-align:right;">{item['quantity']}</td>
+                        <td style="text-align:right;">{item['price_eur']:.2f} €</td>
+                        <td style="text-align:right; font-weight:bold;">{item['value_eur']:.2f} €</td>
+                    </tr>
+                """
+            html += """
+                </tbody>
+            </table>
+        </section>
+        """
+        elif "m721" in self.data and not self.data["m721"].get("required"):
+            html += f"""
+        <section style="margin-top: 40px;">
+            <h2 style="color:var(--primary); border-bottom: 1px solid #eee; padding-bottom:10px;">Modelo 721 (Criptoactivos en el Extranjero)</h2>
+            <div class="card success">
+                <div class="label">Total Patrimonio a 31 de Diciembre</div>
+                <div class="value">{self.data['m721']['total_value_eur']:.2f} €</div>
+                <p style="margin-top:10px; font-size:0.85rem;">EXENTO: No supera el límite normativo conjunto de 50.000 €.</p>
+            </div>
+        </section>
+        """
+
+        html += f"""
         <section style="margin-top: 40px;">
             <h2 style="color:var(--primary); border-bottom: 1px solid #eee; padding-bottom:10px;">Otras Casillas AEAT</h2>
             <div class="card">
-                <p><strong>Gastos Deducibles (Mantenimiento / Conectividad):</strong> <span class="value" style="font-size:1.2rem;">{self.data['fees']:.2f} €</span></p>
+                <p><strong>Gastos Deducibles (Mantenimiento / Conectividad):</strong> <span class="value" style="font-size:1.2rem;">{self.data.get('fees', Decimal('0')):.2f} €</span></p>
                 <p style="font-size:0.9rem; color:#666;">Incluye comisiones de conectividad de mercado aplicables en la Casilla <span class="box-reference">0035</span>.</p>
             </div>
         </section>
@@ -192,21 +241,22 @@ class FiscalReportGenerator:
 </body>
 </html>
         """
-        with open(output_path, 'w', encoding='utf-8') as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             f.write(html)
         print(f"Informe generado en: {output_path}")
+
 
 if __name__ == "__main__":
     # Test generation with the data we just calculated
     test_data = {
-        'net_gp': Decimal('5936.96'),
-        'div_gross': Decimal('94.06'),
-        'ret_total': Decimal('17.64'),
-        'fees': Decimal('10.00'),
-        'assets': {
-            'REPSOL SA': {'gain': Decimal('66.84'), 'loss': Decimal('0.00')},
-            'NVIDIA CORP': {'gain': Decimal('1000.00'), 'loss': Decimal('200.00')}, # Example
+        "net_gp": Decimal("5936.96"),
+        "div_gross": Decimal("94.06"),
+        "ret_total": Decimal("17.64"),
+        "fees": Decimal("10.00"),
+        "assets": {
+            "REPSOL SA": {"gain": Decimal("66.84"), "loss": Decimal("0.00")},
+            "NVIDIA CORP": {"gain": Decimal("1000.00"), "loss": Decimal("200.00")},  # Example
             # ... more assets will be injected by the main script
-        }
+        },
     }
     # (En una ejecución real, esto se llamaría desde el script principal)

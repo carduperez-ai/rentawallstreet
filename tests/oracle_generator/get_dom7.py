@@ -6,12 +6,12 @@ with sync_playwright() as p:
     page = context.new_page()
     page.goto("https://www2.agenciatributaria.gob.es/wlpl/PARE-RW25/OPEN/index.zul?TACCESO=COLAB&EJER=2025")
     page.wait_for_load_state("networkidle")
-    
+
     page.locator("button:has-text('Nueva declaración')").first.click()
     page.wait_for_timeout(2000)
-    
+
     inputs = page.locator("input")
-    
+
     # NIF y Apellidos
     inputs.nth(1).fill("11111111H")
     inputs.nth(2).fill("PRUEBA TEST")
@@ -23,28 +23,28 @@ with sync_playwright() as p:
     page.wait_for_timeout(300)
     ec.press("ArrowDown")
     page.wait_for_timeout(300)
-    ec.press("ArrowDown") # Soltero
+    ec.press("ArrowDown")  # Soltero
     page.wait_for_timeout(300)
     ec.press("Enter")
-    
+
     # Fecha de nacimiento (nth=4)
     inputs.nth(4).fill("01/01/1980")
-    
+
     # Sexo Hombre (nth=5)
     inputs.nth(5).check()
-    
+
     # Comunidad Autonoma (nth=8)
     ca = inputs.nth(8)
     ca.focus()
     page.wait_for_timeout(300)
     ca.press("ArrowDown")
     page.wait_for_timeout(300)
-    ca.press("ArrowDown") # Andalucía
+    ca.press("ArrowDown")  # Andalucía
     page.wait_for_timeout(300)
     ca.press("Enter")
-    
+
     page.locator("button:has-text('Aceptar')").first.click()
-    
+
     try:
         page.wait_for_selector("button[title='Apartados declaración']", timeout=5000)
         print("SUCCESS! Llego a la siguiente pantalla.")
@@ -53,5 +53,5 @@ with sync_playwright() as p:
         # Print modal texts to see if it failed because of NIF or Estado civil
         modals = page.locator(".z-messagebox").all_inner_texts()
         print("Modals:", modals)
-        
+
     browser.close()
