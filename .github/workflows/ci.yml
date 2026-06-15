@@ -28,4 +28,5 @@ jobs:
         ruff check .
     - name: Test with pytest
       run: |
-        pytest
+        python -m pip freeze
+        python -m pytest
