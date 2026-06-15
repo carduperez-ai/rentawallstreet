@@ -31,6 +31,25 @@ def test_adapter_integration(adapter_class, filename, user_pref):
     trades, dividends = adapter.extract(path)
 
     # 3. Asegura len(trades) > 0
+    if len(trades) == 0:
+        import sys
+        print(f"\n[DEBUG] path: {path}", file=sys.stderr)
+        print(f"[DEBUG] exists: {os.path.exists(path)}", file=sys.stderr)
+        if os.path.exists(path):
+            with open(path, "r", encoding="utf-8-sig", errors="replace") as f:
+                print(f"[DEBUG] head: {repr(f.read(100))}", file=sys.stderr)
+        try:
+            # Force the internal ingestor without the try/except
+            if adapter_class.__name__ == "KrakenAdapter":
+                from src.ingestion.kraken_reader import KrakenIngestor
+                ing = KrakenIngestor()
+                print(f"[DEBUG] process_file returns: {ing.process_file(path)}", file=sys.stderr)
+                print(f"[DEBUG] KrakenIngestor warnings: {ing.warnings}", file=sys.stderr)
+                _ = ing.transactions
+        except Exception as e:
+            import traceback
+            traceback.print_exc(file=sys.stderr)
+    
     assert len(trades) > 0, f"{adapter_class.__name__} no extrajo trades."
 
     # 4. Valida tipado en la primera operación extraída
