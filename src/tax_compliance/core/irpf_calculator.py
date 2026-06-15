@@ -32,7 +32,6 @@ class ConfigLoader:
 
 
 from src.domain.fiscal_entities import (
-    Dividend,
     WorkIncome,
     TaxpayerProfile,
     RentalIncome,
@@ -153,7 +152,9 @@ class IRPFCalculator:
 
         foral_regions = ["euskadi", "navarra", "pais_vasco", "vizcaya", "alava", "guipuzcoa", "gipuzkoa"]
         if self.region in foral_regions or (profile and profile.region.lower().replace(" ", "_") in foral_regions):
-            raise NotImplementedError("El sistema no dispone de soporte para la liquidación del IRPF bajo regímenes forales especiales.")
+            raise NotImplementedError(
+                "El sistema no dispone de soporte para la liquidación del IRPF bajo regímenes forales especiales."
+            )
         self.profile = profile
         self.fiscal_year = fiscal_year
         self.gpp_cf = LossCarryForward.from_input(carry_forward_gpp_loss_eur, fiscal_year)
@@ -201,7 +202,7 @@ class IRPFCalculator:
         gpp_neto += stables_vigilante_gpp
         other_bg_pos = Decimal("0")
         other_bg_neg = Decimal("0")
-        
+
         for e in self.events:
             if is_airdrop_or_hardfork(e):
                 if e.gain_loss_eur >= 0:
@@ -240,14 +241,30 @@ class IRPFCalculator:
 
         # G/P solo de cripto
         crypto_gain_loss = (
-            sum((e.gain_loss_eur for e in self.crypto_events if e.asset not in fiat_stables and not is_airdrop_or_hardfork(e)), Decimal("0"))
+            sum(
+                (
+                    e.gain_loss_eur
+                    for e in self.crypto_events
+                    if e.asset not in fiat_stables and not is_airdrop_or_hardfork(e)
+                ),
+                Decimal("0"),
+            )
             + stables_vigilante_gpp
         )
         # G/P solo de acciones/ETF
-        stock_gain_loss = sum((e.gain_loss_eur for e in self.stock_events if not is_airdrop_or_hardfork(e)), Decimal("0"))
+        stock_gain_loss = sum(
+            (e.gain_loss_eur for e in self.stock_events if not is_airdrop_or_hardfork(e)), Decimal("0")
+        )
 
         # 2. RCM bruto (dividendos + intereses + staking)
-        rcm_bruto = sum((d.gross_eur for d in self.dividends if not (getattr(d, "type", "dividend") == "intellectual_property" and getattr(d, "is_creator", False))), Decimal("0"))
+        rcm_bruto = sum(
+            (
+                d.gross_eur
+                for d in self.dividends
+                if not (getattr(d, "type", "dividend") == "intellectual_property" and getattr(d, "is_creator", False))
+            ),
+            Decimal("0"),
+        )
         # Art. 26.1.a LIRPF: Solo valores negociables con anotación en cuenta (ISIN válido) pueden deducir custodia.
         custody_fees_total = sum(
             (
@@ -426,11 +443,15 @@ class IRPFCalculator:
         rendimiento_trabajo_neto_reducido = Decimal("0")
         base_imponible_general = Decimal("0")
         work_bruto_total = Decimal("0")
-        
+
         # Procesar propiedad intelectual del creador
         intellectual_property_creator = sum(
-            (d.gross_eur for d in self.dividends if getattr(d, "type", "dividend") == "intellectual_property" and getattr(d, "is_creator", False)),
-            Decimal("0")
+            (
+                d.gross_eur
+                for d in self.dividends
+                if getattr(d, "type", "dividend") == "intellectual_property" and getattr(d, "is_creator", False)
+            ),
+            Decimal("0"),
         )
         # Reducción del 30% por rendimientos irregulares para creadores
         reduccion_intellectual_property = intellectual_property_creator * Decimal("0.30")
@@ -446,10 +467,11 @@ class IRPFCalculator:
 
                 irr_work = getattr(self.work, "rendimientos_irregulares_eur", Decimal("0"))
                 reduccion_irr_work = min(irr_work, Decimal("300000")) * Decimal("0.30")
-                work_bruto_total = max(
-                    self.work.retribuciones_dinerarias + species_income - reduccion_irr_work, Decimal("0")
-                ) + intellectual_property_creator_neto
-                
+                work_bruto_total = (
+                    max(self.work.retribuciones_dinerarias + species_income - reduccion_irr_work, Decimal("0"))
+                    + intellectual_property_creator_neto
+                )
+
                 # Art. 19.2 letras a-e: gastos que entran en el umbral del Art. 20
                 gastos_art19_ae = (
                     self.work.gastos_deducibles
@@ -458,7 +480,9 @@ class IRPFCalculator:
                     + min(self.work.gastos_defensa_juridica_eur, Decimal("300"))
                 )
                 # Art. 19.2 letra f: 2.000€ genérico (4.000€ con movilidad geográfica)
-                gastos_art19_f = Decimal("4000") if getattr(self.work, "geographic_mobility", False) else Decimal("2000")
+                gastos_art19_f = (
+                    Decimal("4000") if getattr(self.work, "geographic_mobility", False) else Decimal("2000")
+                )
             else:
                 work_bruto_total = intellectual_property_creator_neto
                 gastos_art19_ae = Decimal("0")
@@ -742,6 +766,7 @@ class IRPFCalculator:
 
         def q(val: Decimal) -> Decimal:
             from decimal import ROUND_HALF_UP
+
             return Decimal(str(val)).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
 
         raw_summary = {

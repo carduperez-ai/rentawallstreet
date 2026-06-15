@@ -3,7 +3,7 @@ from datetime import datetime
 from typing import List, Dict, Tuple, Optional, Sequence
 from collections import deque
 
-from src.domain.crypto_entities import Trade as BaseCryptoTrade, FIFOLot, TaxEvent as BaseCryptoTaxEvent
+from src.domain.crypto_entities import FIFOLot, TaxEvent as BaseCryptoTaxEvent
 from src.domain.crypto_entities import Dividend as BaseCryptoDividend
 from src.domain.shared_types import AnyTrade, AnyDividend, AnyTaxEvent
 from src.domain.constants import EPSILON
@@ -186,7 +186,7 @@ class TaxEngine:
                                 notes=f"⚠️ Sin inventario previo (Coste 0) | {trade.notes}",
                             )
                         )
-                        min_date_str = self.min_date.strftime("%d/%m/%Y") if self.min_date else "el inicio"
+                        self.min_date.strftime("%d/%m/%Y") if self.min_date else "el inicio"
                         self.warnings.append(
                             f"⚠️ FALTA HISTORIAL: No se encuentra el origen de {unmatched:.8f} {trade.asset} vendidos el {trade.date.strftime('%d/%m/%Y')}. "
                             f"Se ha aplicado coste 0.00€ por prudencia fiscal."

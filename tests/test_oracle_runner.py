@@ -35,7 +35,10 @@ class TestOracleCalculation:
         """base_imponible_general coincide con el valor oracle (skip si no hay oracle)."""
         if run_result.error:
             pytest.skip("Cálculo fallido")
-        if getattr(run_result, 'status', run_result.input_dict.get('__status', '')) not in ('verified', 'auto_calculated'):
+        if getattr(run_result, "status", run_result.input_dict.get("__status", "")) not in (
+            "verified",
+            "auto_calculated",
+        ):
             pytest.skip("Caso no verificado oficialmente ni auto_calculado")
         expected = run_result.expected.get("base_imponible_general", 0.0)
         actual = run_result.calculated.get("base_imponible_general", Decimal("0"))
@@ -46,7 +49,10 @@ class TestOracleCalculation:
         """cuota_integra_estatal coincide con el valor oracle."""
         if run_result.error:
             pytest.skip("Cálculo fallido")
-        if getattr(run_result, 'status', run_result.input_dict.get('__status', '')) not in ('verified', 'auto_calculated'):
+        if getattr(run_result, "status", run_result.input_dict.get("__status", "")) not in (
+            "verified",
+            "auto_calculated",
+        ):
             pytest.skip("Caso no verificado oficialmente ni auto_calculado")
         expected = run_result.expected.get("cuota_integra_estatal", 0.0)
         actual = run_result.calculated.get("cuota_integra_estatal", Decimal("0"))
@@ -57,12 +63,14 @@ class TestOracleCalculation:
         """resultado_declaracion final coincide exactamente."""
         if run_result.error:
             pytest.skip("Cálculo fallido")
-        if getattr(run_result, 'status', run_result.input_dict.get('__status', '')) not in ('verified', 'auto_calculated'):
+        if getattr(run_result, "status", run_result.input_dict.get("__status", "")) not in (
+            "verified",
+            "auto_calculated",
+        ):
             pytest.skip("Caso no verificado oficialmente ni auto_calculado")
         expected = run_result.expected.get("resultado_declaracion", 0.0)
         actual = run_result.calculated.get("resultado_declaracion", Decimal("0"))
         assert actual == Decimal(str(expected)), f"{run_result.case_name}: esperado {expected}€, obtenido {actual}€"
-
 
 
 # ── TestAuditInvariants — caja blanca (normativa LIRPF) ─────────────────────
@@ -86,7 +94,7 @@ class TestAuditInvariants:
 
         errors = [f for f in report.findings if not f.passed and f.severity == "ERROR"]
         assert not errors, f"\nCaso '{run_result.case_name}' — {len(errors)} regla(s) fallida(s):\n" + "\n".join(
-            f"  [{f.rule_id}] {f.article}: {f.description}\n" f"    esperado={f.expected}  actual={f.actual}"
+            f"  [{f.rule_id}] {f.article}: {f.description}\n    esperado={f.expected}  actual={f.actual}"
             for f in errors
         )
 
@@ -106,8 +114,7 @@ class TestAuditInvariants:
         if warnings:
             for w in warnings:
                 print(
-                    f"\n  WARN [{w.rule_id}] {w.article}: {w.description}"
-                    f"\n    esperado={w.expected}  actual={w.actual}"
+                    f"\n  WARN [{w.rule_id}] {w.article}: {w.description}\n    esperado={w.expected}  actual={w.actual}"
                 )
         # Los warnings solo informan, no fallan
         assert True

@@ -179,7 +179,7 @@ class KrakenIngestor:
                             value_eur=val_eur,
                             fee_eur=fee_eur,
                             asset_type="crypto",
-                            notes=f"Kraken {r.get('type','?')} | refid:{refid}",
+                            notes=f"Kraken {r.get('type', '?')} | refid:{refid}",
                         )
                     )
                 continue

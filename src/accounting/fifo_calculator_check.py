@@ -4,7 +4,7 @@ import tokenize
 def check_syntax(filename):
     try:
         with open(filename, "rb") as f:
-            for token in tokenize.tokenize(f.readline):
+            for _token in tokenize.tokenize(f.readline):
                 pass
         print("Syntax is OK")
     except Exception as e:

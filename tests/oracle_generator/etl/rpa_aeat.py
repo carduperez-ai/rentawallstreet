@@ -102,7 +102,7 @@ def _clear_popups(page):
             const isAction = ['Aceptar', 'Continuar', 'Cerrar', 'Ok'].some(txt => b.innerText.includes(txt));
             const isInsidePopup = b.closest('.z-window') || b.closest('.z-messagebox');
             const hasInputs = b.closest('.z-window') && b.closest('.z-window').querySelectorAll('input').length > 1;
-            
+
             return isAction && isInsidePopup && !hasInputs && !b.innerText.includes('Resumen');
         });
         if (closeBtn) closeBtn.click();
@@ -114,7 +114,7 @@ def _force_click_visual(page, text: str):
     print(f"    - Clicando: {text}")
     page.evaluate(
         """(txt) => {
-        const el = Array.from(document.querySelectorAll('button, u, span')).find(e => 
+        const el = Array.from(document.querySelectorAll('button, u, span')).find(e =>
             (e.innerText && e.innerText.includes(txt)) || (e.title && e.title.includes(txt))
         );
         if (el) {
@@ -140,7 +140,7 @@ def _inject_trabajo_visual(page, inp: dict):
 
     # 2. Entrar en Trabajo
     page.evaluate("""() => {
-        const link = Array.from(document.querySelectorAll('a, span, li')).find(el => 
+        const link = Array.from(document.querySelectorAll('a, span, li')).find(el =>
             el.innerText.trim() === 'Rendimientos del trabajo (sueldos, nóminas, pensiones, etc.)'
         );
         if (link) link.click();
@@ -236,7 +236,7 @@ def _extract_results(page):
         return {
             "resultado_declaracion": getV('RESINGDEV'),
             "base_imponible_general": getV('BIGRALH'),
-            "ingresos_integros": getV('TINCOMT') 
+            "ingresos_integros": getV('TINCOMT')
         };
     }""")
 

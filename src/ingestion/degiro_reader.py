@@ -361,7 +361,7 @@ def parse(file_paths) -> Tuple[List[Trade], List[Dividend]]:
                             print(f"Error processing SENSEONICS row: {e}")
                         continue
 
-    for k, v in div_map.items():
+    for _k, v in div_map.items():
         if v["gross"] > 0 or v["withholding"] > 0:
             isin_final = v.get("isin", "")
             is_spain = isin_final.startswith("ES")

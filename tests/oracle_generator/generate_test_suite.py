@@ -172,7 +172,7 @@ def generate_full_matrix() -> list:
             # A. Solo Trabajo
             cases.append(
                 format_case(
-                    f"INC-{decl_code}-W-{int(s//1000)}K",
+                    f"INC-{decl_code}-W-{int(s // 1000)}K",
                     f"Declarante {decl_code} | Solo Trabajo {s}€",
                     decl_tags + ["Trabajo"],
                     build_coherent_profile(s, **decl_params),
@@ -185,7 +185,7 @@ def generate_full_matrix() -> list:
             p_div["dividends"] = [{"gross_eur": div_val, "withholding_spain_eur": div_val * 0.19}]
             cases.append(
                 format_case(
-                    f"INC-{decl_code}-WD-{int(s//1000)}K",
+                    f"INC-{decl_code}-WD-{int(s // 1000)}K",
                     f"Declarante {decl_code} | Trabajo {s}€ + Div {div_val}€",
                     decl_tags + ["Mixto", "Dividendos"],
                     p_div,
@@ -198,7 +198,7 @@ def generate_full_matrix() -> list:
             p_gain["tax_events"] = [{"asset_type": "stock", "gain_loss_eur": gain_val}]
             cases.append(
                 format_case(
-                    f"INC-{decl_code}-WG-{int(s//1000)}K",
+                    f"INC-{decl_code}-WG-{int(s // 1000)}K",
                     f"Declarante {decl_code} | Trabajo {s}€ + Ganancia {gain_val}€",
                     decl_tags + ["Mixto", "Ganancias"],
                     p_gain,
@@ -218,7 +218,7 @@ def generate_full_matrix() -> list:
             ]
             cases.append(
                 format_case(
-                    f"INC-{decl_code}-WR-{int(s//1000)}K",
+                    f"INC-{decl_code}-WR-{int(s // 1000)}K",
                     f"Declarante {decl_code} | Trabajo {s}€ + Alquiler {rent_val}€",
                     decl_tags + ["Mixto", "Alquileres"],
                     p_rent,
@@ -232,7 +232,7 @@ def generate_full_matrix() -> list:
             p_full["rentals"] = [{"property_id": "V1", "gross_income": 6000.0, "reduction_habitual": True}]
             cases.append(
                 format_case(
-                    f"INC-{decl_code}-FULL-{int(s//1000)}K",
+                    f"INC-{decl_code}-FULL-{int(s // 1000)}K",
                     f"Declarante {decl_code} | Mix Completo {s}€ base",
                     decl_tags + ["Mixto", "Completo"],
                     p_full,

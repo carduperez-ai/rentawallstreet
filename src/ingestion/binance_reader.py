@@ -242,10 +242,13 @@ class BinanceIngestor:
             t_cols = [c for c in df.columns if any(x in c.lower() for x in ["tiempo", "time", "date"])]
             idx_t = t_cols[-1] if t_cols else "tiempo"
             idx_p = next((c for c in df.columns if any(x in c.lower() for x in ["par", "pair"])), "par")
-            idx_fee_col = next((c for c in df.columns if any(x in c.lower() for x in ["tarifa", "fee", "comisi"])), None)
-            
+            idx_fee_col = next(
+                (c for c in df.columns if any(x in c.lower() for x in ["tarifa", "fee", "comisi"])), None
+            )
+
             for _, row in df.iterrows():
-                if pd.isna(row[idx_t]): continue
+                if pd.isna(row[idx_t]):
+                    continue
                 dt = self._parse_date(str(row[idx_t]))
                 if dt:
                     pair = str(row[idx_p]).upper()
@@ -255,17 +258,19 @@ class BinanceIngestor:
                         datasets_to_preload.add((self._extract_currency(str(row[idx_fee_col])), dt))
 
         for df in self.trans_dfs:
-            idx_t = next((c for c in df.columns if any(x in c.lower() for x in ["tiempo", "time", "fecha", "date"])), "tiempo")
+            idx_t = next(
+                (c for c in df.columns if any(x in c.lower() for x in ["tiempo", "time", "fecha", "date"])), "tiempo"
+            )
             idx_c = next((c for c in df.columns if any(x in c.lower() for x in ["moneda", "asset", "coin"])), "moneda")
             for _, row in df.iterrows():
-                if pd.isna(row[idx_t]): continue
+                if pd.isna(row[idx_t]):
+                    continue
                 dt = self._parse_date(str(row[idx_t]))
                 if dt:
                     datasets_to_preload.add((str(row[idx_c]).upper(), dt))
 
         if datasets_to_preload:
             oracle.preload_batch(datasets_to_preload)
-
 
         # 1. CARGA DE TRADES DESDE ARCHIVOS SPOT (Un Trade por fila, sin agrupar)
         for df in self.spot_dfs:
@@ -429,16 +434,18 @@ class BinanceIngestor:
             counter_in = {a: q for a, q in net_by_asset.items() if q > 0 and a in fiat_stables}
             counter_out = {a: abs(q) for a, q in net_by_asset.items() if q < 0 and a in fiat_stables}
 
-            val_total_in_eur = sum(self._safe_convert(q, a, ts) for a, q in counter_in.items())
-            val_total_out_eur = sum(self._safe_convert(q, a, ts) for a, q in counter_out.items())
+            sum(self._safe_convert(q, a, ts) for a, q in counter_in.items())
+            sum(self._safe_convert(q, a, ts) for a, q in counter_out.items())
 
             # D. Aplicación Estricta LIRPF (Art. 37.1.h y V0999-18)
             # 1. Calcular el valor de mercado individual de cada pata (Fiat + Crypto)
-            val_out_eur = sum(self._safe_convert(q, a, ts) for a, q in counter_out.items()) + \
-                          sum(self._safe_convert(q, a, ts) for a, q in base_out.items())
-            
-            val_in_eur = sum(self._safe_convert(q, a, ts) for a, q in counter_in.items()) + \
-                         sum(self._safe_convert(q, a, ts) for a, q in base_in.items())
+            val_out_eur = sum(self._safe_convert(q, a, ts) for a, q in counter_out.items()) + sum(
+                self._safe_convert(q, a, ts) for a, q in base_out.items()
+            )
+
+            val_in_eur = sum(self._safe_convert(q, a, ts) for a, q in counter_in.items()) + sum(
+                self._safe_convert(q, a, ts) for a, q in base_in.items()
+            )
 
             # 2. Base Imponible: El Mayor de los dos valores (Regla de Permuta)
             swap_value_eur = max(val_out_eur, val_in_eur)
@@ -448,7 +455,7 @@ class BinanceIngestor:
                 # Prorratear el swap_value_eur por el peso del activo en la salida total
                 weight = (self._safe_convert(qty, asset, ts) / val_out_eur) if val_out_eur > 0 else Decimal("0")
                 v = swap_value_eur * weight if val_out_eur > 0 else Decimal("0")
-                
+
                 mirror_table.append(
                     Trade(
                         date=ts,
@@ -462,13 +469,13 @@ class BinanceIngestor:
                         notes=f"History | Group: {k}",
                     )
                 )
-                total_fee_eur = Decimal("0") # Solo se deduce una vez si hay multi-ventas
+                total_fee_eur = Decimal("0")  # Solo se deduce una vez si hay multi-ventas
 
             # 4. Generación de Compras (Base In)
             for asset, qty in base_in.items():
                 weight = (self._safe_convert(qty, asset, ts) / val_in_eur) if val_in_eur > 0 else Decimal("0")
                 c = swap_value_eur * weight if val_in_eur > 0 else Decimal("0")
-                
+
                 mirror_table.append(
                     Trade(
                         date=ts,
@@ -482,13 +489,19 @@ class BinanceIngestor:
                         notes=f"History | Group: {k}",
                     )
                 )
-                
+
             # 5. Generación del Evento 3 (Enajenación del Gasto en Especie - Anti Inventario Fantasma)
             # Detectamos los activos que fueron pagados como FEE en especie (ej. BNB)
-            fee_assets_out = {i["asset"]: abs(i["qty"]) for i in lines if i["qty"] < 0 and 
-                              (any(x in i["op"] for x in ["FEE", "COMISI", "COMMISSION"]) or 
-                              (i["asset"] == "BNB" and len(net_by_asset) > 2))}
-            
+            fee_assets_out = {
+                i["asset"]: abs(i["qty"])
+                for i in lines
+                if i["qty"] < 0
+                and (
+                    any(x in i["op"] for x in ["FEE", "COMISI", "COMMISSION"])
+                    or (i["asset"] == "BNB" and len(net_by_asset) > 2)
+                )
+            }
+
             for f_asset, f_qty in fee_assets_out.items():
                 if f_asset not in fiat_stables and f_qty > 0:
                     # El coste del fee_eur ya se sumó al total_fee_eur que minora la permuta principal,
@@ -502,7 +515,7 @@ class BinanceIngestor:
                             direction="sell",
                             quantity=f_qty,
                             value_eur=f_val_eur,
-                            fee_eur=Decimal("0"), # Su transmisión es el propio fee, no tiene sub-fee
+                            fee_eur=Decimal("0"),  # Su transmisión es el propio fee, no tiene sub-fee
                             asset_type="crypto",
                             notes=f"History | Fee Disposal: {k}",
                         )

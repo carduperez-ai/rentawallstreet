@@ -76,7 +76,7 @@ class FiscalReportGenerator:
         .card.danger {{ border-left: 5px solid var(--danger); }}
         .label {{ font-size: 0.8rem; color: #7f8c8d; text-transform: uppercase; font-weight: bold; }}
         .value {{ font-size: 1.5rem; font-weight: bold; color: var(--primary); margin-top: 5px; }}
-        
+
         table {{
             width: 100%;
             border-collapse: collapse;
@@ -96,7 +96,7 @@ class FiscalReportGenerator:
         }}
         .pos {{ color: var(--success); font-weight: bold; }}
         .neg {{ color: var(--danger); font-weight: bold; }}
-        
+
         .footer {{
             margin-top: 50px;
             font-size: 0.8rem;
@@ -130,17 +130,17 @@ class FiscalReportGenerator:
             <div class="grid">
                 <div class="card highlight">
                     <div class="label">Ganancia Patrimonial Neta</div>
-                    <div class="value">{self.data['net_gp']:.2f} €</div>
+                    <div class="value">{self.data["net_gp"]:.2f} €</div>
                     <p style="margin-top:10px; font-size:0.85rem;">Suma de Casillas de Transmisión</p>
                 </div>
                 <div class="card success">
                     <div class="label">Rendimientos Capital Mobiliario</div>
-                    <div class="value">{self.data['div_gross']:.2f} €</div>
+                    <div class="value">{self.data["div_gross"]:.2f} €</div>
                     <p style="margin-top:10px; font-size:0.85rem;">Casilla <span class="box-reference">0029</span></p>
                 </div>
                 <div class="card danger">
                     <div class="label">Retenciones Pagadas</div>
-                    <div class="value">{self.data['ret_total']:.2f} €</div>
+                    <div class="value">{self.data["ret_total"]:.2f} €</div>
                     <p style="margin-top:10px; font-size:0.85rem;">Casilla <span class="box-reference">0588</span></p>
                 </div>
             </div>
@@ -166,8 +166,8 @@ class FiscalReportGenerator:
             html += f"""
                     <tr>
                         <td><strong>{asset}</strong></td>
-                        <td style="text-align:right;">{res['gain']:.2f} €</td>
-                        <td style="text-align:right;">{res['loss']:.2f} €</td>
+                        <td style="text-align:right;">{res["gain"]:.2f} €</td>
+                        <td style="text-align:right;">{res["loss"]:.2f} €</td>
                         <td style="text-align:right;" class="{net_class}">{neto:.2f} €</td>
                     </tr>
             """
@@ -184,7 +184,7 @@ class FiscalReportGenerator:
             <h2 style="color:var(--primary); border-bottom: 1px solid #eee; padding-bottom:10px;">Modelo 721 (Criptoactivos en el Extranjero)</h2>
             <div class="card danger">
                 <div class="label">Total Patrimonio a 31 de Diciembre</div>
-                <div class="value">{self.data['m721']['total_value_eur']:.2f} €</div>
+                <div class="value">{self.data["m721"]["total_value_eur"]:.2f} €</div>
                 <p style="margin-top:10px; font-size:0.85rem; font-weight:bold;">SUPERADO LÍMITE DE 50.000€ - OBLIGACIÓN DE PRESENTACIÓN</p>
             </div>
             <table style="margin-top: 20px;">
@@ -201,10 +201,10 @@ class FiscalReportGenerator:
             for item in self.data["m721"]["inventory"]:
                 html += f"""
                     <tr>
-                        <td><strong>{item['asset']}</strong></td>
-                        <td style="text-align:right;">{item['quantity']}</td>
-                        <td style="text-align:right;">{item['price_eur']:.2f} €</td>
-                        <td style="text-align:right; font-weight:bold;">{item['value_eur']:.2f} €</td>
+                        <td><strong>{item["asset"]}</strong></td>
+                        <td style="text-align:right;">{item["quantity"]}</td>
+                        <td style="text-align:right;">{item["price_eur"]:.2f} €</td>
+                        <td style="text-align:right; font-weight:bold;">{item["value_eur"]:.2f} €</td>
                     </tr>
                 """
             html += """
@@ -218,7 +218,7 @@ class FiscalReportGenerator:
             <h2 style="color:var(--primary); border-bottom: 1px solid #eee; padding-bottom:10px;">Modelo 721 (Criptoactivos en el Extranjero)</h2>
             <div class="card success">
                 <div class="label">Total Patrimonio a 31 de Diciembre</div>
-                <div class="value">{self.data['m721']['total_value_eur']:.2f} €</div>
+                <div class="value">{self.data["m721"]["total_value_eur"]:.2f} €</div>
                 <p style="margin-top:10px; font-size:0.85rem;">EXENTO: No supera el límite normativo conjunto de 50.000 €.</p>
             </div>
         </section>
@@ -228,7 +228,7 @@ class FiscalReportGenerator:
         <section style="margin-top: 40px;">
             <h2 style="color:var(--primary); border-bottom: 1px solid #eee; padding-bottom:10px;">Otras Casillas AEAT</h2>
             <div class="card">
-                <p><strong>Gastos Deducibles (Mantenimiento / Conectividad):</strong> <span class="value" style="font-size:1.2rem;">{self.data.get('fees', Decimal('0')):.2f} €</span></p>
+                <p><strong>Gastos Deducibles (Mantenimiento / Conectividad):</strong> <span class="value" style="font-size:1.2rem;">{self.data.get("fees", Decimal("0")):.2f} €</span></p>
                 <p style="font-size:0.9rem; color:#666;">Incluye comisiones de conectividad de mercado aplicables en la Casilla <span class="box-reference">0035</span>.</p>
             </div>
         </section>

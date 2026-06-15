@@ -68,15 +68,15 @@ def print_console_report(calc: IRPFCalculator):
     print(f"  Deducción doble imposición:  - {_eur(s['deduccion_doble_imposicion'])}")
 
     # ── Resultado
-    print(f"\n{'─'*65}")
+    print(f"\n{'─' * 65}")
     print(f"  Cuota íntegra total:           {_eur(s['cuota_integra'])}")
     print(f"  Cuota líquida:                 {_eur(s['cuota_liquida'])}")
     print(f"  Total retenciones pagadas:   - {_eur(s['total_retenciones'])}")
-    print(f"{'─'*65}")
+    print(f"{'─' * 65}")
     resultado = s["resultado"]
     symbol = "💸" if resultado > 0 else "💚"
     print(f"  {symbol}  RESULTADO ({s['resultado_label']}):      {_eur(abs(resultado))}")
-    print(f"{'='*65}\n")
+    print(f"{'=' * 65}\n")
 
     # Advertencias
     if calc.engine.warnings:

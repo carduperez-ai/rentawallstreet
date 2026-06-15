@@ -69,7 +69,7 @@ class UniversalPDFReader:
             if len(numbers) >= 2:
                 # 3. VALIDACIÓN ARITMÉTICA (¿X * Y = Z?)
                 # Intentamos identificar Qty, Price y Total probando combinaciones
-                qty, price, total = Decimal("0"), Decimal("0"), Decimal("0")
+                qty, _price, total = Decimal("0"), Decimal("0"), Decimal("0")
                 found_math = False
 
                 # Probar todas las combinaciones de 3 números
@@ -81,7 +81,7 @@ class UniversalPDFReader:
                             n1, n2, n3 = abs(numbers[i]), abs(numbers[j]), abs(numbers[k])
                             # Tolerancia del 1% para tipos de cambio o redondeos
                             if abs(n1 * n2 - n3) < (n3 * Decimal("0.02")):
-                                qty, price, total = n1, n2, n3
+                                qty, _price, total = n1, n2, n3
                                 found_math = True
                                 break
                         if found_math:

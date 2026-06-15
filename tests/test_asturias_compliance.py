@@ -86,7 +86,7 @@ def test_ast03_acogimiento_mayores_65():
 def test_ast12_centros_cero_tres():
     # Caso 1: 1 hijo 0-3 años, gasto daycare=2000€, individual, BI=20.000€ (<= 26k)
     # Sin ayudas: 15% de 2.000€ = 300€ (tope 500€)
-    profile = ProfileBuilder.from_dict(
+    ProfileBuilder.from_dict(
         dict(
             region="asturias",
             age=35,

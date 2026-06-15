@@ -56,4 +56,4 @@ def test_interwallet_wash_sale_relativedelta_bug():
 
     # 3. Validar el resultado: la pérdida es retornada libremente y NO marcada como wash sale (DGT V1604-23)
     assert len(crypto_events) == 1, "Debe reportarse 1 evento (la pérdida)"
-    assert crypto_events[0].is_wash_sale == False, "El evento NO debe estar marcado como wash sale en cripto"
+    assert not crypto_events[0].is_wash_sale, "El evento NO debe estar marcado como wash sale en cripto"

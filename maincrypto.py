@@ -127,7 +127,7 @@ def calculate():
         user_folder = get_user_upload_folder()
         inventory = FileClassifier.get_inventory(user_folder, prefs)
 
-        for f, meta in inventory.items():
+        for f, _meta in inventory.items():
             f_path = os.path.join(user_folder, f)
             platform = str(prefs.get(f, "auto")).lower().strip()
 

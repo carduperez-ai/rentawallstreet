@@ -265,7 +265,7 @@ def upload_file():
         return redirect(request.url)
     files = request.files.getlist("file")
 
-    prefs = session.get("platform_prefs", {})
+    session.get("platform_prefs", {})
     user_folder = get_user_upload_folder()
 
     for file in files:
@@ -394,7 +394,7 @@ def calculate():
 
         # --- SANEAMIENTO PREVIO (DEDUPLICACIÓN BOLSA) ---
         from src.ingestion.deduplicator import ingest_and_deduplicate_stock_data
-        
+
         unique_stock_trades, unique_stock_divs, stock_warnings = ingest_and_deduplicate_stock_data(
             user_folder, classified, all_stock_trades_orphan, all_stock_divs_orphan, tax_year=fiscal_year
         )
@@ -407,12 +407,13 @@ def calculate():
 
         crypto_engine.tax_events = crypto_tax_events
         crypto_engine.warnings = controller.crypto_warnings
-        
+
         # --- CÁLCULO DE DIVIDENDOS (FILTRADO PASIVO) ---
         from src.accounting.stock_calculator import StockTaxEngine
+
         stock_engine = StockTaxEngine(tax_year=fiscal_year)
         stock_engine.process_dividends(unique_stock_divs)
-        
+
         stock_events = stock_tax_events
         stock_divs = stock_engine.dividends
         stock_warnings.extend(controller.stock_warnings)
@@ -658,7 +659,7 @@ def _dict_to_dividend(d: dict):
 
     parsed = {}
     valid_fields = {f.name for f in dataclasses.fields(Dividend)}
-    
+
     for k, v in d.items():
         if k not in valid_fields:
             continue

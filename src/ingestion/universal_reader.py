@@ -35,7 +35,7 @@ def parse(file_path: str) -> Tuple[List[Trade], List[Dividend]]:
     c_asset = fuzzy_match(df.columns, ["producto", "product", "asset", "activo", "ticker", "isin"])
     c_qty = fuzzy_match(df.columns, ["cantidad", "quantity", "numero", "nmero", "shares"])
     c_val = fuzzy_match(df.columns, ["valor", "value", "monto", "amount", "total", "variacion"])
-    c_fee = fuzzy_match(df.columns, ["comision", "fee", "costes"])
+    fuzzy_match(df.columns, ["comision", "fee", "costes"])
 
     for _, row in df.iterrows():
         op_type = str(row[c_type]).lower() if c_type else ""

@@ -108,16 +108,14 @@ class StateDeductor:
         if maternity_months:
             total_maternity_deduction = Decimal("0")
             exempt_ss = getattr(profile, "exempt_from_ss_limit", False)
-            for month, ss_contribution in maternity_months.items():
+            for _month, ss_contribution in maternity_months.items():
                 if exempt_ss:
                     total_maternity_deduction += Decimal("100")
                 else:
                     total_maternity_deduction += min(Decimal("100"), ss_contribution)
-            
+
             if total_maternity_deduction > 0:
-                deductions.append(
-                    Deduction("ART81_MAT", total_maternity_deduction, "Maternidad (Art. 81)")
-                )
+                deductions.append(Deduction("ART81_MAT", total_maternity_deduction, "Maternidad (Art. 81)"))
 
         # Gastos Guardería
         children_u3 = getattr(profile, "children_under_3", 0)

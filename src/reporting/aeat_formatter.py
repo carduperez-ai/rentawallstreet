@@ -121,11 +121,11 @@ class AEATFormatter:
             g["asset_id"] = te.asset_id
             g["asset_name"] = te.asset_name if te.asset_name else te.asset
             g["type"] = te.asset_type
-            
+
             # Sumar en crudo (Decimal puro)
             g["cost"] += te.acquisition_cost_eur + te.buy_fee_eur
             g["proceeds"] += te.sale_proceeds_eur - te.sell_fee_eur
-            
+
             # Aislar pérdidas diferidas (Wash Sales)
             if getattr(te, "is_wash_sale", False) and getattr(te, "asset_type", "") != "crypto":
                 g["has_wash_sales"] = True
@@ -135,7 +135,7 @@ class AEATFormatter:
             else:
                 g["gain"] += te.gain_loss_eur
 
-        for aid, data in asset_groups.items():
+        for _aid, data in asset_groups.items():
             box = "0000"
             if data["type"] == "crypto":
                 box = "1803"
@@ -164,7 +164,7 @@ class AEATFormatter:
                     d["gain"] = d["gain"].quantize(Decimal("0.01"))
                     if "deferred_loss" in d:
                         d["deferred_loss"] = d["deferred_loss"].quantize(Decimal("0.01"))
-                
+
                 v["total_cost"] = v["total_cost"].quantize(Decimal("0.01"))
                 v["total_proceeds"] = v["total_proceeds"].quantize(Decimal("0.01"))
                 v["total_gain"] = v["total_gain"].quantize(Decimal("0.01"))
@@ -198,9 +198,12 @@ class AEATFormatter:
             )
         return annex
 
-    def get_m721_summary(self, crypto_balances: Dict[str, Decimal], oracle: Any, tax_year: int = 2025) -> Dict[str, Any]:
+    def get_m721_summary(
+        self, crypto_balances: Dict[str, Decimal], oracle: Any, tax_year: int = 2025
+    ) -> Dict[str, Any]:
         """Calcula el saldo vivo a 31 de diciembre e inyecta el Modelo 721 si supera el umbral (50.000€)."""
         import datetime
+
         dt_end = datetime.datetime(tax_year, 12, 31, 23, 59, 59)
         total_value_eur = Decimal("0")
         inventory = []
@@ -208,18 +211,13 @@ class AEATFormatter:
         for asset, qty in crypto_balances.items():
             if qty <= Decimal("0"):
                 continue
-            
+
             # Obtener tasación en euros en ese instante
             price_eur = oracle.get_price_eur(asset, dt_end)
             value_eur = qty * price_eur
             total_value_eur += value_eur
-            
-            inventory.append({
-                "asset": asset,
-                "quantity": qty,
-                "price_eur": price_eur,
-                "value_eur": value_eur
-            })
+
+            inventory.append({"asset": asset, "quantity": qty, "price_eur": price_eur, "value_eur": value_eur})
 
         # Redondear tras el sumatorio general
         total_value_eur = total_value_eur.quantize(Decimal("0.01"))
@@ -229,10 +227,9 @@ class AEATFormatter:
             item["value_eur"] = item["value_eur"].quantize(Decimal("0.01"))
 
         is_required = total_value_eur > Decimal("50000.00")
-        
+
         return {
             "required": is_required,
             "total_value_eur": total_value_eur,
-            "inventory": sorted(inventory, key=lambda x: x["value_eur"], reverse=True)
+            "inventory": sorted(inventory, key=lambda x: x["value_eur"], reverse=True),
         }
-

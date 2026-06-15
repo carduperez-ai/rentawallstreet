@@ -199,7 +199,7 @@ class EToroIngestor:
             if is_real in ("FALSE", "NO", "0", "N"):
                 continue
 
-            action = self._g(row, "Action").strip().upper()
+            self._g(row, "Action").strip().upper()
             details = self._g(row, "Details", "Action")  # nombre del activo
             units_str = self._g(row, "Units")
             amount_str = self._g(row, "Amount")  # tamaño de posición en USD
@@ -216,7 +216,7 @@ class EToroIngestor:
                 continue
 
             # Precio de apertura y cierre por unidad (USD)
-            open_price_usd = position_sz / units
+            position_sz / units
             close_proceeds_usd = position_sz + profit_usd  # total recibido al cerrar
 
             asset = self._g(row, "Details") or details or "UNKNOWN"
