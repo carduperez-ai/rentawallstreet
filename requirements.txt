@@ -10,3 +10,4 @@ requests
 
 tzdata
 ruff
+python-dotenv
