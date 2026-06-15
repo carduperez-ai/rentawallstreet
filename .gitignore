@@ -80,6 +80,7 @@ tests/oracle_generator/temp_test.json
 /*.json
 /test_*.py
 !requirements.txt
+!requirements-dev.txt
 
 # Oraculos de Selenium/Playwright (Screenshots y DOMs locales)
 tests/oracle_generator/etl/*.png

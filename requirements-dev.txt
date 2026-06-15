@@ -1,0 +1,8 @@
+python-dotenv
+ruff
+mypy
+pre-commit
+bandit
+pip-audit
+pytest
+pytest-cov
