@@ -46,10 +46,10 @@ def test_adapter_integration(adapter_class, filename, user_pref):
                 print(f"[DEBUG] process_file returns: {ing.process_file(path)}", file=sys.stderr)
                 print(f"[DEBUG] KrakenIngestor warnings: {ing.warnings}", file=sys.stderr)
                 _ = ing.transactions
-        except Exception as e:
+        except Exception:
             import traceback
             traceback.print_exc(file=sys.stderr)
-    
+
     assert len(trades) > 0, f"{adapter_class.__name__} no extrajo trades."
 
     # 4. Valida tipado en la primera operación extraída
