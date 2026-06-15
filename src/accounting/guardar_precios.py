@@ -48,5 +48,5 @@ def _leer_cache_completa():
     try:
         with open(CACHE_FILE, "r", encoding="utf-8") as f:
             return json.load(f)
-    except:
+    except Exception:
         return {}

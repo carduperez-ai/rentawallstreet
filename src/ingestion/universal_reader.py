@@ -8,14 +8,14 @@ class UniversalReader:
         return parse(f)
 
 
-import pandas as pd
-from datetime import datetime
-from decimal import Decimal
-from typing import List, Tuple
-import os
-from src.domain.stock_entities import Trade
-from src.domain.stock_fiscal_entities import Dividend
-from src.ingestion.utils import clean_decimal, parse_date, fuzzy_match
+import pandas as pd  # noqa: E402
+from datetime import datetime  # noqa: E402
+from decimal import Decimal  # noqa: E402
+from typing import List, Tuple  # noqa: E402
+import os  # noqa: E402
+from src.domain.stock_entities import Trade  # noqa: E402
+from src.domain.stock_fiscal_entities import Dividend  # noqa: E402
+from src.ingestion.utils import clean_decimal, parse_date, fuzzy_match  # noqa: E402
 
 
 def parse(file_path: str) -> Tuple[List[Trade], List[Dividend]]:

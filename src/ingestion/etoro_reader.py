@@ -119,8 +119,8 @@ class EToroIngestor:
         self._activity_rows: List[Dict] = []  # Account Activity
         self._positions_rows: List[Dict] = []  # Closed Positions
         self._dividends_rows: List[Dict] = []  # Dividends
-        self._pdf_trades: List[Trade] = []
-        self._pdf_dividends: List[Dividend] = []
+        self._pdf_trades: List[Any] = []
+        self._pdf_dividends: List[Any] = []
 
     def process_file(self, file_path: str) -> bool:
         ext = os.path.splitext(file_path)[1].lower()

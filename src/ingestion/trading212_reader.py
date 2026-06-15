@@ -174,7 +174,7 @@ def _parse_pdf(file_path: str) -> Tuple[List[Trade], List[Dividend]]:
                                 )
                             )
 
-    except:
+    except Exception:
         pass
     return trades, dividends
 
@@ -189,5 +189,5 @@ def _pdf_to_decimal(s: str) -> Decimal:
         clean = clean.replace(",", ".")
     try:
         return Decimal(clean)
-    except:
+    except Exception:
         return Decimal("0")

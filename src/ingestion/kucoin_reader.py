@@ -172,8 +172,8 @@ class KuCoinIngestor:
         trades: List[Trade] = list(self._pdf_trades)
 
         for row in self._spot_rows:
-            def g(*k):
-                return self._g(row, *k)
+            def g(*k, r=row):
+                return self._g(r, *k)
 
             dt = _parse_date(g("Time"))
             symbol = g("Symbol")
@@ -213,8 +213,8 @@ class KuCoinIngestor:
     def dividends(self) -> List[Dividend]:
         result: List[Dividend] = list(self._pdf_dividends)
         for row in self._funding_rows:
-            def g(*k):
-                return self._g(row, *k)
+            def g(*k, r=row):
+                return self._g(r, *k)
 
             tx_type = g("Type").strip().lower()
             status = g("Status").strip().lower()

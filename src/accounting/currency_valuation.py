@@ -108,7 +108,7 @@ class MarketPriceOracle:
                     for key, val in data.items():
                         asset, date = key.split("|")
                         self.cache[(asset, date)] = Decimal(str(val))
-            except:
+            except Exception:
                 pass
 
     def _save_cache(self):
@@ -116,7 +116,7 @@ class MarketPriceOracle:
             data = {f"{k[0]}|{k[1]}": str(v) for k, v in self.cache.items()}
             with open(self.cache_file, "w") as f:
                 json.dump(data, f)
-        except:
+        except Exception:
             pass
 
     def preload_batch(self, datasets: set[tuple[str, datetime]]):
@@ -153,14 +153,14 @@ class MarketPriceOracle:
                 url_check = f"https://api.binance.com/api/v3/klines?symbol={symbol}&interval=1d&limit=1"
                 req = urllib.request.Request(url_check, headers=headers)
                 urllib.request.urlopen(req, timeout=5)
-            except:
+            except Exception:
                 symbol = f"{asset.upper()}USDT"
                 usdt_fallback = True
                 try:
                     url_check = f"https://api.binance.com/api/v3/klines?symbol={symbol}&interval=1d&limit=1"
                     req = urllib.request.Request(url_check, headers=headers)
                     urllib.request.urlopen(req, timeout=5)
-                except:
+                except Exception:
                     failed_assets.add(asset)
                     continue
 
@@ -232,7 +232,7 @@ class MarketPriceOracle:
                             dt_obj = datetime.fromtimestamp(current_ts, tz=timezone.utc)
                             date_str = dt_obj.strftime("%Y-%m-%d")
                             self.cache[(asset.upper(), date_str)] = price_cc
-                except:
+                except Exception:
                     pass
                 current_ts += 86400
                 days += 1
@@ -257,7 +257,7 @@ class MarketPriceOracle:
             try:
                 # Obtenemos el valor de 1 USD en EUR para esa fecha
                 return get_eur_per_usd(date_obj)
-            except:
+            except Exception:
                 return None
 
         # 3. Caché de activos volátiles
@@ -267,7 +267,7 @@ class MarketPriceOracle:
         # 4. Fallo: Consultar API Externa (CryptoCompare) como último recurso para comisiones
         try:
             return self._fetch_external_price(asset, date_obj)
-        except:
+        except Exception:
             return None
 
     def _fetch_external_price(self, asset: str, date_obj: datetime) -> Optional[Decimal]:
@@ -311,7 +311,7 @@ class MarketPriceOracle:
                         price_eur = price_usdt * eur_per_usd
                         print(f"  [Binance API] Precio {asset} recuperado via USDT: {price_eur:.2f} €")
                         return price_eur
-            except:
+            except Exception:
                 pass
 
             # 3. ÚLTIMO RECURSO: CryptoCompare (Muy robusto para históricos)
@@ -324,7 +324,7 @@ class MarketPriceOracle:
                         price_cc = Decimal(str(data_cc[asset.upper()]["EUR"]))
                         print(f"  [CryptoCompare] Precio {asset} recuperado: {price_cc} €")
                         return price_cc
-            except:
+            except Exception:
                 pass
 
             print(

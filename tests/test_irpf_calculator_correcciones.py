@@ -1,18 +1,18 @@
-import pytest
+import pytest  # noqa: E402
 
-from src.ingestion.profile_builder import ProfileBuilder
+from src.ingestion.profile_builder import ProfileBuilder  # noqa: E402
 
 # tests/test_irpf_calculator_correcciones.py
 """
 Suite de pruebas unitarias y de estrés para certificar físicamente
 las correcciones de cumplimiento de la LIRPF y prelación del Art. 49.
 """
-from decimal import Decimal
-from datetime import datetime
-from dataclasses import dataclass
+from decimal import Decimal  # noqa: E402
+from datetime import datetime  # noqa: E402
+from dataclasses import dataclass  # noqa: E402
 
-from src.tax_compliance.core.irpf_calculator import IRPFCalculator
-from src.domain.fiscal_entities import Dividend, WorkIncome, OtherIncome, BusinessIncome, RentalIncome
+from src.tax_compliance.core.irpf_calculator import IRPFCalculator  # noqa: E402
+from src.domain.fiscal_entities import Dividend, WorkIncome, OtherIncome, BusinessIncome, RentalIncome  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # Minimal stubs para simular TaxEvent de cripto y de stocks

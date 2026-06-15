@@ -1,9 +1,9 @@
-import pdfplumber
-from decimal import Decimal
-from datetime import datetime
-from typing import List, Tuple, Dict
-from src.domain.stock_entities import Trade
-from src.domain.stock_fiscal_entities import Dividend
+import pdfplumber  # noqa: E402
+from decimal import Decimal  # noqa: E402
+from datetime import datetime  # noqa: E402
+from typing import List, Tuple, Dict  # noqa: E402
+from src.domain.stock_entities import Trade  # noqa: E402
+from src.domain.stock_fiscal_entities import Dividend  # noqa: E402
 
 
 class UniversalPDFReader:
@@ -63,7 +63,7 @@ class UniversalPDFReader:
                         val = self._to_decimal(t)
                         if val != 0:
                             numbers.append(val)
-                    except:
+                    except Exception:
                         continue
 
             if len(numbers) >= 2:
@@ -158,7 +158,7 @@ class UniversalPDFReader:
         for fmt in ["%d/%m/%Y", "%Y/%m/%d", "%d.%m.%Y", "%Y.%m.%d", "%d-%m-%Y", "%Y-%m-%d", "%d %m %Y"]:
             try:
                 return datetime.strptime(s, fmt)
-            except:
+            except Exception:
                 continue
 
         # Intentar con nombres de mes
@@ -175,7 +175,7 @@ class UniversalPDFReader:
                         year += 2000
                     try:
                         return datetime(year, m_val, day)
-                    except:
+                    except Exception:
                         continue
 
         return datetime.now()
@@ -255,7 +255,7 @@ class UniversalPDFReader:
                             fee_eur=fee,
                         )
                     )
-            except:
+            except Exception:
                 continue
 
     def _parse_flexible_date(self, s: str) -> datetime:
@@ -263,7 +263,7 @@ class UniversalPDFReader:
         for fmt in ["%d/%m/%Y %H:%M:%S", "%Y-%m-%d %H:%M:%S", "%d/%m/%Y", "%Y-%m-%d", "%d-%m-%Y"]:
             try:
                 return datetime.strptime(s, fmt)
-            except:
+            except Exception:
                 continue
         return datetime.now()
 
@@ -283,8 +283,8 @@ class UniversalPDFReader:
 
         try:
             return Decimal(clean)
-        except:
+        except Exception:
             return Decimal("0")
 
 
-import re
+import re  # noqa: E402

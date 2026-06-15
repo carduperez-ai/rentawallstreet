@@ -15,7 +15,7 @@ async def run_test():
         try:
             await page.click("text=REINICIAR ASISTENTE", timeout=2000)
             print("Asistente reiniciado.")
-        except:
+        except Exception:
             pass
 
         # 2. Iniciar Asistente

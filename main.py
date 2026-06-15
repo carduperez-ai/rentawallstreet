@@ -8,7 +8,7 @@ import time
 from werkzeug.utils import secure_filename
 from datetime import datetime
 from decimal import Decimal
-from src.domain.fiscal_entities import TaxpayerProfile
+from src.domain.fiscal_entities import TaxpayerProfile  # noqa: E402
 
 
 # Configuración de codificación para JSON
@@ -26,7 +26,7 @@ def _to_int(valor, default=0) -> int:
         return default
     try:
         return int(_to_dec(valor).to_integral_value())
-    except:
+    except Exception:
         return default
 
 
@@ -48,7 +48,7 @@ def _to_dec(valor, default="0") -> Decimal:
 
     try:
         return Decimal(s)
-    except:
+    except Exception:
         return Decimal(default)
 
 
@@ -137,17 +137,17 @@ def _build_profile(form) -> "TaxpayerProfile":
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 # Importaciones de Dominio y Lógica Modular
-from src.accounting.fifo_calculator_stock import TaxEngine
-from src.tax_compliance.core.irpf_calculator import IRPFCalculator
-from src.domain.fiscal_entities import WorkIncome
-from src.ingestion.file_classifier import FileClassifier
+from src.accounting.fifo_calculator_stock import TaxEngine  # noqa: E402
+from src.tax_compliance.core.irpf_calculator import IRPFCalculator  # noqa: E402
+from src.domain.fiscal_entities import WorkIncome  # noqa: E402
+from src.ingestion.file_classifier import FileClassifier  # noqa: E402
 
 # Importación de Especialistas
 # maincrypto se queda como backup, pero aquí usamos directamente el motor
 # Para Inmuebles y Otros usaremos clases simples por ahora
 
-import dotenv
-import logging
+import dotenv  # noqa: E402
+import logging  # noqa: E402
 
 dotenv.load_dotenv()
 
@@ -182,7 +182,7 @@ else:
     try:
         with open(secret_file, "w") as f:
             f.write(default_secret)
-    except:
+    except Exception:
         pass
 app.secret_key = os.getenv("FLASK_SECRET_KEY", default_secret)
 
@@ -193,7 +193,7 @@ def euro_filter(val):
         return "0,00 €"
     try:
         return "{:,.2f} €".format(float(val)).replace(",", "X").replace(".", ",").replace("X", ".")
-    except:
+    except Exception:
         return f"{val} €"
 
 

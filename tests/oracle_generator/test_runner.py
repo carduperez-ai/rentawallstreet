@@ -1,5 +1,5 @@
-from __future__ import annotations
-from src.ingestion.profile_builder import ProfileBuilder
+from __future__ import annotations  # noqa: E402
+from src.ingestion.profile_builder import ProfileBuilder  # noqa: E402
 
 """
 IRPF Oracle Test Runner + Fiscal Auditor
@@ -7,21 +7,21 @@ Puente entre los casos JSON y el motor IRPFCalculator, más un auditor que
 re-deriva cada cálculo intermedio desde la normativa LIRPF 2025.
 """
 
-import json
-import os
-import sys
-from dataclasses import dataclass, field
-from datetime import datetime
-from decimal import Decimal
-from typing import Any, Dict, List, Optional, Tuple
+import json  # noqa: E402
+import os  # noqa: E402
+import sys  # noqa: E402
+from dataclasses import dataclass, field  # noqa: E402
+from datetime import datetime  # noqa: E402
+from decimal import Decimal  # noqa: E402
+from typing import Any, Dict, List, Optional, Tuple  # noqa: E402
 
 _PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 if _PROJECT_ROOT not in sys.path:
     sys.path.insert(0, _PROJECT_ROOT)
 
-from src.tax_compliance.core.irpf_calculator import IRPFCalculator
-from src.domain.fiscal_entities import Dividend, WorkIncome, TaxpayerProfile
-from tests.oracle_generator.generate_test_suite import (
+from src.tax_compliance.core.irpf_calculator import IRPFCalculator  # noqa: E402
+from src.domain.fiscal_entities import Dividend, WorkIncome, TaxpayerProfile  # noqa: E402
+from tests.oracle_generator.generate_test_suite import (  # noqa: E402
     generate_salary_thresholds,
     generate_family_cases,
     generate_deduction_cases,

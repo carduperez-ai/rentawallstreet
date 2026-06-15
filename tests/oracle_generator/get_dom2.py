@@ -13,7 +13,7 @@ with sync_playwright() as p:
     print("Testing get_by_label...")
     try:
         print("Estado Civil loc:", page.get_by_label("Estado Civil", exact=False).count())
-    except:
+    except Exception:
         pass
 
     # Get all inputs and their surrounding text in parent node
@@ -24,7 +24,7 @@ with sync_playwright() as p:
             print(
                 f"Input Type: {el.get_attribute('type')}, Parent Text: {parent_text.strip()[:50] if parent_text else 'None'}"
             )
-        except:
+        except Exception:
             pass
 
     browser.close()

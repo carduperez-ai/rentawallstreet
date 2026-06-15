@@ -1,10 +1,10 @@
-import os
-import re
-import sys
-import subprocess
-from datetime import datetime
-from typing import List, Dict, Tuple, Any
-from decimal import Decimal
+import os  # noqa: E402
+import re  # noqa: E402
+import sys  # noqa: E402
+import subprocess  # noqa: E402
+from datetime import datetime  # noqa: E402
+from typing import List, Dict, Tuple, Any  # noqa: E402
+from decimal import Decimal  # noqa: E402
 
 
 # =====================================================================
@@ -41,7 +41,7 @@ def verificar_dependencias():
 # un módulo bloquea el servidor Flask en producción. Las dependencias deben
 # verificarse en el arranque del servidor, no en import-time.
 
-import pandas as pd
+import pandas as pd  # noqa: E402
 
 try:
     from zoneinfo import ZoneInfo
@@ -49,9 +49,9 @@ except ImportError:
     ZoneInfo = None
 
 # IMPORTACIONES DE TU PROYECTO (Mantenidas intactas)
-from src.domain.crypto_entities import Trade
-from src.domain.fiscal_entities import Dividend
-from src.accounting.currency_valuation import oracle
+from src.domain.crypto_entities import Trade  # noqa: E402
+from src.domain.fiscal_entities import Dividend  # noqa: E402
+from src.accounting.currency_valuation import oracle  # noqa: E402
 
 
 # =====================================================================
@@ -551,7 +551,7 @@ class BinanceIngestor:
         res = "".join([c for c in str(val) if c.isdigit() or c == "."])
         try:
             return Decimal(res) if res else Decimal("0")
-        except:
+        except Exception:
             return Decimal("0")
 
     def _parse_decimal_signed(self, val):
@@ -560,7 +560,7 @@ class BinanceIngestor:
         res = "".join([c for c in str(val) if c.isdigit() or c == "." or c == "-"])
         try:
             return Decimal(res) if res else Decimal("0")
-        except:
+        except Exception:
             return Decimal("0")
 
     def _split_pair(self, par: str) -> Tuple[str, str]:
@@ -652,7 +652,7 @@ class BinanceIngestor:
             else:
                 dt_pd = dt_pd.replace(tzinfo=None)
             return dt_pd
-        except:
+        except Exception:
             return None  # Sin fallback: fecha inválida se descarta
 
 

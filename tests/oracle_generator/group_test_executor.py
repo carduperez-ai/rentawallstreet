@@ -7,8 +7,8 @@ _PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".
 if _PROJECT_ROOT not in sys.path:
     sys.path.insert(0, _PROJECT_ROOT)
 
-from tests.oracle_generator.test_runner import run_calculation, audit_results
-from tests.oracle_generator.generate_test_suite import (
+from tests.oracle_generator.test_runner import run_calculation, audit_results  # noqa: E402
+from tests.oracle_generator.generate_test_suite import (  # noqa: E402
     generate_salary_thresholds,
     generate_family_cases,
     generate_deduction_cases,

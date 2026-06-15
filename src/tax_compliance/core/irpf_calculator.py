@@ -1,10 +1,10 @@
-from src.tax_compliance.regions.factory import RegionalContextFactory
+from src.tax_compliance.regions.factory import RegionalContextFactory  # noqa: E402
 
 # src/tax_compliance/irpf_calculator.py
-from decimal import Decimal
-from typing import List, Dict, Optional, Union, Sequence
-import json
-import os
+from decimal import Decimal  # noqa: E402
+from typing import List, Dict, Optional, Union, Sequence  # noqa: E402
+import json  # noqa: E402
+import os  # noqa: E402
 
 
 class ConfigLoader:
@@ -31,7 +31,7 @@ class ConfigLoader:
         return cls._config_data
 
 
-from src.domain.fiscal_entities import (
+from src.domain.fiscal_entities import (  # noqa: E402
     WorkIncome,
     TaxpayerProfile,
     RentalIncome,
@@ -41,8 +41,8 @@ from src.domain.fiscal_entities import (
     LossCarryForward,
     Deduction,
 )
-from src.domain.shared_types import AnyTaxEvent, AnyDividend
-from src.domain.output_dto import TaxResultDTO
+from src.domain.shared_types import AnyTaxEvent, AnyDividend  # noqa: E402
+from src.domain.output_dto import TaxResultDTO  # noqa: E402
 
 
 class SpecialTaxProcessors:

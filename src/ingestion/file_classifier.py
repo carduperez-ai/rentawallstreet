@@ -118,7 +118,7 @@ class FileClassifier:
                     if matches >= 2:
                         platform = p
                         break
-            except:
+            except Exception:
                 pass
 
         # 4. Validación de Soporte

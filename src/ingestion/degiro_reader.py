@@ -24,7 +24,7 @@ def _clean_decimal(val) -> Decimal:
     s = str(val).replace('"', "").replace("'", "").replace(".", "").replace(",", ".").strip()
     try:
         return Decimal(s)
-    except:
+    except Exception:
         return Decimal("0")
 
 
@@ -39,7 +39,7 @@ def _parse_date(s) -> datetime:
     for fmt in ["%d-%m-%Y %H:%M", "%d-%m-%Y", "%Y-%m-%d", "%d/%m/%Y", "%d/%m/%Y %H:%M", "%Y/%m/%d"]:
         try:
             return datetime.strptime(s, fmt)
-        except:
+        except Exception:
             continue
     return datetime(1900, 1, 1)
 
@@ -87,7 +87,7 @@ def _extract_data_from_pdf(path: str) -> Tuple[List[Trade], List[Dividend]]:
                         if re.match(r"^-?[\d\.]+$", p_clean):
                             total_eur = abs(_clean_decimal(p))
                             break
-                    except:
+                    except Exception:
                         continue
             qty = Decimal("0")
             for i in range(len(parts)):
@@ -97,7 +97,7 @@ def _extract_data_from_pdf(path: str) -> Tuple[List[Trade], List[Dividend]]:
                     if re.match(r"^-?[\d\.]+$", p_clean) and p_clean != "0.00":
                         qty = _clean_decimal(p)
                         break
-                except:
+                except Exception:
                     continue
             if qty != 0:
                 trades.append(
@@ -144,12 +144,12 @@ def parse(file_paths) -> Tuple[List[Trade], List[Dividend]]:
             if path.endswith(".csv"):
                 try:
                     df = pd.read_csv(path)
-                except:
+                except Exception:
                     pass
             elif path.endswith(".xlsx"):
                 try:
                     df = pd.read_excel(path)
-                except:
+                except Exception:
                     pass
 
             if df is not None:
@@ -230,12 +230,12 @@ def parse(file_paths) -> Tuple[List[Trade], List[Dividend]]:
                     try:
                         df = pd.read_csv(path, encoding=enc)
                         break
-                    except:
+                    except Exception:
                         pass
             elif path.endswith(".xlsx"):
                 try:
                     df = pd.read_excel(path)
-                except:
+                except Exception:
                     pass
 
             if df is not None:
