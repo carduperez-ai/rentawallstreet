@@ -117,7 +117,7 @@ class PDFProcessor:
                             try:
                                 eur_val_idx = parts.index(fx_fee) - 1
                                 eur_val = self._to_decimal(parts[eur_val_idx])
-                            except:
+                            except Exception:
                                 eur_val = abs(q * self._to_decimal(price))
 
                             trades.append(
@@ -147,7 +147,7 @@ class PDFProcessor:
         clean = text.replace(".", "").replace(",", ".")
         try:
             return Decimal(clean)
-        except:
+        except Exception:
             return Decimal("0")
 
 

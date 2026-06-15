@@ -7,8 +7,8 @@ _PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".
 if _PROJECT_ROOT not in sys.path:
     sys.path.insert(0, _PROJECT_ROOT)
 
-from tests.oracle_generator.test_runner import run_calculation, audit_results
-from tests.oracle_generator.generate_test_suite import (
+from tests.oracle_generator.test_runner import run_calculation, audit_results  # noqa: E402
+from tests.oracle_generator.generate_test_suite import (  # noqa: E402
     generate_salary_thresholds,
     generate_family_cases,
     generate_deduction_cases,
@@ -38,9 +38,9 @@ def print_audit_report(report):
 
 
 def run_group(name, cases):
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
     print(f" EJECUTANDO GRUPO: {name} ({len(cases)} casos)")
-    print(f"{'='*60}")
+    print(f"{'=' * 60}")
 
     results = run_calculation(cases)
     group_passed = 0
@@ -105,11 +105,11 @@ def main():
         total_passed += passes
         total_failed += fails
 
-    print(f"\n{'#'*60}")
+    print(f"\n{'#' * 60}")
     print(" BALANCE FINAL")
     print(f" TOTAL PASADOS: {total_passed}")
     print(f" TOTAL FALLIDOS: {total_failed}")
-    print(f"{'#'*60}")
+    print(f"{'#' * 60}")
 
 
 if __name__ == "__main__":

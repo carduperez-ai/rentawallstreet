@@ -362,10 +362,10 @@ class CoinbaseIngestor:
             spot_currency = self._get(row, "spot price currency").upper()
             spot_price = _parse_decimal(self._get(row, "spot price at transaction"))
             fee_raw = _parse_decimal(self._get(row, "fees and/or spread"))
-            notes = self._get(row, "notes")
+            self._get(row, "notes")
 
             val_eur = _safe_eur(qty, asset, dt, spot_price, spot_currency)
-            fee_eur = _safe_eur(fee_raw, spot_currency if spot_currency else "USD", dt)
+            _safe_eur(fee_raw, spot_currency if spot_currency else "USD", dt)
 
             # Clasificación de subtipo para la declaración
             if tx_type in ("rewards income", "staking income", "inflation reward"):

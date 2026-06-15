@@ -25,19 +25,19 @@ def _to_dec(valor, default="0") -> Decimal:
     s = str(valor).replace(",", ".")
     try:
         return Decimal(s)
-    except:
+    except Exception:
         return Decimal(default)
 
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from src.accounting.fifo_calculator import TaxEngine
-from src.accounting.stock_calculator import StockTaxEngine
-from src.tax_compliance.core.irpf_calculator import IRPFCalculator
-from src.domain.fiscal_entities import WorkIncome
-from src.ingestion.file_classifier import FileClassifier
+from src.accounting.fifo_calculator import TaxEngine  # noqa: E402
+from src.accounting.stock_calculator import StockTaxEngine  # noqa: E402
+from src.tax_compliance.core.irpf_calculator import IRPFCalculator  # noqa: E402
+from src.domain.fiscal_entities import WorkIncome  # noqa: E402
+from src.ingestion.file_classifier import FileClassifier  # noqa: E402
 
-import dotenv
+import dotenv  # noqa: E402
 
 dotenv.load_dotenv()
 
@@ -60,7 +60,7 @@ else:
     try:
         with open(secret_file, "w") as f:
             f.write(default_secret)
-    except:
+    except Exception:
         pass
 app.secret_key = os.getenv("FLASK_SECRET_KEY", default_secret)
 
@@ -127,7 +127,7 @@ def calculate():
         user_folder = get_user_upload_folder()
         inventory = FileClassifier.get_inventory(user_folder, prefs)
 
-        for f, meta in inventory.items():
+        for f, _meta in inventory.items():
             f_path = os.path.join(user_folder, f)
             platform = str(prefs.get(f, "auto")).lower().strip()
 

@@ -41,7 +41,7 @@ def extract(test_name):
                 val = val.replace(".", "").replace(",", ".").replace(" €", "")
                 try:
                     results[key] = float(val)
-                except:
+                except Exception:
                     results[key] = 0.0
 
             # Cargar JSON

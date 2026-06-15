@@ -1,4 +1,4 @@
-from typing import Union, Sequence
+from typing import Union
 from src.domain.stock_fiscal_entities import Dividend as StockDividend
 from src.domain.fiscal_entities import Dividend as GeneralDividend
 from src.domain.crypto_entities import Trade as CryptoTrade

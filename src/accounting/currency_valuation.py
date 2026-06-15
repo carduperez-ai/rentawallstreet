@@ -108,7 +108,7 @@ class MarketPriceOracle:
                     for key, val in data.items():
                         asset, date = key.split("|")
                         self.cache[(asset, date)] = Decimal(str(val))
-            except:
+            except Exception:
                 pass
 
     def _save_cache(self):
@@ -116,7 +116,7 @@ class MarketPriceOracle:
             data = {f"{k[0]}|{k[1]}": str(v) for k, v in self.cache.items()}
             with open(self.cache_file, "w") as f:
                 json.dump(data, f)
-        except:
+        except Exception:
             pass
 
     def preload_batch(self, datasets: set[tuple[str, datetime]]):
@@ -127,8 +127,9 @@ class MarketPriceOracle:
         fiat_stables = {"EUR", "USD", "USDT", "USDC", "BUSD", "FDUSD", "DAI"}
         asset_ranges = {}
         for asset, dt in datasets:
-            if asset in fiat_stables: continue
-            
+            if asset in fiat_stables:
+                continue
+
             ts_ms = int(dt.replace(tzinfo=timezone.utc).timestamp() * 1000)
             if asset not in asset_ranges:
                 asset_ranges[asset] = {"min": ts_ms, "max": ts_ms}
@@ -142,24 +143,24 @@ class MarketPriceOracle:
         for asset, ranges in asset_ranges.items():
             min_ts = ranges["min"]
             max_ts = ranges["max"]
-            
+
             # Intentar par directo EUR, si no, USDT
             symbol = f"{asset.upper()}EUR"
             usdt_fallback = False
-            
+
             # Verificación rápida del par
             try:
                 url_check = f"https://api.binance.com/api/v3/klines?symbol={symbol}&interval=1d&limit=1"
                 req = urllib.request.Request(url_check, headers=headers)
                 urllib.request.urlopen(req, timeout=5)
-            except:
+            except Exception:
                 symbol = f"{asset.upper()}USDT"
                 usdt_fallback = True
                 try:
                     url_check = f"https://api.binance.com/api/v3/klines?symbol={symbol}&interval=1d&limit=1"
                     req = urllib.request.Request(url_check, headers=headers)
                     urllib.request.urlopen(req, timeout=5)
-                except:
+                except Exception:
                     failed_assets.add(asset)
                     continue
 
@@ -174,30 +175,30 @@ class MarketPriceOracle:
                         data = json.loads(resp.read())
                         if not data:
                             break
-                        
+
                         for kline in data:
                             k_time = kline[0]
                             k_close = Decimal(str(kline[4]))
                             dt_obj = datetime.fromtimestamp(k_time / 1000.0, tz=timezone.utc)
                             date_str = dt_obj.strftime("%Y-%m-%d")
-                            
+
                             if usdt_fallback:
                                 eur_per_usd = get_eur_per_usd(dt_obj)
                                 price_eur = k_close * eur_per_usd
                             else:
                                 price_eur = k_close
-                                
+
                             self.cache[(asset.upper(), date_str)] = price_eur
-                            current_start = kline[6] + 1 # closeTime + 1ms para la siguiente vela
-                        
+                            current_start = kline[6] + 1  # closeTime + 1ms para la siguiente vela
+
                         if len(data) < 1000:
-                            break # No hay más datos futuros
-                        
-                        time.sleep(0.5) # Respetar API weights entre páginas
-                except Exception as e:
+                            break  # No hay más datos futuros
+
+                        time.sleep(0.5)  # Respetar API weights entre páginas
+                except Exception:
                     failed_assets.add(asset)
                     break
-                    
+
         self._save_cache()
         if failed_assets:
             self._preload_batch_cryptocompare(failed_assets, asset_ranges)
@@ -206,18 +207,18 @@ class MarketPriceOracle:
         """Fallback para ICOs y activos delistados usando min-api."""
         import time
         from datetime import timezone
+
         headers = {"User-Agent": "Mozilla/5.0"}
-        
+
         for asset in assets:
             max_ts = ranges[asset]["max"]
             min_ts = ranges[asset]["min"]
-            
+
             # CryptoCompare requiere TS en segundos, iteramos día a día (ineficiente pero robusto)
             current_ts = int(min_ts / 1000)
             end_ts = int(max_ts / 1000)
-            
+
             # Para evitar 429 masivos, limitamos el fallback
-            step_days = 1
             max_days = 100
             days = 0
             while current_ts <= end_ts and days < max_days:
@@ -231,12 +232,12 @@ class MarketPriceOracle:
                             dt_obj = datetime.fromtimestamp(current_ts, tz=timezone.utc)
                             date_str = dt_obj.strftime("%Y-%m-%d")
                             self.cache[(asset.upper(), date_str)] = price_cc
-                except:
+                except Exception:
                     pass
                 current_ts += 86400
                 days += 1
                 time.sleep(0.1)
-                
+
         self._save_cache()
 
     def get_price_eur(self, asset: str, date_obj: datetime) -> Optional[Decimal]:
@@ -256,7 +257,7 @@ class MarketPriceOracle:
             try:
                 # Obtenemos el valor de 1 USD en EUR para esa fecha
                 return get_eur_per_usd(date_obj)
-            except:
+            except Exception:
                 return None
 
         # 3. Caché de activos volátiles
@@ -266,7 +267,7 @@ class MarketPriceOracle:
         # 4. Fallo: Consultar API Externa (CryptoCompare) como último recurso para comisiones
         try:
             return self._fetch_external_price(asset, date_obj)
-        except:
+        except Exception:
             return None
 
     def _fetch_external_price(self, asset: str, date_obj: datetime) -> Optional[Decimal]:
@@ -310,7 +311,7 @@ class MarketPriceOracle:
                         price_eur = price_usdt * eur_per_usd
                         print(f"  [Binance API] Precio {asset} recuperado via USDT: {price_eur:.2f} €")
                         return price_eur
-            except:
+            except Exception:
                 pass
 
             # 3. ÚLTIMO RECURSO: CryptoCompare (Muy robusto para históricos)
@@ -323,7 +324,7 @@ class MarketPriceOracle:
                         price_cc = Decimal(str(data_cc[asset.upper()]["EUR"]))
                         print(f"  [CryptoCompare] Precio {asset} recuperado: {price_cc} €")
                         return price_cc
-            except:
+            except Exception:
                 pass
 
             print(

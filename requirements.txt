@@ -9,3 +9,5 @@ pytest
 requests
 
 tzdata
+ruff
+python-dotenv

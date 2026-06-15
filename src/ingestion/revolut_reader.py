@@ -40,7 +40,7 @@ def parse(file_path: str) -> Tuple[List[Trade], List[Dividend]]:
     c_date = fuzzy_match(df.columns, ["date", "fecha"])
     c_ticker = fuzzy_match(df.columns, ["ticker", "simbolo", "product"])
     c_qty = fuzzy_match(df.columns, ["quantity", "cantidad"])
-    c_price = fuzzy_match(df.columns, ["price", "precio"])
+    fuzzy_match(df.columns, ["price", "precio"])
     c_total = fuzzy_match(df.columns, ["total", "amount"])
     c_fee = fuzzy_match(df.columns, ["fee", "comision"])
     c_currency = fuzzy_match(df.columns, ["currency", "moneda"])

@@ -119,8 +119,8 @@ class EToroIngestor:
         self._activity_rows: List[Dict] = []  # Account Activity
         self._positions_rows: List[Dict] = []  # Closed Positions
         self._dividends_rows: List[Dict] = []  # Dividends
-        self._pdf_trades: List[Trade] = []
-        self._pdf_dividends: List[Dividend] = []
+        self._pdf_trades: List[Any] = []
+        self._pdf_dividends: List[Any] = []
 
     def process_file(self, file_path: str) -> bool:
         ext = os.path.splitext(file_path)[1].lower()
@@ -199,7 +199,7 @@ class EToroIngestor:
             if is_real in ("FALSE", "NO", "0", "N"):
                 continue
 
-            action = self._g(row, "Action").strip().upper()
+            self._g(row, "Action").strip().upper()
             details = self._g(row, "Details", "Action")  # nombre del activo
             units_str = self._g(row, "Units")
             amount_str = self._g(row, "Amount")  # tamaño de posición en USD
@@ -216,7 +216,7 @@ class EToroIngestor:
                 continue
 
             # Precio de apertura y cierre por unidad (USD)
-            open_price_usd = position_sz / units
+            position_sz / units
             close_proceeds_usd = position_sz + profit_usd  # total recibido al cerrar
 
             asset = self._g(row, "Details") or details or "UNKNOWN"

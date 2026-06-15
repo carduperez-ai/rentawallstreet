@@ -16,7 +16,7 @@ ROOT = pathlib.Path(__file__).parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from main import (
+from main import (  # noqa: E402
     app,
     _crypto_event_to_dict,
     _dict_to_crypto_event,
@@ -25,9 +25,9 @@ from main import (
     _dividend_to_dict,
     _dict_to_dividend,
 )
-from src.domain.crypto_entities import TaxEvent as CryptoTaxEvent
-from src.domain.stock_entities import TaxEvent as StockTaxEvent
-from src.domain.fiscal_entities import Dividend
+from src.domain.crypto_entities import TaxEvent as CryptoTaxEvent  # noqa: E402
+from src.domain.stock_entities import TaxEvent as StockTaxEvent  # noqa: E402
+from src.domain.fiscal_entities import Dividend  # noqa: E402
 
 
 class TestFlaskIntegration(unittest.TestCase):

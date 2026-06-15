@@ -24,7 +24,7 @@ def to_dec(val) -> Decimal:
     try:
         # Fuerzas string para evitar el error de precisión flotante
         return Decimal(str(val).replace(",", "."))
-    except:
+    except Exception:
         return Decimal("0")
 
 
@@ -42,7 +42,7 @@ def parse_date(val) -> datetime:
     for fmt in ("%Y-%m-%dT%H:%M:%SZ", "%Y-%m-%d %H:%M:%S", "%Y-%m-%d", "%d/%m/%Y %H:%M:%S", "%d/%m/%Y"):
         try:
             return datetime.strptime(s, fmt)
-        except:
+        except Exception:
             continue
     return datetime(1900, 1, 1)
 

@@ -4,8 +4,7 @@ from typing import List, Set, Sequence
 from fractions import Fraction
 import dataclasses
 from dataclasses import dataclass
-from src.domain.stock_entities import Trade as BaseStockTrade, FIFOLot, TaxEvent as BaseStockTaxEvent
-from src.domain.stock_fiscal_entities import Dividend as BaseStockDividend
+from src.domain.stock_entities import FIFOLot, TaxEvent as BaseStockTaxEvent
 from src.domain.shared_types import AnyTrade, AnyDividend, AnyTaxEvent
 from src.accounting.wash_sale_scanner import WashSaleScanner
 from src.domain.constants import EPSILON

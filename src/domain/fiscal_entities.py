@@ -156,8 +156,8 @@ class OtherIncome:
     source_module: str = "main_otros_pyg"
     notes: str = ""
     sujeto_gravamen_especial: bool = False
-    total_sale_value_eur: Decimal = Decimal('0')
-    current_year_due_payments_eur: Decimal = Decimal('0')
+    total_sale_value_eur: Decimal = Decimal("0")
+    current_year_due_payments_eur: Decimal = Decimal("0")
 
     def __post_init__(self):
         if not (Decimal("0") < self.porcentaje_titularidad <= Decimal("100.00")):

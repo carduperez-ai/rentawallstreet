@@ -7,15 +7,16 @@ from src.domain.stock_fiscal_entities import Dividend
 from src.domain.shared_types import AnyTrade, AnyDividend
 from src.ingestion.file_classifier import FileMetadata
 
+
 def ingest_and_deduplicate_stock_data(
     folder_path: str,
     classified_files: Dict[str, FileMetadata],
     orphan_trades: Optional[Sequence[AnyTrade]] = None,
     orphan_divs: Optional[Sequence[AnyDividend]] = None,
-    tax_year: int = 2025
+    tax_year: int = 2025,
 ) -> Tuple[List[AnyTrade], List[AnyDividend], List[str]]:
     """
-    Ingesta archivos de DEGIRO y Trading212, y aplica el algoritmo de deduplicación 
+    Ingesta archivos de DEGIRO y Trading212, y aplica el algoritmo de deduplicación
     inteligente priorizando CSVs sobre PDFs y conservando eventos corporativos.
     Retorna (unique_trades, unique_divs, warnings).
     """
@@ -40,6 +41,7 @@ def ingest_and_deduplicate_stock_data(
                 degiro_files.append(file_path)
             else:
                 from src.ingestion.pdf_data_extractor import PDFProcessor
+
                 processor = PDFProcessor()
                 report_summary = processor.process(file_path)
                 if report_summary and report_summary.get("dividendos_brutos", 0) > 0:
@@ -60,6 +62,7 @@ def ingest_and_deduplicate_stock_data(
     # 1. PROCESAR DEGIRO
     if degiro_files:
         from src.ingestion.degiro_reader import parse as parse_degiro
+
         trades, divs = parse_degiro(degiro_files)
         all_raw_trades.extend(trades)
         all_raw_divs.extend(divs)
@@ -70,6 +73,7 @@ def ingest_and_deduplicate_stock_data(
 
     # 2. PROCESAR TRADING 212
     from src.ingestion.trading212_reader import parse as parse_t212
+
     for file_path, ext in t212_files:
         trades, divs = parse_t212(file_path)
         if ext == ".pdf":
@@ -81,8 +85,8 @@ def ingest_and_deduplicate_stock_data(
             all_raw_divs.extend(divs)
 
     # 3. DE-DUPLICACIÓN DE TRADES
-    identity_map = {}  
-    row_counters = {}  
+    identity_map = {}
+    row_counters = {}
 
     for t in all_raw_trades:
         isin_key = t.isin if (t.isin and len(t.isin) > 5) else getattr(t, "ticker", "") or getattr(t, "asset", "")
@@ -92,8 +96,8 @@ def ingest_and_deduplicate_stock_data(
         full_key = (identity, getattr(t, "source_file", ""), row_counters[source_key])
         identity_map[full_key] = t
 
-    final_trades_dict = {}  
-    for (identity, source, counter), t in identity_map.items():
+    final_trades_dict = {}
+    for (identity, _source, counter), t in identity_map.items():
         dedup_key = (identity, counter)
         if dedup_key not in final_trades_dict:
             final_trades_dict[dedup_key] = t
@@ -132,7 +136,9 @@ def ingest_and_deduplicate_stock_data(
             seen_divs[key] = d
         else:
             current_is_dirty = any(g in getattr(d, "asset", "").upper() for g in ["IMPORTE", "MPORTE", "NETO"])
-            existing_is_dirty = any(g in getattr(seen_divs[key], "asset", "").upper() for g in ["IMPORTE", "MPORTE", "NETO"])
+            existing_is_dirty = any(
+                g in getattr(seen_divs[key], "asset", "").upper() for g in ["IMPORTE", "MPORTE", "NETO"]
+            )
             if not current_is_dirty and existing_is_dirty:
                 seen_divs[key] = d
 
@@ -146,7 +152,13 @@ def ingest_and_deduplicate_stock_data(
     # 5. AJUSTE Y VERIFICACIÓN
     pdf_gross = report_summary.get("dividendos_brutos", Decimal("0"))
     if pdf_gross > 0:
-        divs_to_adjust = [d for d in unique_divs if getattr(d, "type", "dividend") == "dividend" and getattr(d, "date", datetime.now()).year == tax_year and getattr(d, "platform", "").upper() in ("DEGIRO", "DE GIRO")]
+        divs_to_adjust = [
+            d
+            for d in unique_divs
+            if getattr(d, "type", "dividend") == "dividend"
+            and getattr(d, "date", datetime.now()).year == tax_year
+            and getattr(d, "platform", "").upper() in ("DEGIRO", "DE GIRO")
+        ]
         calc_gross = sum(d.gross_eur for d in divs_to_adjust)
         diff = abs(calc_gross - pdf_gross)
         if diff >= Decimal("0.10"):

@@ -7,7 +7,7 @@ _PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".
 if _PROJECT_ROOT not in sys.path:
     sys.path.insert(0, _PROJECT_ROOT)
 
-from tests.oracle_generator.test_runner import run_calculation, audit_results
+from tests.oracle_generator.test_runner import run_calculation, audit_results  # noqa: E402
 
 
 def verify_single_case(case_name):

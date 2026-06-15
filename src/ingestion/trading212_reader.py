@@ -34,7 +34,7 @@ def _parse_csv_excel(file_path: str, ext: str) -> Tuple[List[Trade], List[Divide
     c_total = fuzzy_match(df.columns, ["Total"])
     c_fee_fx = fuzzy_match(df.columns, ["Currency conversion fee"], mandatory=False)
     c_withholding = fuzzy_match(df.columns, ["Withholding tax"], mandatory=False)
-    c_notes = fuzzy_match(df.columns, ["Notes"], mandatory=False)
+    fuzzy_match(df.columns, ["Notes"], mandatory=False)
 
     for _, row in df.iterrows():
         action = str(row[c_action]).lower()
@@ -174,7 +174,7 @@ def _parse_pdf(file_path: str) -> Tuple[List[Trade], List[Dividend]]:
                                 )
                             )
 
-    except:
+    except Exception:
         pass
     return trades, dividends
 
@@ -189,5 +189,5 @@ def _pdf_to_decimal(s: str) -> Decimal:
         clean = clean.replace(",", ".")
     try:
         return Decimal(clean)
-    except:
+    except Exception:
         return Decimal("0")

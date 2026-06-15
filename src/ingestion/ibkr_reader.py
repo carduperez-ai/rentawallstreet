@@ -130,7 +130,7 @@ class IBKRIngestor:
             # nombre de sección (p.ej. "Trades,Header,..." / "Trades,Data,...").
             # Detectamos si la primera columna es no numérica y no un campo estándar.
             lines = content.splitlines()
-            first_fields = [l.split(",")[0].strip() for l in lines if l.strip()]
+            first_fields = [line.split(",")[0].strip() for line in lines if line.strip()]
             section_markers = {"trades", "cashtransactions", "cash transactions", "openpositions", "statement"}
             is_multisection = any(f.lower() in section_markers for f in first_fields)
 
@@ -194,11 +194,11 @@ class IBKRIngestor:
         for row in self._trade_rows:
             hdr = _norm_headers(row.keys())
 
-            def g(*keys):
+            def g(*keys, h=hdr, r=row):
                 for k in keys:
                     k_norm = k.lower()
-                    if k_norm in hdr:
-                        return str(row[hdr[k_norm]]).strip()
+                    if k_norm in h:
+                        return str(r[h[k_norm]]).strip()
                 return ""
 
             trade_type = g("TradeType", "tradetype").lower()
@@ -269,10 +269,10 @@ class IBKRIngestor:
         for row in self._cash_rows:
             hdr = _norm_headers(row.keys())
 
-            def g(*keys):
+            def g(*keys, h=hdr, r=row):
                 for k in keys:
-                    if k.lower() in hdr:
-                        return str(row[hdr[k.lower()]]).strip()
+                    if k.lower() in h:
+                        return str(r[h[k.lower()]]).strip()
                 return ""
 
             cash_type = g("Type", "type").lower().strip()

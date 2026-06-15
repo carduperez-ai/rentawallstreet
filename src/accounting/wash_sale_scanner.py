@@ -1,4 +1,3 @@
-from datetime import timedelta
 from decimal import Decimal
 import dataclasses
 from dateutil.relativedelta import relativedelta
@@ -49,7 +48,7 @@ class WashSaleScanner:
             else:
                 delta = relativedelta(months=2)
                 limit_text = "2 meses"
-            
+
             start_limit = te.date - delta
             end_limit = te.date + delta
 
@@ -121,7 +120,7 @@ class WashSaleScanner:
                 te,
                 is_wash_sale=True,
                 blocked_by_buys=repurchasing_trades,
-                notes=f"Wash Sale: {blocked_ratio*100:.1f}% de la pérdida bloqueada por recompra en +/- {limit_text}.",
+                notes=f"Wash Sale: {blocked_ratio * 100:.1f}% de la pérdida bloqueada por recompra en +/- {limit_text}.",
             )
             new_events.append(te)
 
