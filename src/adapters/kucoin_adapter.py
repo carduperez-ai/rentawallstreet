@@ -23,10 +23,10 @@ class KuCoinAdapter(BaseAdapter):
     stream_type = "crypto"
 
     def extract(self, file_path: str) -> Tuple[list, list]:
-        try:
-            ingestor = KuCoinIngestor()
-            ingestor.process_file(file_path)
-            return ingestor.transactions, ingestor.dividends
-        except Exception as exc:
-            logger.error("KuCoinAdapter.extract falló para %s: %s", file_path, exc)
-            return [], []
+
+        ingestor = KuCoinIngestor()
+        ingestor.process_file(file_path)
+        trades, divs = ingestor.transactions, ingestor.dividends
+        if not trades:
+            raise RuntimeError(f"DEBUG NO TRADES. Path: {file_path}. Warnings: {ingestor.warnings}.")
+        return trades, divs
