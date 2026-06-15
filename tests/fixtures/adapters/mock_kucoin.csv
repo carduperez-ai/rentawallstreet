@@ -1,0 +1,3 @@
+Time,Symbol,Side,Price,Amount,Fee,Fee Coin
+2025-01-01 10:00:00,BTC-USDT,Buy,50000,1,0.001,BTC
+2025-01-02 10:00:00,ETH-USDT,Sell,2000,2,0.001,ETH

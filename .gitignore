@@ -81,6 +81,8 @@ tests/oracle_generator/temp_test.json
 /test_*.py
 !requirements.txt
 !requirements-dev.txt
+!tests/fixtures/adapters/*.csv
+!tests/fixtures/adapters/*.xlsx
 
 # Oraculos de Selenium/Playwright (Screenshots y DOMs locales)
 tests/oracle_generator/etl/*.png
